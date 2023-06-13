@@ -1,0 +1,36 @@
+.Signup {
+    max-width: 1500px; 
+    margin: 0 auto;
+    max-height: 700px;
+    margin-top: 4rem;
+    border-radius: 20px;
+    
+  }
+  
+  .card {
+    border-radius: 30px; 
+  }
+  
+  .card-body {
+    padding: 1rem; 
+  }
+  
+  .col-xl-11 {
+    max-width: 80%; 
+  }
+  
+  .col-md-10 {
+    max-width: 80%; 
+  }
+  
+  .col-lg-6 {
+    max-width: 80%; 
+  }
+  
+  .img-fluid {
+    max-width: 100%; 
+    height: auto;
+  }
+  .textsignup{
+    font-family: 'Times New Roman', Times, serif;
+  }

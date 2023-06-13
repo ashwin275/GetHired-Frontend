@@ -1,6 +1,8 @@
 .NavbarContainer {
     margin-bottom: 9rem;
     z-index: 9999;
+    position: sticky;
+    background-color: rgb(15, 9, 1);
   }
   
   .NavbarItems {
@@ -19,7 +21,8 @@
     position: fixed;
     top: 20px;
     left: 50%;
-    transform: translate(-50%);
+    transform: translate(-
+    50%);
     z-index: 999; /* Increase z-index to keep navbar above other components */
   }
   
@@ -95,9 +98,9 @@
       border-radius: 13px;
       width: 100%;
       height: auto;
-      position: fixed;
-      top: 80px; /* Adjust top position to match the height of the navbar */
-      left: 0;
+      position: absolute;
+      top: 0; 
+      left: -110%;
       align-items: stretch;
       padding: 80px 0 30px 0;
       margin: 0;
@@ -114,13 +117,14 @@
       widows: 100%;
       backdrop-filter: none;
       padding: 2rem 0;
-      color: black;
+      color: rgb(1, 1, 1);
       font-weight: bold;
       z-index: -1;
     }
   
     .nav-links:hover {
-      background-color: rgba(147, 140, 140, 0.25);
+      background: rgba(147, 140, 140, 0.25);
+      backdrop-filter: blur(20px);
       width: 90%;
       margin: auto;
       border-radius: 0.5rem;

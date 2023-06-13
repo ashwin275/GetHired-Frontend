@@ -4,10 +4,22 @@ import logo from "../../images/logo.png"
 
 function Home() {
   return (
-    <div className='Home'>
-      <h1>Home</h1>
-      <img src={logo}></img>
-    </div>
+   <div className='Home'>
+    <section>
+      <div className='Section1'>
+        <div className='Section1left'>
+
+        </div>
+        <div className='Section1right'>
+
+        </div>
+
+      </div>
+
+    </section>
+
+   </div>
+  
   )
 }
 
