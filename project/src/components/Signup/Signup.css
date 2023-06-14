@@ -7,24 +7,24 @@
     
   }
   
-  .card {
+  .card-signup {
     border-radius: 30px; 
   }
   
-  .card-body {
+  .card-bodysignup {
     padding: 1rem; 
   }
   
-  .col-xl-11 {
-    max-width: 80%; 
+  .col-xl-11signup {
+    max-width: 100%; 
   }
   
   .col-md-10 {
-    max-width: 80%; 
+    max-width: 100%; 
   }
   
   .col-lg-6 {
-    max-width: 80%; 
+    max-width: 100%; 
   }
   
   .img-fluid {
@@ -34,3 +34,4 @@
   .textsignup{
     font-family: 'Times New Roman', Times, serif;
   }
+ 
