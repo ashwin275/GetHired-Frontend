@@ -1,0 +1,33 @@
+.imgsucess{
+    /* width: 50%;
+    height: 40vh; */
+    border-radius: 20px;
+}
+.verified{
+    margin-top: 5rem;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+     color: green;
+     
+}
+.textparent{
+    text-align: center;
+    width: 50%;
+    height: 80%;
+
+    
+}
+.main{
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    background-color: rgb(245, 245, 242);
+}
+
+  
+.greentick{
+    width: 60px;
+
+}

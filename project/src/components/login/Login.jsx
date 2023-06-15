@@ -1,6 +1,6 @@
 import React from 'react'
 import signinimage from '../../images/Signin.gif'
-function Login() {
+function Login(props) {
   return (
     <div>
 
@@ -12,7 +12,7 @@ function Login() {
                 <div className="card-body card-bodysignup p-md-5">
                   <div className="row justify-content-center">
                     <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                      <p className="text-center h1  mb-5 mx-1 mx-md-4 mt-4 textsignup">Login</p>
+                      <p className="text-center h1  mb-5 mx-1 mx-md-4 mt-4 textsignup">{props.title} LOGIN</p>
                       <form className="mx-1 mx-md-4">
                      
                         <div className="d-flex flex-row align-items-center mb-4">

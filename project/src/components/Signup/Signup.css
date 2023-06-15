@@ -33,5 +33,17 @@
   }
   .textsignup{
     font-family: 'Times New Roman', Times, serif;
+    font-size: 2rem;
   }
  
+.form-error{
+  color: rgb(234, 53, 53);
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 850px) {
+  .textsignup {
+    font-size: 1.5rem;
+  }
+}
