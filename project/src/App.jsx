@@ -13,7 +13,7 @@ function App() {
     <div className='App'>
       <ToastContainer/>
       <Routes>
-        <Route path='/' element={<Home/>} />
+        <Route path='/' element={<Home/>} exact />
 
 
 

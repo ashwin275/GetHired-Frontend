@@ -1,60 +1,98 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiosinstance from '../Axios/Axios';
 import { toast } from 'react-toastify';
-import ClipLoader from "react-spinners/ClipLoader";
-import logo from '../../images/emailsucess.gif'
-import greentick from '../../images/greentick.jpg'
-import './email.css'
+import ClipLoader from 'react-spinners/ClipLoader';
+import logo from '../../images/emailsucess.gif';
+
+import './email.css';
 
 function VerifyEmail() {
-    const {token} = useParams();
-    const [is_verified,setverified] = useState(true)
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        const verifyEmail = async () => {
-          try {
-            const response = await axiosinstance.get(`verify-email/${token}/`);
-            setverified(true)
-            toast.success(response.data.message);
-            navigate('/login')
-          } catch (error) {
-            if (error.response && error.response.status === 404) {
-              toast.error('Email verification link is invalid or expired.');
-            } else {
-              toast.error('An error occurred while verifying email.');
-            }
+  const { token } = useParams();
+  const [isVerified, setVerified] = useState(false);
+  const [is_seeker,set_is_seeker] = useState(false)
+  const [countdown, setCountdown] = useState(10);
+  const[FourNOtFour,set404] = useState(false)
+  const navigate = useNavigate();
+  useEffect(() => {
+    const verifyEmail = async () => {
+      setTimeout(async () => {
+        try {
+          const response = await axiosinstance.get(`verify-email/${token}/`);
+          setVerified(true);
+          set_is_seeker(response.data.is_seeker); 
+          toast.success(response.data.message);
+        } catch (error) {
+          if (error.response && error.response.status === 404) {
+            setTimeout(() => {
+              set404(true); 
+            }, 5000);
+            toast.error('Email verification link is invalid or expired.');
+            toast.error('Please register your account');
           }
-        };
+          // } else {
+          //   toast.error('An error occurred while verifying email.');
+          // }
+        }
+      }, 5000);
+    };
+  
+    verifyEmail();
+  }, [token]);
+  
+  
+  useEffect(() => {
+    let timeoutId;
+    if (isVerified) {
+      if (isVerified && is_seeker) {
+        setTimeout(() => {
+          window.location.href = 'http://localhost:5173/login'; 
+        }, 10000);
+      } else {
+        setTimeout(() => {
+          window.location.href = 'http://localhost:5173/employers'; 
+        }, 10000);
+      }
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [isVerified, navigate]);
+
+  useEffect(() => {
+    let countdownId;
+    if (isVerified && countdown > 0) {
+      countdownId = setTimeout(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+      }, 1000);
+    }
+
+    return () => clearTimeout(countdownId);
+  }, [isVerified, countdown]);
+
+  return !isVerified ? (
+    <div>
       
-        // verifyEmail();
-      }, [token]);
-      
-      return (
-        !is_verified ? (
-          <div>
-            <ClipLoader
-              color="#FFBF07"
-              size={350}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-            <h1>Verifying your email.....</h1>
-          </div>
-        ) : (
-            <div className="main">
-            <div className="textparent">
-              <h1 className="verified">Email verified  <i class="fa-sharp fa-solid fa-circle-check fa-beat"></i></h1>
-             
-             
-              <img src={logo} className="img-fluid imgsucess" alt="Success image" />
-            </div>
-          </div>
-          
-        )
-      );
-      
+    {!FourNOtFour ? (
+      <>
+        <ClipLoader color="#FFBF07" size={300} aria-label="Loading Spinner" data-testid="loader" />
+        <h1 className="emailverify">Verifying your email.....</h1>
+      </>
+    ) : window.location.href = 'http://localhost:5173/signup'  }
+  </div>
+    
+  ) : (
+    <div className="main">
+      <div className="textparent">
+        <h1 className="verified">
+          Email verified <i className="fa-sharp fa-solid fa-circle-check fa-beat"></i>
+        </h1>
+        <img src={logo} className="img-fluid imgsucess" alt="Success image" />
+        <h4 className="redirect-message">
+          You will be automatically redirected to the login page in<span className='counterdisplay'> {countdown} </span>seconds.
+        </h4>
+      </div>
+    </div>
+  );
 }
 
-export default VerifyEmail
+export default VerifyEmail;

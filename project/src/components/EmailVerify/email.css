@@ -31,3 +31,23 @@
     width: 60px;
 
 }
+.emailverify{
+    font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #3f4e01;
+}
+
+.redirect-message{
+    color: #66d31e;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+}
+
+.counterdisplay{
+
+    color: #f6b504;
+    font-weight: 900;
+    font-size: 2rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   
+    
+}
