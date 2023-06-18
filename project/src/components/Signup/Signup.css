@@ -1,22 +1,33 @@
-.Signup {
+/* .Signup {
     max-width: 1500px; 
     margin: 0 auto;
     max-height: 700px;
     margin-top: 4rem;
-    border-radius: 20px;
+    border-radius: 200px;
     
-  }
+  } */
   
   .card-signup {
     border-radius: 30px; 
+    max-width: 70%;
+    margin-top: 3rem;
+  
+   
   }
   
   .card-bodysignup {
-    padding: 1rem; 
+    padding: 2rem !important;
   }
   
   .col-xl-11signup {
+   
     max-width: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .card_wrapper{
+
   }
   
   .col-md-10 {
@@ -42,8 +53,13 @@
   font-weight: bold;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 950px) {
   .textsignup {
     font-size: 1.5rem;
+    
   }
+  .card-signup {
+    max-width: 90%;
+  }
+ 
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axiosinstance from '../Axios/Axios';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import './Signup.css'
 import signupimage from '../../images/signup.gif'
@@ -38,12 +39,12 @@ const Signup = (props) => {
       };
   
       try {
-        const response = await axiosinstance.post('register/', userData);
+        const response = await axios.post('http://127.0.0.1:8000/api/register/', userData);
         
         toast.success(response.data.message);
         toast.success(response.data.message_email)
         if (props.title == 'USER'){
-          navigate('/login')
+          navigate('/users')
         }else{
           navigate('/employers')
         }
@@ -86,7 +87,7 @@ const Signup = (props) => {
                       
                           <i className="fa-regular fa-user fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="name"onChange={handleChange} onBlur={handleBlur} value={values.lastname} name='lastname' id="lastname" className="form-control" placeholder='lastname' autoComplete='off'/>
+                            <input type="name"onChange={handleChange} onBlur={handleBlur} value={values.lastname} name='lastname' id="lastname" className="form-control forms" placeholder='lastname' autoComplete='off'/>
                             { errors.lastname && touched.lastname? (<p className='form-error'>{errors.lastname}</p>):null}
                            
 

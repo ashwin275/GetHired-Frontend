@@ -4,6 +4,7 @@ import axiosinstance from '../Axios/Axios';
 import { toast } from 'react-toastify';
 import ClipLoader from 'react-spinners/ClipLoader';
 import logo from '../../images/emailsucess.gif';
+import axios from 'axios';
 
 import './email.css';
 
@@ -18,8 +19,9 @@ function VerifyEmail() {
     const verifyEmail = async () => {
       setTimeout(async () => {
         try {
-          const response = await axiosinstance.get(`verify-email/${token}/`);
+          const response = await axios.get(`http://127.0.0.1:8000/api/verify-email/${token}/`);
           setVerified(true);
+          console.log(response.data.is_seeker)
           set_is_seeker(response.data.is_seeker); 
           toast.success(response.data.message);
         } catch (error) {
@@ -46,7 +48,7 @@ function VerifyEmail() {
     if (isVerified) {
       if (isVerified && is_seeker) {
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/login'; 
+          window.location.href = 'http://localhost:5173/users'; 
         }, 10000);
       } else {
         setTimeout(() => {
@@ -77,7 +79,7 @@ function VerifyEmail() {
         <ClipLoader color="#FFBF07" size={300} aria-label="Loading Spinner" data-testid="loader" />
         <h1 className="emailverify">Verifying your email.....</h1>
       </>
-    ) : window.location.href = 'http://localhost:5173/signup'  }
+    ) : window.location.href = 'http://localhost:5173/users/signup'  }
   </div>
     
   ) : (
