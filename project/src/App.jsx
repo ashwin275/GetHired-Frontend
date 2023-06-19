@@ -11,10 +11,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route } from 'react-router-dom'
 import VerifyEmail from './components/EmailVerify/VerifyEmail'
 import EmployersHome from './components/Roles/Employers/EmployersHome'
-// import Dashboard from './components/Roles/Admin/Components/Dashboard'
-// import Users from './components/Roles/Admin/Components/Users'
-// import Employers from './components/Roles/Admin/Components/Employers'
-// import ManagePosts from './components/Roles/Admin/Components/ManagePosts'
+import Dashboard from './components/Roles/Admin/Components/Dashboard'
+
+
+import ManagePosts from './components/Roles/Admin/Components/ManagePosts'
 
 function App() {
   return (
@@ -41,11 +41,12 @@ function App() {
         {/* ADMIN LOGIN */}
         <Route path='/admin'>
               <Route path='' element={<Login title='ADMIN' />} />
-              <Route path ='home' element={<AdminHome/>}>
-                  {/* <Route path='' element={<Dashboard/>}/>
-                  <Route path='users-manage'  element={<Users/>}/>
-                  <Route path='employers-manage' element ={<Employers/>}/>
-                  <Route path='manage-posts' element ={<ManagePosts/>}/> */}
+              
+              <Route path ='home/*' element={<AdminHome/>}>
+                  <Route path='' element={<Dashboard/>}/>
+                  
+                  
+                  <Route path='manage-posts' element ={<ManagePosts/>}/>
               </Route>
              
         </Route>

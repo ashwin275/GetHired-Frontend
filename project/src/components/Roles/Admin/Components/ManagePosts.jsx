@@ -3,7 +3,8 @@ import React from 'react'
 function ManagePosts() {
   return (
     <div>
-      <p>Manageposts</p>
+     <p class="text-2xl font-bold text-gray-800">Managepost</p>
+
     </div>
   )
 }

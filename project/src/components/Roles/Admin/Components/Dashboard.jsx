@@ -3,7 +3,8 @@ import React from 'react'
 function Dashboard() {
   return (
     <div className=''>
-    <p>Dashboard</p>
+    <p class="text-2xl font-bold text-gray-800">Dashboard</p>
+
   </div>
   
   )
