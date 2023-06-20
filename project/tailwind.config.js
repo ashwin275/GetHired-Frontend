@@ -15,6 +15,14 @@ export default {
         serif: ['Georgia', 'serif'],
         mono: ['Menlo', 'Monaco', 'monospace'],
       },
+      variants:{
+        extend:{
+          display:['group-focus'],
+          opacity:['group-focus'],
+          insert:['group-focus']
+
+        }
+      }
     },
   },
   plugins: [],

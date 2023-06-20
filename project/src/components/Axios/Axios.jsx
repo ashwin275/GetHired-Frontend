@@ -23,7 +23,7 @@ axiosInstance.interceptors.request.use(async req =>{
     console.log(authTokens,'tokkkkkkkkkkkkkkkk')
     console.log(authTokens.access,'aceeeeeeeeeeeee')
     req.headers.Authorization =  `Bearer ${authTokens?.access}`
-
+         
   }
 
   const user = jwt_decode(authTokens.access)

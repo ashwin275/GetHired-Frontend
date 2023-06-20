@@ -9,6 +9,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../Features/Slice/authSlice";
+import { Link } from "react-router-dom";
 
 function Login(props) {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ function Login(props) {
            Cookies.set('Tokens',tokenString)
            const userInfo = response.data.userInfo
            dispatch(setCredentials(userInfo))
+           console.log(userInfo,'userinfo88888888888888888888')
 
 
           if (response.data.userInfo.is_seeker){
@@ -138,17 +140,28 @@ function Login(props) {
                           </div>
                         </div>
 
-                        <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                        <div className=" justify-content-center mx-4 mb-3 mb-lg-4">
                           <button
                             type="submit"
                             className="btn btn-outline-dark bt-lg"
                           >
                             SignIn
                           </button>
+                  {
+                    props.title !== 'ADMIN' ? (
+                      <div className="text-center mt-3 font-serif text-xl">
+                        <p className="text-stone-500 underline decoration-dotted hover:decoration-dashed">
+                          Not a member? <Link to={props.title === 'USER' ? '/users/signup' : '/employers/signup'} className="font-medium">Signup</Link>
+                        </p>
+                      </div>
+                    ) : null
+                  }
+
+                                    
                         </div>
                       </form>
                     </div>
-                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2 ">
                       <img
                         src={signinimage}
                         className="img-fluid"

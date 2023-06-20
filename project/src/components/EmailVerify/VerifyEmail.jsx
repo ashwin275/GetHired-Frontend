@@ -77,7 +77,7 @@ function VerifyEmail() {
     {!FourNOtFour ? (
       <>
         <ClipLoader color="#FFBF07" size={300} aria-label="Loading Spinner" data-testid="loader" />
-        <h1 className="emailverify">Verifying your email.....</h1>
+        <h1 className="emailverify text-4xl">Verifying your email.....</h1>
       </>
     ) : window.location.href = 'http://localhost:5173/users/signup'  }
   </div>
@@ -85,12 +85,12 @@ function VerifyEmail() {
   ) : (
     <div className="main">
       <div className="textparent">
-        <h1 className="verified">
+        <h1 className="verified text-3xl">
           Email verified <i className="fa-sharp fa-solid fa-circle-check fa-beat"></i>
         </h1>
         <img src={logo} className="img-fluid imgsucess" alt="Success image" />
-        <h4 className="redirect-message">
-          You will be automatically redirected to the login page in<span className='counterdisplay'> {countdown} </span>seconds.
+        <h4 className="redirect-message text-xl">
+          You will be automatically redirected to the login page in<span className='counterdisplay '> {countdown} </span>seconds.
         </h4>
       </div>
     </div>

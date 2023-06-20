@@ -7,6 +7,7 @@ import signupimage from '../../images/signup.gif'
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { signUpSchema } from '../../Schemas';
+import { Link } from 'react-router-dom';
 
 const initialValues = {
   firstname:"",
@@ -130,6 +131,15 @@ const Signup = (props) => {
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                         <button type="submit" className="btn btn-outline-dark bt-lg">Register</button>
                         </div>
+                        {
+                    props.title !== 'ADMIN' ? (
+                      <div className="text-center mt-3 font-serif text-xl">
+                        <p className="text-stone-500 underline decoration-dotted hover:decoration-dashed">
+                          Already have an account? <Link to={props.title === 'USER' ? '/users' : '/employers'} className="font-medium">SignIn</Link>
+                        </p>
+                      </div>
+                    ) : null
+                  }
                       </form>
 
                      

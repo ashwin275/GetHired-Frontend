@@ -4,7 +4,7 @@
     border-radius: 20px;
 }
 .verified{
-    margin-top: 5rem;
+    margin-top: 2rem;
     font-weight: 600;
     font-family: 'Times New Roman', Times, serif;
      color: green;
@@ -24,6 +24,7 @@
     justify-content: center;
     height: 80vh;
     background-color: rgb(245, 245, 242);
+    border-radius: 25px;
 }
 
   

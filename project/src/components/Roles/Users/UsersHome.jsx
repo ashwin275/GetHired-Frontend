@@ -6,7 +6,7 @@ function UsersHome() {
   console.log(userInfo,'1121111111111122222222222221')
   return (
     <div>
-      <h1 >users home</h1>
+      <h1 className='text-6xl italic font-serif' >users home</h1>
     </div>
   )
 }

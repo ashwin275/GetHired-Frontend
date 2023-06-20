@@ -3,7 +3,7 @@ import React from 'react'
 function EmployersHome() {
   return (
     <div>
-      <h1>Employers Home</h1>
+      <h1 className='text-6xl italic font-serif' >Employers home</h1>
     </div>
   )
 }
