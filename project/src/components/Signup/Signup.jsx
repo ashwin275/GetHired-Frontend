@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { signUpSchema } from '../../Schemas';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const initialValues = {
   firstname:"",
@@ -20,7 +22,11 @@ const initialValues = {
 }
 
 
+
+
 const Signup = (props) => {
+  const [modalShow, setModalShow] = useState(false);
+  const [Useremail,setUseremail] = useState('')
    const navigate = useNavigate()
    const {values,errors,touched,handleBlur,handleChange,handleSubmit} = useFormik({
     initialValues:initialValues,
@@ -41,14 +47,18 @@ const Signup = (props) => {
   
       try {
         const response = await axios.post('http://127.0.0.1:8000/api/register/', userData);
-        
-        toast.success(response.data.message);
-        toast.success(response.data.message_email)
-        if (props.title == 'USER'){
-          navigate('/users')
-        }else{
-          navigate('/employers')
-        }
+       
+        setUseremail(response.data.Userinfo.email)
+       console.log(response)
+      setModalShow(true)
+
+        // toast.success(response.data.message);
+        // toast.success(response.data.message_email)
+        // if (props.title == 'USER'){
+        //   navigate('/users')
+        // }else{
+        //   navigate('/employers')
+        // }
       } catch (error) {
         if (error.response) {
        
@@ -59,6 +69,17 @@ const Signup = (props) => {
     }
     
    })
+
+   const handleRegister=()=>{
+    setModalShow(false)
+    if (props.title == 'USER'){
+        navigate('/users')
+      }else{
+        navigate('/employers')
+      }
+   }
+
+   
   
   
   return (
@@ -80,7 +101,7 @@ const Signup = (props) => {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="name"onChange={handleChange} onBlur={handleBlur} value={values.firstname} name='firstname' id="firstname" className="form-control inputfields" placeholder='firstname' autoComplete='off'/>
+                            <input type="name"onChange={handleChange} onBlur={handleBlur} value={values.firstname} name='firstname' id="firstname" className="form-control inputfields" placeholder='Firstname' autoComplete='off'/>
                             { errors.firstname && touched.firstname ?(<p className='form-error'>{errors.firstname}</p>):null}
                           </div>
                         </div>
@@ -97,7 +118,7 @@ const Signup = (props) => {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="email"onChange={handleChange} onBlur={handleBlur} value={values.email} id="email" name="email" className="form-control" placeholder='email' autoComplete='off'/>
+                            <input type="email"onChange={handleChange} onBlur={handleBlur} value={values.email} id="email" name="email" className="form-control" placeholder='Email' autoComplete='off'/>
                             { errors.email && touched.email?(<p className='form-error'>{errors.email}</p>):null}
 
                           </div>
@@ -114,7 +135,7 @@ const Signup = (props) => {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="password"onChange={handleChange} onBlur={handleBlur} value={values.password} name='password' id="password" className="form-control" placeholder='password' autoComplete='off' />
+                            <input type="password"onChange={handleChange} onBlur={handleBlur} value={values.password} name='password' id="password" className="form-control" placeholder='Password' autoComplete='off' />
                             {errors.password&&touched.password?(<p className='form-error'>{errors.password}</p>):null}
 
                           </div>
@@ -122,7 +143,7 @@ const Signup = (props) => {
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-key fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="password"onChange={handleChange} onBlur={handleBlur} value={values.confirmpassword} id="confirmpassword" name='confirmpassword' className="form-control" placeholder='Repeat password' autoComplete='off' />
+                            <input type="password"onChange={handleChange} onBlur={handleBlur} value={values.confirmpassword} id="confirmpassword" name='confirmpassword' className="form-control" placeholder='Confirm password' autoComplete='off' />
                             {errors.confirmpassword&&touched.confirmpassword?(<p className='form-error'>{errors.confirmpassword}</p>):null}
 
                           </div>
@@ -154,6 +175,31 @@ const Signup = (props) => {
           </div>
         </div>
       </section>
+
+
+      <Modal className='drop-shadow-2xl '
+  {...props}
+  show={modalShow}
+  onHide={() => setModalShow(false)}
+  size="lg"
+  aria-labelledby="contained-modal-title-vcenter"
+  centered
+>
+  <Modal.Header closeButton className=" text-white text-center ">
+    <Modal.Title id="contained-modal-title-vcenter" className='font-serif text-stone-500 '>
+      Email Verification Required 
+    </Modal.Title>
+  </Modal.Header>
+  <Modal.Body className="">
+
+    <p className="text-stone-800 font-medium">Email is sent to your account    &nbsp;&nbsp;<i class="fa-solid fa-envelope"></i> {Useremail}</p>
+  </Modal.Body>
+  <Modal.Footer className="">
+    <Button onClick={handleRegister} className="outline-2 outline-blue-500/50  rounded-full bg-gradient-to-r from-indigo-500">Close</Button>
+  </Modal.Footer>
+</Modal>
+
+
     </>
   );
 };

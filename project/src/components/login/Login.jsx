@@ -111,7 +111,7 @@ function Login(props) {
                               id="email"
                               name="email"
                               className="form-control"
-                              placeholder="email"
+                              placeholder="Email"
                               autoComplete="off"
                             />
                             {errors.email && touched.email ? (
@@ -131,7 +131,7 @@ function Login(props) {
                               name="password"
                               id="password"
                               className="form-control"
-                              placeholder="password"
+                              placeholder="Password"
                               autoComplete="off"
                             />
                             {errors.password && touched.password ? (

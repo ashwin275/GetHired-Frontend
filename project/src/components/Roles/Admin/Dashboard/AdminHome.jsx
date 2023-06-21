@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 // import { toast } from 'react-toastify';
 
 function AdminHome() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

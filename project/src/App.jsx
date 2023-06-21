@@ -19,6 +19,7 @@ import ManagePosts from './components/Roles/Admin/Components/ManagePosts'
 import Navlink from './components/Navbar/Navlink'
 import AuthRequire from './components/PrivateRout/AuthRequire'
 import UnAuth from './components/PrivateRout/UnAuth'
+import Footer from './components/Footer/Footer'
 
 function App() {
   const location = useLocation();
@@ -76,6 +77,7 @@ function App() {
         <Route path='/verify-email/:token/' element={<VerifyEmail/>}/>
         <Route path='*' element={<PageNotFound/>}/>
       </Routes>
+      <Footer/>
     </div>
   );
 }

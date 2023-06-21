@@ -23,7 +23,7 @@ function VerifyEmail() {
           setVerified(true);
           console.log(response.data.is_seeker)
           set_is_seeker(response.data.is_seeker); 
-          toast.success(response.data.message);
+          // toast.success(response.data.message);
         } catch (error) {
           if (error.response && error.response.status === 404) {
             setTimeout(() => {

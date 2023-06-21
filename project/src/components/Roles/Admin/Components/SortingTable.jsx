@@ -66,7 +66,7 @@ function SortingTable(props) {
     {
       columns: columns,
       data: data,
-      initialState: { pageSize: 10 },
+      initialState: { pageSize: 8 },
     },
     useGlobalFilter,
     useSortBy,
@@ -94,7 +94,7 @@ function SortingTable(props) {
     if (cell.column.id === 'id') {
       return index + 1;
     } else if (typeof cell.value === 'boolean') {
-      return cell.value ? 'True' : 'False';
+      return cell.value ? <p className='text-green-500'>Yes</p> : <p className='text-orange-600'>No</p>;
     }
     return cell.value;
   };
@@ -177,10 +177,13 @@ function SortingTable(props) {
 
   return (
     <div className="container mx-auto m-4 p-4 mb-4">
-      <h1 className="text-4xl font-serif text-dark-purple mb-4">{props.title
-      } Manage</h1>
+      <div className='	flex justify-center items-center '>
 
-      <div className="mb-4">
+      
+      <h1 className="text-3xl font-serif text-dark-purple mb-4 mr-3">{props.title
+      }</h1>&nbsp;&nbsp;
+
+      <div className="mb-4 ml-3">
         <input
           type="text"
           className="p-2 border border-gray-300 rounded-md"
@@ -188,6 +191,7 @@ function SortingTable(props) {
           value={searchValue}
           onChange={handleSearch}
         />
+      </div>
       </div>
 
       {userlist.length > 0 ? (
