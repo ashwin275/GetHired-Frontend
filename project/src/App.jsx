@@ -25,7 +25,7 @@ function App() {
   const location = useLocation();
   const isAdminSection = location.pathname.startsWith('/admin/home');
   return (
-    <div className='App'>
+    <div className='App '>
       <ToastContainer/>
     
       {!isAdminSection && <Navlink />}

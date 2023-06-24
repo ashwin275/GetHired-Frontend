@@ -12,7 +12,7 @@ function VerifyEmail() {
   const { token } = useParams();
   const [isVerified, setVerified] = useState(false);
   const [is_seeker,set_is_seeker] = useState(false)
-  const [countdown, setCountdown] = useState(10);
+  const [countdown, setCountdown] = useState(9);
   const[FourNOtFour,set404] = useState(false)
   const navigate = useNavigate();
   useEffect(() => {
@@ -90,7 +90,7 @@ function VerifyEmail() {
         </h1>
         <img src={logo} className="img-fluid imgsucess" alt="Success image" />
         <h4 className="redirect-message text-xl">
-          You will be automatically redirected to the login page in<span className='counterdisplay '> {countdown} </span>seconds.
+          You will be automatically redirected to the login page in <span className='counterdisplay '> 00:0 {countdown} </span>seconds.
         </h4>
       </div>
     </div>
