@@ -7,19 +7,19 @@ import jwt_decode from 'jwt-decode';
 
 const  baseURL = "http://127.0.0.1:8000/api/"
 
-let authTokens = Cookies.get('Tokens') ? JSON.parse(Cookies.get('Tokens')) : null;
-console.log(authTokens,'tokennnnns')
+let authTokens = Cookies.get('AdminTokens') ? JSON.parse(Cookies.get('AdminTokens')) : null;
 
 
-const axiosInstance = axios.create({
+
+const axiosadminInstance = axios.create({
   baseURL: baseURL,
   headers:{Authorization: `Bearer ${authTokens?.access}`}
 });
 
 
-axiosInstance.interceptors.request.use(async req =>{
+axiosadminInstance.interceptors.request.use(async req =>{
   if(authTokens){
-    authTokens = Cookies.get('Tokens') ? JSON.parse(Cookies.get('Tokens')) : null;
+    authTokens = Cookies.get('AdminTokens') ? JSON.parse(Cookies.get('AdminTokens')) : null;
     console.log(authTokens,'tokkkkkkkkkkkkkkkk')
     console.log(authTokens.access,'aceeeeeeeeeeeee')
     req.headers.Authorization =  `Bearer ${authTokens?.access}`
@@ -36,12 +36,12 @@ axiosInstance.interceptors.request.use(async req =>{
   })
 
   const tokenString = JSON.stringify(response.data);
-  console.log('token',tokenString)
-  Cookies.set('Tokens',tokenString)
+  
+  Cookies.set('AdminTokens',tokenString)
   req.headers.Authorization =  `Bearer ${response.data.access}`
   
   return req
 })
 
-export default axiosInstance;
+export default axiosadminInstance;
 

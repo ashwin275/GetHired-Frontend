@@ -1,7 +1,7 @@
 import './App.css'
 import Signup from './components/Signup/Signup'
 import Login from './components/login/Login'
-import Home from './components/Home/Home'
+import Landingpage from './components/Home/Landingpage'
 import AdminHome from './components/Roles/Admin/Dashboard/AdminHome'
 
 import UsersHome from './components/Roles/Users/UsersHome'
@@ -12,7 +12,7 @@ import { Routes, Route,useLocation } from 'react-router-dom'
 import VerifyEmail from './components/EmailVerify/VerifyEmail'
 import EmployersHome from './components/Roles/Employers/EmployersHome'
 import Dashboard from './components/Roles/Admin/Components/Dashboard'
-
+import Home from './components/Base/Home'
 
 import ManagePosts from './components/Roles/Admin/Components/ManagePosts'
 
@@ -20,6 +20,8 @@ import Navlink from './components/Navbar/Navlink'
 import AuthRequire from './components/PrivateRout/AuthRequire'
 import UnAuth from './components/PrivateRout/UnAuth'
 import Footer from './components/Footer/Footer'
+import AdminAuth from './components/PrivateRout/AdminAuth'
+import AdminUnAuth from './components/PrivateRout/AdminUnAuth'
 
 function App() {
   const location = useLocation();
@@ -30,41 +32,45 @@ function App() {
     
       {!isAdminSection && <Navlink />}
       <Routes>
-        <Route path='/' element={<Home/>} exact />
+        <Route path='/' element={<Landingpage/>} exact />
          
         {/* Users LOGIN & SIGNUP */}
         <Route path='/users'>
-              <Route element={<UnAuth/>}>
-                  <Route path='' element={<Login title='USER' />} />
-                  <Route path='signup' element={<Signup title='USER' />} />
+
+              <Route element={<AuthRequire/>}>
+                    <Route  path ='' element={<UsersHome/>}/>
+                    <Route  path ='home-view' element={<Home/>}/>
+                    
               </Route>
 
-
-
-               <Route element={<AuthRequire/>}>
-                    <Route  path ='home' element={<UsersHome/>}/>
-                </Route>
+              <Route element={<UnAuth/>}>
+                  <Route path='login' element={<Login title='USER' />} />
+                  <Route path='signup' element={<Signup title='USER' />} />
+              </Route>
+ 
         </Route>
 
         {/* Employers LOGIN & SIGNUP */}
         <Route path='/employers'>
+        <Route element={<AuthRequire/>}>
+                  <Route path ='' element={<EmployersHome/>}/>
+                  <Route  path ='home-view' element={<Home/>}/>
+       </Route>
         <Route element={<UnAuth/>}>
-              <Route path='' element={<Login title='EMPLOYERS' />} />
+              <Route path='login' element={<Login title='EMPLOYERS' />} />
               <Route path='signup' element={<Signup title='EMPLOYERS' />} />
         </Route>
-              <Route element={<AuthRequire/>}>
-                  <Route path ='home' element={<EmployersHome/>}/>
-              </Route>
+             
         </Route>
 
 
         {/* ADMIN LOGIN */}
         <Route path='/admin'>
-        <Route element={<UnAuth/>}>
-              <Route path='' element={<Login title='ADMIN' />} />
+        <Route element={<AdminUnAuth/>}>
+              <Route path='login' element={<Login title='ADMIN' />} />
         </Route>
 
-                <Route element={<AuthRequire/>}>
+                <Route element={<AdminAuth/>}>
                     <Route path ='home/*' element={<AdminHome/>}>
                         <Route path='' element={<Dashboard/>}/>
                         <Route path='manage-posts' element ={<ManagePosts/>}/>

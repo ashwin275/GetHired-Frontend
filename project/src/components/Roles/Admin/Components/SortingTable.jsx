@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import axiosInstance from '../../../Axios/Axios';
+import axiosadminInstance from '../../../Axios/AdminAxios';
 import Table from 'react-bootstrap/Table';
 import { useTable, useGlobalFilter, usePagination, useSortBy } from 'react-table';
 import { COLUMNS, GROUPED_COLUMNS } from './column';
@@ -24,7 +24,7 @@ function SortingTable(props) {
       } else if (props.title === 'Employers') {
         url_role = 'employers';
       }
-      const response = await axiosInstance.get(`admin/${url_role}-manage/`);
+      const response = await axiosadminInstance.get(`admin/${url_role}-manage/`);
       setUserlist(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -114,7 +114,7 @@ function SortingTable(props) {
 
   const confirmDelete = async () => {
     try {
-      const response = await axiosInstance.delete(`admin/delete-user/${selectedUserId}/`);
+      const response = await axiosadminInstance.delete(`admin/delete-user/${selectedUserId}/`);
       console.log(response);
   
       
@@ -150,7 +150,7 @@ function SortingTable(props) {
   const confirmBlock = async () => {
 
     try{
-     const response = await axiosInstance.patch(`admin/status-user/${selectedUserId}/`);
+     const response = await axiosadminInstance.patch(`admin/status-user/${selectedUserId}/`);
 
     console.log(response)
     fetchData();

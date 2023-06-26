@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../images/logo.png';
 import { logout } from '../Features/Slice/authSlice';
 import './navlink.css';
-
+import { RecruitersMenue, userMenue } from './NavMenue';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Navlink() {
@@ -15,11 +15,11 @@ function Navlink() {
   const navigate = useNavigate();
 
   const logouthandler = () => {
-    dispatch(logout());
+    dispatch(logout({ role: 'USER' }));
     if (data.is_seeker) {
-      navigate('/users');
+      navigate('/users/login');
     } else if (data.is_employer) {
-      navigate('/employers');
+      navigate('/employers/login');
     } else if (data.is_superuser) {
       navigate('/admin');
     }
@@ -29,7 +29,7 @@ function Navlink() {
     <div className='sticky top-0 z-50'>
       <Navbar
         expand='lg'
-        className='bg-body-tertiary navbarWrapper border-3 border-transparent border-gray-250 hover:shadow-2xl shadow-md'
+        className='bg-body-tertiary navbarWrapper border-3 border-transparent border-gray-250 hover:shadow-xl  shadow-md '
       >
         <Container>
           <Link to='/'>
@@ -45,21 +45,42 @@ function Navlink() {
           </Link>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='ms-auto linkwrapper font-serif text-xl subpixel-antialiased font-normal tracking-normal space-x-7 text-slate-500'>
-              {userInfo ? (
+            <Nav className='mx-auto linkwrapper  font-serif text-xl subpixel-antialiased font-normal tracking-normal space-x-7 text-slate-500 '>
+              {userInfo.first_name ? (
                 <>
-                  <Link to='/users'>{userInfo.first_name}</Link>
-                  <button onClick={logouthandler}>
-                    Logout <i className='fa-solid fa-right-from-bracket'></i>
-                  </button>
+                  {userInfo.is_seeker ? (
+                    userMenue.map((item) => (
+                      <Link key={item.id} to={item.link}>
+                        {item.title}
+                      </Link>
+                    ))
+                  ) : (
+                    RecruitersMenue.map((item) => (
+                      <Link key={item.id} to={item.link}>
+                        {item.title}
+                      </Link>
+                    ))
+                  )}
+
                 </>
               ) : (
-                <>
-                  <Link to='/users'>Login</Link>
-                  <Link to='/employers'>Employers/Login</Link>
-                </>
+             null
               )}
             </Nav>
+               <Nav className=' linkwrapper  font-serif text-xl subpixel-antialiased font-normal tracking-normal space-x-7 text-slate-500 '>
+
+                {
+                  userInfo.first_name?( <><button onClick={logouthandler}>
+                    Logout <i className='fa-solid fa-right-from-bracket'></i>
+                  </button></>):(  <>
+                  <Link to='/users/login'>Login</Link>
+                  <Link to='/employers/login'>Employers/Login</Link>
+                </>)
+
+                }
+              
+                  
+                  </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

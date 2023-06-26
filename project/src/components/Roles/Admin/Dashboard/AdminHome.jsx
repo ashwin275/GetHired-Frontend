@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import logo from '../images/logo.png';
 import './admin.css';
-import axiosInstance from '../../../Axios/Axios';
+import axiosadminInstance from '../../../Axios/AdminAxios';
 import Dashboard from '../Components/Dashboard';
 import { logout } from '../../../Features/Slice/authSlice';
 
@@ -20,7 +20,7 @@ function AdminHome() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get('admin/admin-view/');
+        const response = await axiosadminInstance.get('admin/admin-view/');
         console.log(response,'admin view api test');
       } catch (error) {
         console.log(error, 'admin view api test');
@@ -42,8 +42,9 @@ function AdminHome() {
   const logouthandler = async() =>{
     try{
        
-      dispatch(logout());
-      navigate('/admin')
+      dispatch(logout({role:'ADMIN'}));
+
+      navigate('/admin/login')
 
 
     }catch (error){

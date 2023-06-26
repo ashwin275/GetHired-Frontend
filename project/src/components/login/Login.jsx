@@ -47,16 +47,25 @@ function Login(props) {
           toast.success(`Welcome ${response.data.userInfo.first_name}`);
           const tokenString = JSON.stringify(response.data.token);
            console.log('token',tokenString)
-           Cookies.set('Tokens',tokenString)
            const userInfo = response.data.userInfo
-           dispatch(setCredentials(userInfo))
+           if (props.title == 'ADMIN' ){
+            Cookies.set('AdminTokens',tokenString)
+            dispatch(setCredentials({userInfo,role:'ADMIN'}))
+           }else{
+            Cookies.set('Tokens',tokenString)
+            dispatch(setCredentials({userInfo,role:'USERS'}))
+            console.log(Cookies.get('Tokens'),"my tokens  1111")
+           }
+           
+          
+          
            console.log(userInfo,'userinfo88888888888888888888')
 
 
           if (response.data.userInfo.is_seeker){
-            navigate('/users/home')
+            navigate('/users')
           }else if (response.data.userInfo.is_employer){
-            navigate('/employers/home')
+            navigate('/employers')
           }else if (response.data.userInfo.is_superuser){
             navigate('/admin/home')
           }
