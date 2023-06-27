@@ -46,7 +46,9 @@ function EmployersHome() {
   ) : (
     // <p>gvhjkm</p>
     // // <Home />
-    navigate('/')
+    // navigate('employers')
+    console.log('something wrong')
+    
   );
 }
 

@@ -8,12 +8,14 @@ import './navlink.css';
 import { RecruitersMenue, userMenue } from './NavMenue';
 import { useDispatch, useSelector } from 'react-redux';
 
+
 function Navlink() {
   const { userInfo } = useSelector((state) => state.auth);
+  console.log('navbar',userInfo)
   const data = userInfo;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log(RecruitersMenue,userMenue)
   const logouthandler = () => {
     dispatch(logout({ role: 'USER' }));
     if (data.is_seeker) {
@@ -26,7 +28,8 @@ function Navlink() {
   };
 
   return (
-    <div className='sticky top-0 z-50'>
+    
+    <div className='sticky top-4  z-50'>
       <Navbar
         expand='lg'
         className='bg-body-tertiary navbarWrapper border-3 border-transparent border-gray-250 hover:shadow-xl  shadow-md '
@@ -45,7 +48,7 @@ function Navlink() {
           </Link>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='mx-auto linkwrapper  font-serif text-xl subpixel-antialiased font-normal tracking-normal space-x-7 text-slate-500 '>
+            <Nav className='mx-auto linkwrapper space-x-28 font-serif text-xl subpixel-antialiased font-normal tracking-normal space-x-7 text-slate-500 '>
               {userInfo.first_name ? (
                 <>
                   {userInfo.is_seeker ? (
@@ -70,9 +73,9 @@ function Navlink() {
                <Nav className=' linkwrapper  font-serif text-xl subpixel-antialiased font-normal tracking-normal space-x-7 text-slate-500 '>
 
                 {
-                  userInfo.first_name?( <><button onClick={logouthandler}>
-                    Logout <i className='fa-solid fa-right-from-bracket'></i>
-                  </button></>):(  <>
+                  userInfo.first_name?(
+                     <><button onClick={logouthandler}>
+                    Logout <i className='fa-solid fa-right-from-bracket'></i></button></>):(  <>
                   <Link to='/users/login'>Login</Link>
                   <Link to='/employers/login'>Employers/Login</Link>
                 </>)
@@ -81,6 +84,7 @@ function Navlink() {
               
                   
                   </Nav>
+               
           </Navbar.Collapse>
         </Container>
       </Navbar>

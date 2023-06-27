@@ -39,5 +39,11 @@ export const RecruitersMenue = [
       link:'/'
   
     },
+    {
+      id:4,
+      title:"Posted Jobs",
+      link:'/'
+  
+    },
    
   ]
