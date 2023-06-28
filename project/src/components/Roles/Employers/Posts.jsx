@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../Axios/Axios';
-
+import { Link } from 'react-router-dom';
 function Posts() {
   const [posts, setPosts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -39,36 +39,22 @@ function Posts() {
         />
       </div>
       <div className="grid mb-8 md:mb-12 md:grid-cols-2 p-1 h-100 text-start  ">
-        {filteredPosts.map((item) => (
-          <div
-            key={item.id}
-            className="max-w-sm p-6 bg-white border  rounded-lg shadow m-1 "
-          >
-            
-              <h5 className="mb-2 text-2xl font-bold tracking-tight  text-stone-600">
-                {item.desgination}&nbsp;
-                {item.workmode &&<span className='text-lg font-semibold text-slate-400'>({item.workmode})</span>}
-              </h5> 
-         
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className='text-neutral-400'>Skills : </span>{item.skills}</p>
-            <i className="fa-solid fa-location-dot text-zinc-400"></i> {item.location}
-
-
-            <div className="flex justify-end text-end">
-
-            <button class="rounded-full border bg-slate-100 w-16 mt-2 hover:bg-gray-300 drop-shadow-lg">Edit</button>
-
-
-           <button className="rounded-full border w-8 h-8 ms-auto bg-cyan-50 drop-shadow-lg hover:bg-gray-300">
-          <i className="fa-solid fa-arrow-right"></i>
-          </button>
+      {filteredPosts.map((item) => (
+  <Link to={`post-detail/${item.id}/`} key={item.id}>
+    <div className="p-6 hover:bg-sky-50  border rounded-lg shadow m-1 cursor-pointer">
+      <h5 className="mb-2 text-xl font-bold tracking-tight text-stone-600">
+        {item.desgination}&nbsp;
+        {item.workmode && <span className="text-lg font-semibold text-slate-400">({item.workmode})</span>}
+      </h5>
+      <p className="mb-3 font-normal text-gray-700"><span className="text-neutral-400">Skills: </span>{item.skills}</p>
+      <i className="fa-solid fa-location-dot text-zinc-400"></i> {item.location}
+      <div className="flex justify-end text-end">
+        {/* Add your buttons or elements here */}
       </div>
-        
-           
+    </div>
+  </Link>
+))}
 
-
-          </div>
-        ))}
       </div>
     </div>
   );

@@ -29,10 +29,10 @@ function Navlink() {
 
   return (
     
-    <div className='sticky top-4  z-50'>
+    <div className='sticky top-4   z-50 '>
       <Navbar
         expand='lg'
-        className='bg-body-tertiary navbarWrapper border-3 border-transparent border-gray-250 hover:shadow-xl  shadow-md '
+        className='bg-body-tertiary navbarWrapper border-3 border-transparent border-gray-250 hover:shadow-xl  shadow-md  '
       >
         <Container>
           <Link to='/'>
@@ -48,7 +48,7 @@ function Navlink() {
           </Link>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='mx-auto linkwrapper space-x-28 font-serif text-xl subpixel-antialiased font-normal tracking-normal space-x-7 text-slate-500 '>
+            <Nav className='mx-auto linkwrapper mx-36  font-serif text-xl subpixel-antialiased font-normal tracking-normal space-x-7 text-slate-500 '>
               {userInfo.first_name ? (
                 <>
                   {userInfo.is_seeker ? (

@@ -30,7 +30,7 @@ export const RecruitersMenue = [
     {
       id:2,
       title:"Hire",
-      link:'/'
+      link:'employers/home-view/add-post'
   
     },
     {
@@ -41,8 +41,8 @@ export const RecruitersMenue = [
     },
     {
       id:4,
-      title:"Posted Jobs",
-      link:'/'
+      title:"Posts",
+      link:'employers/home-view/'
   
     },
    
