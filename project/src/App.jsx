@@ -25,6 +25,8 @@ import AdminAuth from './components/PrivateRout/AdminAuth'
 import AdminUnAuth from './components/PrivateRout/AdminUnAuth'
 import PostDetail from './components/Roles/Employers/PostDetail'
 import PostEdit from './components/Roles/Employers/PostEdit'
+import CompanyProfile from './components/Roles/Employers/CompanyProfile'
+import ProfileEdit from './components/Roles/Employers/ProfileEdit'
 
 function App() {
   const location = useLocation();
@@ -62,6 +64,8 @@ function App() {
                       <Route path="add-post" element={<Add_post />} />
                       <Route path = 'post-detail/:postId/' element={<PostDetail/>}/>
                       <Route path='edit-post/:postId/' element={<PostEdit/>}/>
+                      <Route path='profile' element={<CompanyProfile/>}/>
+                      <Route path='profile-edit' element={<ProfileEdit/>}/>
 
                   </Route>
        </Route>

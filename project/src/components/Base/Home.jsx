@@ -7,7 +7,8 @@ import PostDetail from '../Roles/Employers/PostDetail';
 import RightBar from './RightBar';
 import Add_post from '../Roles/Employers/Add_post';
 import PostEdit from '../Roles/Employers/PostEdit';
-
+import CompanyProfile from '../Roles/Employers/CompanyProfile';
+import ProfileEdit from '../Roles/Employers/ProfileEdit';
 function Home() {
   const Navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
@@ -41,7 +42,9 @@ function Home() {
                   <Route path="/" element={<Posts />} />
                   <Route path="/post-detail/:postId/" element={<PostDetail />} />
                   <Route path="/add-post" element={<Add_post />} />
-                  <Route path="/posts/:postId/edit" element={<PostEdit />} />
+                  <Route path='profile' element={<CompanyProfile/>}/>
+                  <Route path='edit-post/:postId/' element={<PostEdit/>}/>
+                  <Route path='profile-edit' element={<ProfileEdit/>}/>
               </Routes>
 
 

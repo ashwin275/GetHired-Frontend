@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux'
 function RightBar() {
     const {userInfo} = useSelector((state)=>state.auth)
     const {UserProfile} = useSelector((state)=>state.auth)
-    console.log(userInfo,'Right bar')
+    const {PostBalance} = useSelector((state)=>state.auth)
+    console.log(PostBalance,'Right bar postbalance')
   return (
     <div>
     {userInfo.is_seeker?(
@@ -15,7 +16,7 @@ function RightBar() {
    
         <h5 className="mb-2 text-2xl font-semibold  font-sans tracking-tight text-gray-700 dark:text-white">Post Balance </h5>
     
-    <p className="mb-3 font-normal text-lg text-emerald-900 ">You have {UserProfile.post_balance} job posting credits left</p>
+    <p className="mb-3 font-normal text-lg text-emerald-900">You have {PostBalance} job posting credits left</p>
     <p className='mb-3 text-zinc-700  font-serif'>Discover our range of plans to boost your recruitment efforts.</p>
     <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         View Plans

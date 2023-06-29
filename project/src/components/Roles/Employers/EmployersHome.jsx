@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Home from '../../Base/Home';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Axios/Axios';
-import { setUserProfile } from '../../Features/Slice/authSlice';
+import { setUserProfile ,setPostBalance} from '../../Features/Slice/authSlice';
 
 function EmployersHome() {
   const navigate = useNavigate();
@@ -26,7 +26,9 @@ function EmployersHome() {
         .get('recruiters/view/')
         .then((response) => {
           dispatch(setUserProfile(response.data));
+          dispatch(setPostBalance(response.data.post_balance))
           console.log(response.data, 'Employers000000000000000000000000000000');
+          console.log('post balance  employer home:',response.data.post_balance)
           navigate('home-view');
         })
         .catch((error) => {

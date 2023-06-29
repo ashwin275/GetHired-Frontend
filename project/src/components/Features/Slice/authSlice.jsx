@@ -9,6 +9,9 @@ const initialState = {
   },
   UserProfile:{
     profile:null
+  },
+  PostBalance:{
+    Balance:0
   }
 };
 
@@ -50,8 +53,12 @@ const authSlice = createSlice({
       
     },
 
+    setPostBalance:(state,action) =>{
+       state.PostBalance = action.payload
+    }
+
   }
 });
 
-export const { setCredentials, logout ,setUserProfile} = authSlice.actions;
+export const { setCredentials, logout ,setUserProfile,setPostBalance} = authSlice.actions;
 export default authSlice.reducer;

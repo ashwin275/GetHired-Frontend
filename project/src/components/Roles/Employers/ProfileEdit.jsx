@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import axiosInstance from '../../Axios/Axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { useDispatch } from 'react-redux';
-import { setPostBalance } from '../../Features/Slice/authSlice';
+import React from 'react'
+import { useSelector } from 'react-redux';
 
-function Add_post() {
+function ProfileEdit() {
 
+    
+  const { postId } = useParams();
+  console.log('postid',postId)
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  
+  const {UserProfile} = useSelector((state)=>state.auth)
   const [formData, setFormData] = useState({
-    desgination: '',
+    company_name: '',
     skills: '',
     vaccancies: '',
     location: '',
@@ -28,12 +21,55 @@ function Add_post() {
     criteria: '',
     payscale_from: '',
     payscale_to: '',
-    is_active: false,
+    is_active: '',
   })
- 
+  const [modifiedData , setModifiedData] = useState({})
+
+  useEffect(()=>{
+    fetchData();
+  },[])
+
+  const fetchData = async ()=>{
+
+    try{
+      const response = await axiosInstance.get(`recruiters/post-detail/${postId}/`);
+      setDetail(response.data.data)
+      console.log('Response :', response.data.data)
+
+    }catch (error){
+      console.log(error)
+    }
+  }
+
+
+  useEffect(() => {
+    if (detail) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        company_name: UserProfile.company_name,
+        skills: UserProfile.skills,
+        vaccancies: UserProfile.vaccancies,
+        location: UserProfile.location,
+        Type: UserProfile.Type,
+        workmode: UserProfile.workmode,
+        experience_from: UserProfile.experience_from,
+        experience_to: UserProfile.experience_to,
+        job_description: UserProfile.job_description,
+        criteria: UserProfile.criteria,
+        payscale_from: UserProfile.payscale_from,
+        payscale_to: UserProfile.payscale_to,
+        is_active: UserProfile.is_active,
+      }));
+    }
+  }, [detail]);
+  
 
 
   
+  useEffect(()=>{
+    console.log('after',detail)
+    console.log('after form',formData)
+  },[detail])
  
 
 
@@ -41,43 +77,33 @@ function Add_post() {
     const { name, value, type, checked } = event.target;
     console.log('checked',checked)
     
-  if (type === 'checkbox') {
-    
-    setFormData((prevState) => ({ ...prevState, [name]: checked }));
-  }
-  else {
+    if (type === 'checkbox') {
+      setModifiedData((prevState) => ({ ...prevState, [name]: checked }));
+      setFormData((prevState) => ({ ...prevState, [name]: checked }));
+    }
    
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
-  }
-
-};
-
+    else {
+      setModifiedData((prevState) => ({ ...prevState, [name]: value }));
+      setFormData((prevState) => ({ ...prevState, [name]: value }));
+    }
+    console.log(modifiedData)
+  };
 
   const HandleSubmit = async (event) => {
     event.preventDefault();
     try {
-      
-      const response = await axiosInstance.post(`recruiters/add-post/`,formData);
+      console.log('ID', postId);
+      const response = await axiosInstance.patch(`recruiters/update-post/${postId}/`,modifiedData);
       console.log(response);
-      dispatch(setPostBalance(response.data.balance_post))
       toast.success(response.data.message)
-      navigate(`/employers/home-view/`);
+      navigate(`/employers/home-view/post-detail/${postId}/`,);
     } catch (error) {
       console.log(error);
-      toast.error(error.response.detail)
-      if (error.response.status == 402){
-        handleShow()
-      }
-    
+      toast.error(error.response.data.detail);
     }
   };
 
-
-  const HandleViewPlan = ()=>{
-      navigate('/view plans')
-  }
   return (
-    
     <div className='lg:w-4/5  mx-auto h-full text-center lg:p-8 border border-gray-200 rounded-lg shadow'>
       <form className="w-full max-w-lg mx-auto mt-5" onSubmit={HandleSubmit}>
         <div className="flex flex-wrap mb-6">
@@ -85,13 +111,13 @@ function Add_post() {
             <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="job-title">
               Job Title
             </label>
-            <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white " 
+            <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
             id="job-title"
              type="text" 
             placeholder="Desgination" 
             name='desgination'
             onChange={handleInputChange}
-             value={formData.desgination} required/>
+             value={formData.desgination}/>
             
           </div>
           <div className="w-full md:w-1/2 px-3">
@@ -118,7 +144,7 @@ function Add_post() {
             name='vaccancies'
             onChange={handleInputChange}
             placeholder="Number of Vacancies"   
-            value={formData.vaccancies} required/>
+            value={formData.vaccancies}/>
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-2">
@@ -192,7 +218,7 @@ function Add_post() {
             rows="4" placeholder="Job Description"  
             name='job_description'
             onChange={handleInputChange}
-            value={formData.job_description} required></textarea>
+            value={formData.job_description}></textarea>
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-2">
@@ -229,49 +255,27 @@ function Add_post() {
         </div>
        
         <div className="flex items-center mt-4 ml-5">
-        <input 
-  className={`mr-2 leading-tight w-5 h-5 border }`}
+        <input
+  className={`mr-2 leading-tight w-6 h-6 border}`}
   type="checkbox"
   id="is-active"
   name="is_active"
   onChange={handleInputChange}
   checked={formData.is_active} 
-  />
+/>
 
-          <label className="text-lg text-gray-500" htmlFor="is-active">
+          <label className="text-gray-500 text-xs font-bold" htmlFor="is-active">
             Active
           </label>
         </div>
         <div className="flex items-center justify-end m-6">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-            ADD 
+            Edit
           </button>
         </div>
       </form>
-
-
-      {/* modal */}
-
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title> Payment Required </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>  Please purchase a subscription or buy additional posts to access this feature.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="outline-warning" onClick={handleClose}>
-          Close
-          </Button>
-          <Button variant="outline-success" onClick={HandleViewPlan}>
-          Purchase Subscription
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-
-      {/*  */}
     </div>
   )
 }
 
-export default Add_post
+export default ProfileEdit

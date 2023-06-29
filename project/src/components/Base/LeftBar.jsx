@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { RecruitersMenue,userMenue } from '../Navbar/NavMenue';
 function LeftBar() {
   const Navigate = useNavigate()
@@ -13,6 +13,10 @@ function LeftBar() {
     console.log(userInfo)
     userInfo ?null:Navigate('/')
   },[])
+
+  const HandleEdit=()=>{
+       Navigate('profile-edit')
+  }
   return (
     <>
       {userInfo.is_seeker ? (
@@ -41,9 +45,9 @@ function LeftBar() {
       ) : (
         <>
 
-          <div className="card  drop-shadow-lg" >
-            <img className="card-img-top" src={UserProfile.profile_picture?`${imageBaseUrl}${UserProfile.profile_picture}`:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg/1200px-M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg"} alt="Company image"/>
-            <button className="text-right mr-3 mt-2"><i className="fa-regular fa-pen-to-square"></i></button>
+          <div className="card  drop-shadow-lg  " >
+            <Link to={'profile'}><img className="card-img-top cursor-pointer" src={UserProfile.profile_picture?`${imageBaseUrl}${UserProfile.profile_picture}`:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg/1200px-M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg"} alt="Company image"/></Link>
+            <button className="text-right mr-3 mt-2" onClick={HandleEdit}><i className="fa-regular fa-pen-to-square"></i></button>
             <div className="card-body">
               <h5 className="card-title">{UserProfile.company_name}</h5>
               <p className="text-muted ">{UserProfile.location}</p>

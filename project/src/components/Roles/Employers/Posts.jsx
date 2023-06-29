@@ -41,7 +41,7 @@ function Posts() {
       <div className="grid mb-8 md:mb-12 md:grid-cols-2 p-1 h-100 text-start  ">
       {filteredPosts.map((item) => (
   <Link to={`post-detail/${item.id}/`} key={item.id}>
-    <div className="p-6 hover:bg-sky-50  border rounded-lg shadow m-1 cursor-pointer">
+    <div className="p-6 hover:bg-sky-50  border border-gray-300 rounded-lg shadow m-1 cursor-pointer transition duration-700 ease-in-out ">
       <h5 className="mb-2 text-xl font-bold tracking-tight text-stone-600">
         {item.desgination}&nbsp;
         {item.workmode && <span className="text-lg font-semibold text-slate-400">({item.workmode})</span>}
