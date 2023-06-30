@@ -36,6 +36,11 @@ function App() {
       <ToastContainer/>
     
       {!isAdminSection && <Navlink />}
+      
+
+      
+
+     
       <Routes>
         <Route path='/' element={<Landingpage/>} exact />
          
@@ -65,7 +70,7 @@ function App() {
                       <Route path = 'post-detail/:postId/' element={<PostDetail/>}/>
                       <Route path='edit-post/:postId/' element={<PostEdit/>}/>
                       <Route path='profile' element={<CompanyProfile/>}/>
-                      <Route path='profile-edit' element={<ProfileEdit/>}/>
+                      <Route path='profile-edit/:postId/' element={<ProfileEdit/>}/>
 
                   </Route>
        </Route>
@@ -96,6 +101,7 @@ function App() {
         <Route path='/verify-email/:token/' element={<VerifyEmail/>}/>
         <Route path='*' element={<PageNotFound/>}/>
       </Routes>
+      
       <Footer/>
     </div>
   );

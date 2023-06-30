@@ -11,6 +11,7 @@ function LeftBar() {
  
   useEffect(()=>{
     console.log(userInfo)
+    console.log(UserProfile,'my profileeeee')
     userInfo ?null:Navigate('/')
   },[])
 

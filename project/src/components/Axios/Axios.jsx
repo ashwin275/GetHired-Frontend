@@ -13,7 +13,7 @@ console.log(authTokens,'tokennnnns')
 
 const axiosInstance = axios.create({
   baseURL: baseURL,
-  headers:{Authorization: `Bearer ${authTokens?.access}`}
+  headers:{Authorization: `Bearer ${authTokens?authTokens.access:null}`}
 });
 
 

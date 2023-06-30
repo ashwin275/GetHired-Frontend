@@ -49,7 +49,7 @@ function Posts() {
       <p className="mb-3 font-normal text-gray-700"><span className="text-neutral-400">Skills: </span>{item.skills}</p>
       <i className="fa-solid fa-location-dot text-zinc-400"></i> {item.location}
       <div className="flex justify-end text-end">
-        {/* Add your buttons or elements here */}
+        
       </div>
     </div>
   </Link>

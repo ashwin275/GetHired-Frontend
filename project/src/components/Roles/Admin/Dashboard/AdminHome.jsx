@@ -10,6 +10,7 @@ import { logout } from '../../../Features/Slice/authSlice';
 import ManagePosts from '../Components/ManagePosts';
 import SortingTable from '../Components/SortingTable';
 import { useDispatch } from 'react-redux';
+import EditPostPlan from '../Components/EditPostPlan';
 // import { toast } from 'react-toastify';
 
 function AdminHome() {
@@ -87,13 +88,21 @@ function AdminHome() {
         </li></button>
         </ul>
       </div>
-      <div className="flex flex-col flex-grow bg-black-100 bg-opacity-95">
+      
+      
+      <div className="flex flex-col flex-grow h-screen  bg-black-100 bg-opacity-95">
+      <div className='bg-dark-purple h-14  '></div>
+        <div className='w-full  lg:overflow-y-scroll   lg:max-h-[40rem] lg:no-scrollbar'>
+
+        
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/users-manage" element={<SortingTable  title='Users'/>} />
           <Route path="/employers-manage" element={<SortingTable title='Employers'/>} />
           <Route path="/manage-posts" element={<ManagePosts />} />
+          <Route path="/manage-posts/edit/:postId/" element={<EditPostPlan/>} />
         </Routes>
+        </div>
       </div>
     </div>
   );

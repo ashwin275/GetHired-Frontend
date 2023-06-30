@@ -66,7 +66,7 @@ function SortingTable(props) {
     {
       columns: columns,
       data: data,
-      initialState: { pageSize: 8 },
+      initialState: { pageSize: 10 },
     },
     useGlobalFilter,
     useSortBy,

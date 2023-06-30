@@ -1,273 +1,232 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
-
+import React,{useState,useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../Axios/Axios';
+import { toast } from 'react-toastify';
+import { setUserProfile } from '../../Features/Slice/authSlice';
 function ProfileEdit() {
 
-    
-  const { postId } = useParams();
-  console.log('postid',postId)
+  const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const {UserProfile} = useSelector((state)=>state.auth)
   const [formData, setFormData] = useState({
     company_name: '',
-    skills: '',
-    vaccancies: '',
+    company_email: '',
+    company_mobile: '',
     location: '',
-    Type: '',
-    workmode: '',
-    experience_from: '',
-    experience_to: '',
-    job_description: '',
-    criteria: '',
-    payscale_from: '',
-    payscale_to: '',
-    is_active: '',
+    company_address_line1: '',
+    company_address_line2: '',
+    recruiter_bio: '',
+    description: '',
+    company_website:'',
+    profile_picture:'',
+   
   })
   const [modifiedData , setModifiedData] = useState({})
+  const  [profile,setprofile]  = useState(null)
 
-  useEffect(()=>{
-    fetchData();
-  },[])
-
-  const fetchData = async ()=>{
-
-    try{
-      const response = await axiosInstance.get(`recruiters/post-detail/${postId}/`);
-      setDetail(response.data.data)
-      console.log('Response :', response.data.data)
-
-    }catch (error){
-      console.log(error)
-    }
-  }
 
 
   useEffect(() => {
-    if (detail) {
+    if (UserProfile) {
       setFormData((prevFormData) => ({
         ...prevFormData,
         company_name: UserProfile.company_name,
-        skills: UserProfile.skills,
-        vaccancies: UserProfile.vaccancies,
+        company_email: UserProfile.company_email,
+        company_mobile: UserProfile.company_mobile,
         location: UserProfile.location,
-        Type: UserProfile.Type,
-        workmode: UserProfile.workmode,
-        experience_from: UserProfile.experience_from,
-        experience_to: UserProfile.experience_to,
-        job_description: UserProfile.job_description,
-        criteria: UserProfile.criteria,
-        payscale_from: UserProfile.payscale_from,
-        payscale_to: UserProfile.payscale_to,
-        is_active: UserProfile.is_active,
+        company_address_line1: UserProfile.company_address_line1,
+        company_address_line2: UserProfile.company_address_line2,
+        recruiter_bio: UserProfile.recruiter_bio,
+        description: UserProfile.description,
+        company_website:UserProfile.company_website,
+        profile_picture:UserProfile.profile_picture,
+       
       }));
     }
-  }, [detail]);
+  }, []);
   
 
 
-  
-  useEffect(()=>{
-    console.log('after',detail)
-    console.log('after form',formData)
-  },[detail])
  
 
-
   const handleInputChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    console.log('checked',checked)
-    
-    if (type === 'checkbox') {
-      setModifiedData((prevState) => ({ ...prevState, [name]: checked }));
-      setFormData((prevState) => ({ ...prevState, [name]: checked }));
-    }
-   
-    else {
+    const { name, value, type } = event.target;
+  
+    if (type === 'file') {
+      setprofile(event.target.files[0]);
+      setModifiedData((prevState) => ({ ...prevState, [name]: event.target.files[0] }));
+      setFormData((prevState) => ({ ...prevState, [name]: event.target.files[0] }));
+      console.log(modifiedData)
+    } else {
       setModifiedData((prevState) => ({ ...prevState, [name]: value }));
       setFormData((prevState) => ({ ...prevState, [name]: value }));
+  
+      console.log(modifiedData);
     }
-    console.log(modifiedData)
   };
+  
 
   const HandleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log('ID', postId);
-      const response = await axiosInstance.patch(`recruiters/update-post/${postId}/`,modifiedData);
-      console.log(response);
-      toast.success(response.data.message)
-      navigate(`/employers/home-view/post-detail/${postId}/`,);
+      const response = await axiosInstance.patch(`recruiters/profile-edit/`, modifiedData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('response======', response);
+      dispatch(setUserProfile(response.data.data));
+      toast.success(response.data.message);
+      navigate('/employers/home-view/profile');
     } catch (error) {
-      console.log(error);
+      console.log('error=========', error);
       toast.error(error.response.data.detail);
     }
   };
+  
 
   return (
     <div className='lg:w-4/5  mx-auto h-full text-center lg:p-8 border border-gray-200 rounded-lg shadow'>
+     
+
+      <div className="flex flex-col items-center rounded-lg  ">
+        <img className="object-cover h-36 w-36 mb-3 rounded-full drop-shadow-md  " src={profile?URL.createObjectURL(profile):formData.profile_picture?`${imageBaseUrl}${formData.profile_picture}`:'https://img.freepik.com/premium-vector/company-icon-simple-element-illustration-company-concept-symbol-design-can-be-used-web-mobile_159242-7784.jpg'}  alt=" image"/>
+        {/* src={formData.profile_picture? URL.createObjectURL(`${imageBaseUrl}${formData.profile_picture}`):''} */}
+        <label htmlFor="uploadFile">
+              <i className="fa-solid fa-camera fa-lg cursor-pointer"></i>
+            </label>
+            <input
+             
+              id="uploadFile"
+              style={{ display: "none" }}
+              name='profile_picture'
+              onChange={handleInputChange}
+              type="file"
+            />
+    </div>
+
       <form className="w-full max-w-lg mx-auto mt-5" onSubmit={HandleSubmit}>
         <div className="flex flex-wrap mb-6">
+
+          
+            
+          
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="job-title">
-              Job Title
+              Company Name
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
             id="job-title"
              type="text" 
-            placeholder="Desgination" 
-            name='desgination'
+            placeholder="" 
+            name='company_name'
             onChange={handleInputChange}
-             value={formData.desgination}/>
+             value={formData.company_name}/>
             
           </div>
           <div className="w-full md:w-1/2 px-3">
             <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="skills">
-              Skills
+              email
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
              id="skills" 
              type="text" 
-             placeholder="Skills"
-             name='skills'   
+             placeholder=""
+             name='company_email'   
              onChange={handleInputChange}
-             value={formData.skills}/>  
+             value={formData.company_email}/>  
           </div>
         </div>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full px-3">
-            <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="vaccancies">
-              Vacancies
-            </label>
-            <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="vaccancies" 
-            type="number" 
-            name='vaccancies'
-            onChange={handleInputChange}
-            placeholder="Number of Vacancies"   
-            value={formData.vaccancies}/>
-          </div>
-        </div>
+
+
         <div className="flex flex-wrap -mx-3 mb-2">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="location">
-              Location
+              Mobile
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
             id="location" 
             type="text" 
-            placeholder="Location" 
-            name='location'  
+            placeholder="" 
+            name='company_mobile'  
             onChange={handleInputChange}
-            value={formData.location}/>
+            value={formData.company_mobile}/>
           </div>
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="job-type">
-              Job Type
+              Location
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
             id="job-type" 
             type="text" 
             placeholder="Type of Job"   
-            name='Type'
+            name='location'
             onChange={handleInputChange}
-            value={formData.Type}/>
-          </div>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="work-mode">
-              Work Mode
-            </label>
-            <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="work-mode" 
-            type="text" 
-            placeholder="Work Mode"  
-            name='workmode' 
-            onChange={handleInputChange}
-            value={formData.workmode}/>
-          </div>
-          <div className="w-full md:w-1/2 px-3">
-            <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="experience-range">
-              Experience Range
-            </label>
-            <div className="flex">
-              <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 mr-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-               id="experience-from" 
-               type="text" 
-               placeholder="From" 
-               onChange={handleInputChange}
-               name='experience_from' 
-                value={formData.experience_from}/>
-              <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-              id="experience-to" 
-              type="text" 
-              placeholder="To"  
-              name='experience_to'
-              onChange={handleInputChange}
-               value={formData.experience_to}/>
-            </div>
+            value={formData.location}/>
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
+            <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="vaccancies">
+              Company Address line 1
+            </label>
+            <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+            id="vaccancies" 
+            type="Text" 
+            name='company_address_line1'
+            onChange={handleInputChange}
+            placeholder=""   
+            value={formData.company_address_line1}/>
+          </div>
+        </div>
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="vaccancies">
+              Company Address line 2
+            </label>
+            <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+            id="vaccancies" 
+            type="Text" 
+            name='company_address_line2'
+            onChange={handleInputChange}
+            placeholder=""   
+            value={formData.company_address_line2}/>
+          </div>
+        </div>
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="vaccancies">
+              Website
+            </label>
+            <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+            id="vaccancies" 
+            type="url" 
+            name='company_website'
+            onChange={handleInputChange}
+            placeholder=""   
+            value={formData.company_website}/>
+          </div>
+        </div>
+       
+       
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
             <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="job-description">
-              Job Description
+             Description
             </label>
             <textarea className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
             id="job-description" 
             rows="4" placeholder="Job Description"  
-            name='job_description'
+            name='description'
             onChange={handleInputChange}
-            value={formData.job_description}></textarea>
-          </div>
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-2">
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="criteria">
-              Criteria
-            </label>
-            <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="criteria" 
-            type="text" 
-            placeholder="Criteria"  
-            name='criteria'
-            onChange={handleInputChange}
-             value={formData.criteria}/>
-          </div>
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-500 text-xs font-bold mb-2" htmlFor="payscale-range">
-              Pay Scale Range
-            </label>
-            <div className="flex">
-              <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 mr-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="payscale-from" 
-              type="text" placeholder="From"
-              name='payscale_from'
-              onChange={handleInputChange}
-                 value={formData.payscale_from}/>
-              <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-              id="payscale-to" 
-              type="text" placeholder="To"   
-              name='payscale_to'
-              onChange={handleInputChange}
-              value={formData.payscale_to}/>
-            </div>
+            value={formData.description}></textarea>
           </div>
         </div>
        
-        <div className="flex items-center mt-4 ml-5">
-        <input
-  className={`mr-2 leading-tight w-6 h-6 border}`}
-  type="checkbox"
-  id="is-active"
-  name="is_active"
-  onChange={handleInputChange}
-  checked={formData.is_active} 
-/>
-
-          <label className="text-gray-500 text-xs font-bold" htmlFor="is-active">
-            Active
-          </label>
-        </div>
+       
+       
         <div className="flex items-center justify-end m-6">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             Edit
