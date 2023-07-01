@@ -78,6 +78,7 @@ function ManagePosts() {
         fetchData()
        setFormData({})
        toast.success(response.data.message)
+       setAddpost(false)
 
     }else{
 
@@ -224,8 +225,8 @@ function ManagePosts() {
              }
              
           </ul>
-          <button className="rounded-full border bg-slate-100 w-12 h-12 mt-4 mb-4 hover:bg-gray-300 text-lg drop-shadow-lg text-lime-900" onClick={() => HandleEdit(item.id)}><i class="fa-regular fa-pen-to-square"></i></button>        
-  <button className="rounded-full border bg-red-200  w-12 h-12 mt-4 mb-4 ml-5 hover:bg-gray-300 text-lg drop-shadow-lg text-rose-800" onClick={() => HandleDelete(item.id)}><i class="fa-solid fa-trash"></i></button>
+          <button className="rounded-full border bg-slate-100 w-12 h-12 mt-4 mb-4 hover:bg-gray-300 text-lg drop-shadow-lg text-lime-900" onClick={() => HandleEdit(item.id)}><i className="fa-regular fa-pen-to-square"></i></button>        
+  <button className="rounded-full border bg-red-200  w-12 h-12 mt-4 mb-4 ml-5 hover:bg-gray-300 text-lg drop-shadow-lg text-rose-800" onClick={() => HandleDelete(item.id)}><i className="fa-solid fa-trash"></i></button>
   
       </div>
           

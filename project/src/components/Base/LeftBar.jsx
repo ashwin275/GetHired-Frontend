@@ -50,8 +50,8 @@ function LeftBar() {
             <Link to={'profile'}><img className="card-img-top cursor-pointer" src={UserProfile.profile_picture?`${imageBaseUrl}${UserProfile.profile_picture}`:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg/1200px-M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg"} alt="Company image"/></Link>
             <button className="text-right mr-3 mt-2" onClick={HandleEdit}><i className="fa-regular fa-pen-to-square"></i></button>
             <div className="card-body">
-              <h5 className="card-title">{UserProfile.company_name}</h5>
-              <p className="text-muted ">{UserProfile.location}</p>
+              <h5 className="card-title font-serif">{UserProfile.company_name}</h5>
+              <p className="text-muted "><i className="fa-solid fa-location-dot">&nbsp;&nbsp;</i>{UserProfile.location}</p>
             </div>
             
            

@@ -1,57 +1,69 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import axiosadminInstance from '../../../Axios/AdminAxios';
-import Table from 'react-bootstrap/Table';
-import { useTable, useGlobalFilter, usePagination, useSortBy } from 'react-table';
-import { COLUMNS, GROUPED_COLUMNS } from './column';
+import React, { useEffect, useState, useMemo } from "react";
+import axiosadminInstance from "../../../Axios/AdminAxios";
+import Table from "react-bootstrap/Table";
+import {
+  useTable,
+  useGlobalFilter,
+  usePagination,
+  useSortBy,
+} from "react-table";
+import { COLUMNS, GROUPED_COLUMNS } from "./column";
 
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 function SortingTable(props) {
   const [userlist, setUserlist] = useState([]);
-  const [searchValue, setSearchValue] = useState('');
-  
+  const [searchValue, setSearchValue] = useState("");
+
   const [action, setAction] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
-  
+
   const fetchData = async () => {
     try {
-        console.log(props.title,'tiellllllllllllllllll')
-      let url_role = '';
-      if (props.title === 'Users') {
-        url_role = 'user';
-      } else if (props.title === 'Employers') {
-        url_role = 'employers';
+      console.log(props.title, "tiellllllllllllllllll");
+      let url_role = "";
+      if (props.title === "Users") {
+        url_role = "user";
+      } else if (props.title === "Employers") {
+        url_role = "employers";
       }
-      const response = await axiosadminInstance.get(`admin/${url_role}-manage/`);
+      const response = await axiosadminInstance.get(
+        `admin/${url_role}-manage/`
+      );
       setUserlist(response.data);
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error("Error fetching users:", error);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
   }, [props.title]);
-  
+
   useEffect(() => {
-    console.log('Updated userlist:', userlist);
+    console.log("Updated userlist:", userlist);
   }, [userlist]);
 
   const columns = useMemo(
     () => [
       ...GROUPED_COLUMNS,
       {
-        Header: 'Actions',
-        accessor: 'actions',
+        Header: "Actions",
+        accessor: "actions",
         Cell: ({ row }) => (
           <div>
             <button onClick={() => handleDelete(row.original.id)} className="">
               Delete
             </button>
-            <button onClick={() => handleBlock(row.original.id, row.original.is_active)} className="">
-              {row.original.is_active ? 'Block' : 'UnBlock'}
+            <button
+              onClick={() =>
+                handleBlock(row.original.id, row.original.is_active)
+              }
+              className=""
+            >
+              {row.original.is_active ? "Block" : "UnBlock"}
             </button>
           </div>
         ),
@@ -91,10 +103,14 @@ function SortingTable(props) {
   const { pageIndex } = state;
 
   const renderCell = (cell, index) => {
-    if (cell.column.id === 'id') {
+    if (cell.column.id === "id") {
       return index + 1;
-    } else if (typeof cell.value === 'boolean') {
-      return cell.value ? <p className='text-green-500'>Yes</p> : <p className='text-orange-600'>No</p>;
+    } else if (typeof cell.value === "boolean") {
+      return cell.value ? (
+        <p className="text-green-500">Yes</p>
+      ) : (
+        <p className="text-orange-600">No</p>
+      );
     }
     return cell.value;
   };
@@ -107,91 +123,87 @@ function SortingTable(props) {
 
   const handleDelete = (id) => {
     setSelectedUserId(id);
-    setAction('DELETE');
+    setAction("DELETE");
     setShowModal(true);
-    console.log('Delete user with ID:', id);
+    console.log("Delete user with ID:", id);
   };
 
   const confirmDelete = async () => {
     try {
-      const response = await axiosadminInstance.delete(`admin/delete-user/${selectedUserId}/`);
+      const response = await axiosadminInstance.delete(
+        `admin/delete-user/${selectedUserId}/`
+      );
       console.log(response);
-  
-      
-      setUserlist(prevUserlist => prevUserlist.filter(user => user.id !== selectedUserId));
+
+      setUserlist((prevUserlist) =>
+        prevUserlist.filter((user) => user.id !== selectedUserId)
+      );
     } catch (error) {
       console.log(error);
-     
     }
-  
-    console.log('Delete user with ID:', selectedUserId);
-  
-   
+
+    console.log("Delete user with ID:", selectedUserId);
+
     setShowModal(false);
     setSelectedUserId(null);
     setAction(null);
   };
-  
-  
 
   const handleBlock = (id, isActive) => {
     setSelectedUserId(id);
 
     if (isActive) {
-      setAction('BLOCK');
+      setAction("BLOCK");
     } else {
-      setAction('UN-BLOCK');
+      setAction("UN-BLOCK");
     }
 
     setShowModal(true);
-    console.log('Block user with ID:', id);
+    console.log("Block user with ID:", id);
   };
 
   const confirmBlock = async () => {
+    try {
+      const response = await axiosadminInstance.patch(
+        `admin/status-user/${selectedUserId}/`
+      );
 
-    try{
-     const response = await axiosadminInstance.patch(`admin/status-user/${selectedUserId}/`);
+      console.log(response);
+      fetchData();
+      console.log("Block user with ID:", selectedUserId);
 
-    console.log(response)
-    fetchData();
-    console.log('Block user with ID:', selectedUserId)
-
-    setShowModal(false);
-    setSelectedUserId(null);
-    setAction(null);
-
-    }catch(error){
-        console.log(error)
+      setShowModal(false);
+      setSelectedUserId(null);
+      setAction(null);
+    } catch (error) {
+      console.log(error);
     }
-    
-    
   };
 
   const ConfirmAction = () => {
-    if (action === 'DELETE') {
+    if (action === "DELETE") {
       confirmDelete();
-    } else if (action === 'BLOCK' || action === 'UN-BLOCK') {
+    } else if (action === "BLOCK" || action === "UN-BLOCK") {
       confirmBlock();
     }
   };
 
   return (
     <div className="container mx-auto m-4 p-4 mb-4">
-      <div className='	flex justify-center items-center '>
-
-      
-      <h1 className="text-3xl font-serif text-dark-purple mb-4 mr-3">{props.title
-      }</h1>&nbsp;&nbsp;
-
-      <div className="mb-4 ml-3">
-        <input
-          type="text"
-          className="p-2 border border-gray-300 rounded-md"
-          placeholder="Search"
-          value={searchValue}
-          onChange={handleSearch}
-        />
-      </div>
+      <div className="	flex justify-center items-center ">
+        <h1 className="text-3xl font-serif text-dark-purple mb-4 mr-3">
+          {props.title}
+        </h1>
+        &nbsp;&nbsp;
+        <div className="mb-4 ml-3">
+          <input
+            type="text"
+            className="p-2 border border-gray-300 rounded-md"
+            placeholder="Search"
+            value={searchValue}
+            onChange={handleSearch}
+          />
+        </div>
       </div>
 
       {userlist.length > 0 ? (
@@ -200,8 +212,11 @@ function SortingTable(props) {
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column, index) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())} key={index}>
-                    {column.render('Header')}
+                  <th
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    key={index}
+                  >
+                    {column.render("Header")}
                     <span className="ml-3">
                       {column.isSorted ? (
                         column.isSortedDesc ? (
@@ -210,8 +225,8 @@ function SortingTable(props) {
                           <i className="fa-solid fa-sort-up text-green-500"></i>
                         )
                       ) : (
-                        '')
-                      }
+                        ""
+                      )}
                     </span>
                   </th>
                 ))}
@@ -225,8 +240,8 @@ function SortingTable(props) {
                 <tr {...row.getRowProps()} key={rowIndex}>
                   {row.cells.map((cell, cellIndex) => {
                     return (
-                        <td {...cell.getCellProps()} key={cellIndex}>
-                        {cell.column.id === 'actions' ? (
+                      <td {...cell.getCellProps()} key={cellIndex}>
+                        {cell.column.id === "actions" ? (
                           <div>
                             <button
                               onClick={() => handleDelete(row.original.id)}
@@ -235,17 +250,25 @@ function SortingTable(props) {
                               Delete
                             </button>
                             <button
-                              onClick={() => handleBlock(row.original.id, row.original.is_active)}
-                              className={row.original.is_active ? 'btn btn-outline-info w-32' : 'btn btn-outline-success w-32'}
+                              onClick={() =>
+                                handleBlock(
+                                  row.original.id,
+                                  row.original.is_active
+                                )
+                              }
+                              className={
+                                row.original.is_active
+                                  ? "btn btn-outline-info w-32"
+                                  : "btn btn-outline-success w-32"
+                              }
                             >
-                              {row.original.is_active ? 'Block' : 'UnBlock'}
+                              {row.original.is_active ? "Block" : "UnBlock"}
                             </button>
                           </div>
                         ) : (
                           renderCell(cell, rowIndex)
                         )}
                       </td>
-                      
                     );
                   })}
                 </tr>

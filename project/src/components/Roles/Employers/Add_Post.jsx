@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../Axios/Axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -74,7 +74,7 @@ function Add_post() {
 
 
   const HandleViewPlan = ()=>{
-      navigate('/view plans')
+      navigate('post-plan')
   }
   return (
     
@@ -262,9 +262,9 @@ function Add_post() {
           <Button variant="outline-warning" onClick={handleClose}>
           Close
           </Button>
-          <Button variant="outline-success" onClick={HandleViewPlan}>
+         <Link to={'/employers/home-view/post-plan'}> <Button variant="outline-success" >
           Purchase Subscription
-          </Button>
+          </Button></Link>
         </Modal.Footer>
       </Modal>
 
