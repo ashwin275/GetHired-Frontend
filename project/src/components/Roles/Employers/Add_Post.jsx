@@ -4,15 +4,15 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector} from 'react-redux';
 import { setPostBalance } from '../../Features/Slice/authSlice';
 
 function Add_post() {
-
+  const {PostBalance} = useSelector((state)=>state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+ 
   const handleShow = () => setShow(true);
   
   const [formData, setFormData] = useState({
@@ -33,7 +33,16 @@ function Add_post() {
  
 
 
-  
+  useEffect(()=>{
+    if (PostBalance === 0){
+      handleShow()
+    }
+  })
+
+  const handleClose = () => {
+    setShow(false)
+    navigate(`/employers/home-view/`);
+  }
  
 
 
@@ -79,6 +88,7 @@ function Add_post() {
   return (
     
     <div className='lg:w-4/5  mx-auto h-full text-center lg:p-8 border border-gray-200 rounded-lg shadow'>
+     
       <form className="w-full max-w-lg mx-auto mt-5" onSubmit={HandleSubmit}>
         <div className="flex flex-wrap mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">

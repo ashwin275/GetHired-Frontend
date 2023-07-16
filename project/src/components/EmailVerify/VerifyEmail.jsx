@@ -72,12 +72,12 @@ function VerifyEmail() {
   }, [isVerified, countdown]);
 
   return !isVerified ? (
-    <div>
+    <div className=' mt-8 mb-8 p-5'>
       
     {!FourNOtFour ? (
       <>
         <ClipLoader color="#FFBF07" size={300} aria-label="Loading Spinner" data-testid="loader" />
-        <h1 className="emailverify text-4xl">Verifying your email.....</h1>
+        <h1 className="emailverify text-4xl mb-8">Verifying your email.....</h1>
       </>
     ) : window.location.href = 'http://localhost:5173/users/signup'  }
   </div>

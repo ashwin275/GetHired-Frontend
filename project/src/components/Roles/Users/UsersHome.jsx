@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Home from '../../Base/Home';
+// import Home from '../../Base/Home';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Axios/Axios';
 import { setUserProfile } from '../../Features/Slice/authSlice';
+import Jobs from './Jobs';
 
 function UsersHome() {
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true); // Initialize loading state to true
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(false); // After 3 seconds, set loading state to false
+      setLoading(false); 
     }, 1000);
 
-    return () => clearTimeout(timer); // Cleanup the timer when the component unmounts
+    return () => clearTimeout(timer); 
   }, []);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function UsersHome() {
         .then((response) => {
           dispatch(setUserProfile(response.data.data));
           console.log(response.data.data, 'first');
-          navigate('home-view');
+          navigate('jobs');
         })
         .catch((error) => {
           console.error(error);
@@ -39,12 +40,12 @@ function UsersHome() {
   return loading ? (
     
     <div className="spinner">
-      {/* Add your spinner component or loading indicator here */}
+     
       Loading...
     </div>
   ) : (
     
-    <Home />
+    <Jobs/>
   );
 }
 

@@ -28,24 +28,20 @@ import PostEdit from "./components/Roles/Employers/PostEdit";
 import CompanyProfile from "./components/Roles/Employers/CompanyProfile";
 import ProfileEdit from "./components/Roles/Employers/ProfileEdit";
 import ViewPostPlan from "./components/Roles/Employers/ViewPostPlan";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import Payment from "./components/Features/Context/payment";
+import Jobs from "./components/Roles/Users/Jobs";
+
 
 function App() {
   const location = useLocation();
   const isAdminSection = location.pathname.startsWith("/admin/home");
-  const client_id = import.meta.env.VITE_PAYPAL_CLIENT_ID 
-  const initialOptions = {
-    clientId: client_id,
-   
-    // intent: "capture",
-};
+
   return (
-    <PayPalScriptProvider options={initialOptions}>
     <div className="App ">
       <ToastContainer />
 
       {!isAdminSection && <Navlink />}
-
+      <Payment>
       <Routes>
         <Route path="/" element={<Landingpage />} exact />
 
@@ -54,6 +50,7 @@ function App() {
           <Route element={<AuthRequire />}>
             <Route path="" element={<UsersHome />} />
             <Route path="home-view" element={<Home />} />
+            <Route path="jobs" element={<Jobs/>}/>
           </Route>
 
           <Route element={<UnAuth />}>
@@ -73,7 +70,9 @@ function App() {
               <Route path="edit-post/:postId/" element={<PostEdit />} />
               <Route path="profile" element={<CompanyProfile />} />
               <Route path="profile-edit/:postId/" element={<ProfileEdit />} />
-              <Route path="post-plan" element={<ViewPostPlan />} />
+               
+                <Route path="post-plan" element={<ViewPostPlan />} />
+              
             </Route>
           </Route>
           <Route element={<UnAuth />}>
@@ -100,10 +99,9 @@ function App() {
         <Route path="/verify-email/:token/" element={<VerifyEmail />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-
+      </Payment>
       <Footer />
     </div>
-    </PayPalScriptProvider>
   );
 }
 
