@@ -2,13 +2,14 @@ import React, { useState, createContext } from "react";
 export const Context = createContext();
 function JobsContext({ children }) {
   const [jobs, setJobs] = useState(null);
-  const [jobId, setJobId] = useState(45);
+  const [jobId, setJobId] = useState(null);
 
   const contextValue = {
     jobId,
+    setJobId,
     setJobs,
     jobs,
-    setJobId,
+    
   };
   return (
     <Context.Provider value={contextValue}>

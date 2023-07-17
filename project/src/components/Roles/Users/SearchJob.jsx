@@ -5,7 +5,7 @@ function SearchJob() {
     const {jobId} = useContext(Context)
     
   return (
-    <div>
+    <div className='w-full h-20  p-5 border-1 '>
       <p>Search</p>
     </div>
   )
