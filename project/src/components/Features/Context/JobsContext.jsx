@@ -1,8 +1,8 @@
 import React, { useState, createContext } from "react";
 export const Context = createContext();
 function JobsContext({ children }) {
-  const [jobs, setJobs] = useState(null);
-  const [jobId, setJobId] = useState(null);
+  const [jobs, setJobs] = useState([]);
+  const [jobId, setJobId] = useState(0);
 
   const contextValue = {
     jobId,

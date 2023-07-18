@@ -7,7 +7,7 @@ import JobsContext from "../../Features/Context/JobsContext";
 function Jobs() {
   return (
   <JobsContext>
-    <div className="h-[32rem] md:h-[35rem]  overflow-y-scroll no-scrollbar">
+    <div className="h-[32rem] md:h-[34.5rem]  overflow-y-scroll no-scrollbar">
         <div className="w-11/12 mx-auto   overflow-y-scroll no-scrollbar flex justify-center">
          
           <SearchJob/>
@@ -18,7 +18,7 @@ function Jobs() {
     <div className="flex justify-center">
       <div className="w-11/12 h-fit  flex flex-col-reverse md:flex-row">
          
-        <div className="w-full md:w-1/2 h-72    md:h-[36rem]  overflow-y-scroll no-scrollbar">
+        <div className="w-full md:w-1/2      ">
           <ListJobs/>
         </div>
 
