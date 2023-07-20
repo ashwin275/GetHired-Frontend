@@ -6,9 +6,11 @@ import ProfileStatusBar from "./ProfileStatusBar";
 import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { UserProfile } = useSelector((state) => state.auth);
 
   const [experiences, setexperiences] = useState({});
@@ -17,7 +19,7 @@ function Profile() {
   const [addExperience, setAddExperience] = useState(false);
   const [show, setShow] = useState(false);
   const [show_edit_modal, setshow_edit_modal] = useState(false);
-  const [Id,setId] = useState(null)
+  const [Id, setId] = useState(null);
 
   const [formData, setFormData] = useState({
     designation: "",
@@ -109,26 +111,31 @@ function Profile() {
     setshow_edit_modal(true);
   };
 
-  const  ConfirmDelete= async()=>{
-
-
-    try{
-       const response = await axiosInstance.delete(`delete-expereince/${Id}/`)
-       setShow(false)
-       fetchExperience()
-       toast.success(response.data.message)
-    }catch(error){
-        console.log(error)
+  const ConfirmDelete = async () => {
+    try {
+      const response = await axiosInstance.delete(`delete-expereince/${Id}/`);
+      setShow(false);
+      fetchExperience();
+      toast.success(response.data.message);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-  }
+  const HandleDelete = (id) => {
+    setId(id);
+    console.log(id);
+    setShow(true);
+  };
 
-  const HandleDelete=(id)=>{
-    setId(id)
-    console.log(id)
-    setShow(true)
-    
+  const handleEdit = () => {
+    navigate("profile-edit");
+  };
+
+  const handleApplyedJobs=()=>{
+    navigate('my-jobs')
   }
+  
   return (
     <div className="w-full   h-fit md:h-[32rem] flex flex-col-reverse   md:flex-row">
       <div className=" w-full md:w-10/12  mx-auto">
@@ -151,26 +158,35 @@ function Profile() {
           </div>
           <div className="w-full lg:w-10/12 mx-auto border rounded-lg drofont-serif font-mediump-shadow-2xl backdrop-grayscale-0 bg-white/30 p-3 lg:p-5">
             <div className="w-full md:w-10/12 mx-auto font-serif mb-3 mt-5 p-1 md:p-4 border-3 ">
-              <p className="text-xl mb-3 text-bold ">Profile Completed</p>
+              <p className="text-xl mb-3 text-bold ">
+                Profile Completed &nbsp;{" "}
+                <span className="" type="button" onClick={handleEdit}>
+                  <i
+                    className={`fa-solid  fa-pen-fancy ${
+                      profileComp < 90 ? "fa-bounce" : "fa-fade"
+                    }`}
+                  ></i>
+                </span>
+              </p>
               <ProfileStatusBar status={profileComp} />
             </div>
             <div className="   flex flex-col lg:flex-row  ">
               <div className="   w-full lg:w-1/2  text-start  ">
                 <p className="text-base text-current my-3 font-sans">
                   First name :{" "}
-                  <span className="font-mono text-xl text-neutral-950 font-medium">
+                  <span className="font-mono text:sm md:text-lg text-neutral-950 font-medium">
                     {UserProfile.user}
                   </span>
                 </p>
                 <p className="text-base text-current my-3 font-sans">
                   email :{" "}
-                  <span className="font-mono text-xl text-neutral-950 font-medium">
+                  <span className="font-mono text:sm md:text-lg text-neutral-950 font-medium">
                     {UserProfile.email}
                   </span>
                 </p>
                 <p className="text-base text-current  my-2 font-sans">
                   Mobile :{" "}
-                  <span className="font-mono text-xl text-neutral-950 font-medium">
+                  <span className="font-mono text:sm md:text-lg text-neutral-950 font-medium">
                     {UserProfile.mobile}
                   </span>
                 </p>
@@ -178,29 +194,40 @@ function Profile() {
               <div className=" w-full lg:w-1/2 lg:ml-6 lg:mt-5 text-start ">
                 <p className="text-base text-current lg:my-1  font-sans">
                   last name :{" "}
-                  <span className="font-mono text-xl text-neutral-950 font-medium">
+                  <span className="font-mono text:sm md:text-lg text-neutral-950 font-medium">
                     {UserProfile.last_name}
                   </span>
                 </p>
                 {UserProfile.desired_location && (
                   <p className="text-base text-current my-2 font-sans">
                     location :{" "}
-                    <span className="font-mono text-xl text-neutral-950 font-medium">
+                    <span className="font-mono text:sm md:text-lg text-neutral-950 font-medium">
                       {UserProfile.desired_location}
                     </span>
                   </p>
                 )}
 
-                <p className="text-blue-300 bg-cyan-50 visited:text-cyan-600 border drop-shadow-2xl my-3 border-gray-800 rounded-lg p-2">
-                  Resume
+                {UserProfile.resume ? (
+                  <a
+                    href={`${imageBaseUrl}${UserProfile.resume}`}
+                    target="_blank"
+                  >
+                    <p className="text-neutral-950 text-lg w-1/2 text-center font-mono bg-cyan-100 visited:text-cyan-600 border drop-shadow-2xl my-3 border-gray-800 rounded-lg p-2">
+                      Resume
+                    </p>
+                  </a>
+                ) : (
+                  <p className="text-neutral-950 text-lg w-1/2 text-center bg-cyan-50 visited:text-cyan-600 border drop-shadow-2xl my-3 border-gray-800 rounded-lg p-2" type='button' onClick={handleEdit}>
+                  Upload Resume
                 </p>
+                )}
               </div>
             </div>
             <div className="w-full text-start">
               {UserProfile.qualification && (
                 <p className="text-base text-current lg:my-2  font-sans">
                   Qualification :{" "}
-                  <span className="font-mono text-xl text-neutral-950 font-medium break-words">
+                  <span className="font-mono text:sm md:text-lg text-neutral-950 font-medium break-words">
                     {UserProfile.qualification}
                   </span>
                 </p>
@@ -209,7 +236,7 @@ function Profile() {
               {UserProfile.skills && (
                 <p className="text-base text-current lg:my-2  font-sans">
                   Skills :{" "}
-                  <span className="font-mono text-xl text-neutral-950 font-medium break-words">
+                  <span className="font-mono text:sm md:text-lg  text-neutral-950 font-medium break-words">
                     {UserProfile.skills}
                   </span>
                 </p>
@@ -217,7 +244,7 @@ function Profile() {
               {UserProfile.desired_job && (
                 <p className="text-base text-current lg:my-2  font-sans">
                   Desired Job :{" "}
-                  <span className="font-mono text-xl text-neutral-950 font-medium break-words">
+                  <span className="font-mono text:sm md:text-lg text-neutral-950 font-medium break-words">
                     {UserProfile.desired_job}
                   </span>
                 </p>
@@ -258,13 +285,12 @@ function Profile() {
                                 </div>
 
                                 <div className="md:p-2 md:ms-2 ">
-                                 
-                                    
-                               
-                                  <p className="text-green-950 mt-2" type='button' onClick={()=>HandleDelete(item.id)}>
-                                    <i
-                                      className={`fa-solid fa-eraser `}
-                                    ></i>
+                                  <p
+                                    className="text-green-950 mt-2"
+                                    type="button"
+                                    onClick={() => HandleDelete(item.id)}
+                                  >
+                                    <i className={`fa-solid fa-eraser `}></i>
                                   </p>
                                 </div>
                               </div>
@@ -312,8 +338,12 @@ function Profile() {
         <div className="w-full lg:h-32 "></div>
       </div>
 
-      <div className="w-2/12 bg-red-900">
-        <p>right</p>
+      <div className="md:w-2/12 p-3">
+        <div className="w-full rounded-lg shadow-md  border p-2 flex  ">
+          <div className="mx-auto p-3 " type='button' onClick={handleApplyedJobs}> <i className="fa-solid fa-bookmark"></i> My Jobs</div>
+       
+
+        </div>     
       </div>
 
       {/* Add Experience modal */}
@@ -452,7 +482,8 @@ function Profile() {
           <Modal.Title>Confirm Delete </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Deleting this experience will remove it permanently. Proceed with deletion?
+          Deleting this experience will remove it permanently. Proceed with
+          deletion?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="outline-warning" onClick={handleClose}>

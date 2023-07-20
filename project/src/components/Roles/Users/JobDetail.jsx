@@ -1,8 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../Features/Context/JobsContext";
 import axiosInstance from "../../Axios/Axios";
-
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { toast } from "react-toastify";
 function JobDetail() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
   const { jobId } = useContext(Context);
   const [jobDetail, setJobDetail] = useState({});
   const [isLoading, setisLoading] = useState(true);
@@ -22,12 +26,30 @@ function JobDetail() {
   const fetchJobDetail = async () => {
     try {
       const response = await axiosInstance.get(`job-detail/${jobId}/`);
-
+        console.log('job details',response.data)
       setJobDetail(response.data.data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const HandleApply = ()=>{
+    setShow(true)
+  }
+
+  const ConfirmApply = async()=>{
+      try{
+     const response = await axiosInstance.post(`job-apply/${jobDetail.id}/`)
+     console.log(response)
+     toast.success(response.data.message)
+     setShow(false)
+      }catch(error){
+        console.log(error)
+        console.log(error.response.data.error)
+        toast.success(error.response.data.error)
+        setShow(false)
+      }
+  }
   return (
     <div>
       {!isLoading ? (
@@ -39,7 +61,7 @@ function JobDetail() {
                   <h5 className="mb-2  text-xl font-bold tracking-tight text-gray-900 text-start capitalize">
                     {jobDetail.desgination}
                   </h5>
-                  <a href="" className="hover:underline ">
+                  <a href={jobDetail.company_website} target = '_blank' className="hover:underline ">
                     <p className="mb-2 ms-1 font-semibold text-indigo-950	 capitalize text-start">
                       {jobDetail.company}
                     </p>
@@ -50,7 +72,8 @@ function JobDetail() {
                     {jobDetail.location}
                   </p>
                   <div className=" flex item-start">
-                    <button className="rounded-xl border bg-slate-100 w-32 h-10 mt-4 mb-4 hover:bg-gray-300 text-lg md:text-xl font-sans drop-shadow-lg text-lime-900">
+                    <button className="rounded-xl border bg-slate-100 w-32 h-10 mt-4 mb-4 hover:bg-gray-300 text-lg md:text-xl font-sans drop-shadow-lg text-lime-900"
+                     onClick={HandleApply}>
                       Apply now
                     </button>
                   </div>
@@ -231,6 +254,26 @@ function JobDetail() {
           <h2>loading</h2>
         </>
       )}
+
+
+      {/* confirm modal */}
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Application</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Your Application will be sent to {jobDetail.company}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="outline-secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="outline-success" onClick={ConfirmApply}>
+            Save 
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/*  */}
     </div>
   );
 }

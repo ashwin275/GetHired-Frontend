@@ -20,7 +20,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      console.log(action.payload.role,'Role      llllllllll')
+      console.log(action.payload.role,'Role ')
       // Updating state with the credentials
       if(action.payload.role == 'ADMIN'){
 

@@ -30,7 +30,8 @@ import ProfileEdit from "./components/Roles/Employers/ProfileEdit";
 import ViewPostPlan from "./components/Roles/Employers/ViewPostPlan";
 import Payment from "./components/Features/Context/payment";
 import Jobs from "./components/Roles/Users/Jobs";
-
+import EditPofile from "./components/Roles/Users/EditPofile";
+import AppliedJobs from "./components/Roles/Users/AppliedJobs";
 
 function App() {
   const location = useLocation();
@@ -42,63 +43,66 @@ function App() {
 
       {!isAdminSection && <Navlink />}
       <Payment>
-      <Routes>
-        <Route path="/" element={<Landingpage />} exact />
+        <Routes>
+          <Route path="/" element={<Landingpage />} exact />
 
-        {/* Users LOGIN & SIGNUP */}
-        <Route path="/users">
-          <Route element={<AuthRequire />}>
-            <Route path="" element={<UsersHome />} />
-            <Route path="home-view" element={<Home />} />
-            <Route path="jobs" element={<Jobs/>}/>
+          {/* Users LOGIN & SIGNUP */}
+          <Route path="/users">
+            <Route element={<AuthRequire />}>
+              <Route path="" element={<UsersHome />} />
+              <Route path="jobs" element={<Jobs />} />
+              <Route path="home-view/*" element={<Home />}>
+                
+                <Route path="edit-profile" element={<EditPofile/>}/>
+                <Route path="my-jobs" element={<AppliedJobs/>}/>
+              </Route>
+            </Route>
+
+            <Route element={<UnAuth />}>
+              <Route path="login" element={<Login title="USER" />} />
+              <Route path="signup" element={<Signup title="USER" />} />
+            </Route>
           </Route>
 
-          <Route element={<UnAuth />}>
-            <Route path="login" element={<Login title="USER" />} />
-            <Route path="signup" element={<Signup title="USER" />} />
-          </Route>
-        </Route>
+          {/* Employers LOGIN & SIGNUP */}
+          <Route path="/employers">
+            <Route element={<AuthRequire />}>
+              <Route path="" element={<EmployersHome />} />
+              <Route path="home-view/*" element={<Home />}>
+                <Route path="" element={<Posts />} />
+                <Route path="add-post" element={<Add_post />} />
+                <Route path="post-detail/:postId/" element={<PostDetail />} />
+                <Route path="edit-post/:postId/" element={<PostEdit />} />
+                <Route path="profile" element={<CompanyProfile />} />
+                <Route path="profile-edit/:postId/" element={<ProfileEdit />} />
 
-        {/* Employers LOGIN & SIGNUP */}
-        <Route path="/employers">
-          <Route element={<AuthRequire />}>
-            <Route path="" element={<EmployersHome />} />
-            <Route path="home-view/*" element={<Home />}>
-              <Route path="" element={<Posts />} />
-              <Route path="add-post" element={<Add_post />} />
-              <Route path="post-detail/:postId/" element={<PostDetail />} />
-              <Route path="edit-post/:postId/" element={<PostEdit />} />
-              <Route path="profile" element={<CompanyProfile />} />
-              <Route path="profile-edit/:postId/" element={<ProfileEdit />} />
-               
                 <Route path="post-plan" element={<ViewPostPlan />} />
-              
+              </Route>
+            </Route>
+            <Route element={<UnAuth />}>
+              <Route path="login" element={<Login title="EMPLOYERS" />} />
+              <Route path="signup" element={<Signup title="EMPLOYERS" />} />
             </Route>
           </Route>
-          <Route element={<UnAuth />}>
-            <Route path="login" element={<Login title="EMPLOYERS" />} />
-            <Route path="signup" element={<Signup title="EMPLOYERS" />} />
-          </Route>
-        </Route>
 
-        {/* ADMIN LOGIN */}
-        <Route path="/admin">
-          <Route element={<AdminUnAuth />}>
-            <Route path="login" element={<Login title="ADMIN" />} />
-          </Route>
+          {/* ADMIN LOGIN */}
+          <Route path="/admin">
+            <Route element={<AdminUnAuth />}>
+              <Route path="login" element={<Login title="ADMIN" />} />
+            </Route>
 
-          <Route element={<AdminAuth />}>
-            <Route path="home/*" element={<AdminHome />}>
-              <Route path="" element={<Dashboard />} />
-              <Route path="manage-posts" element={<ManagePosts />} />
+            <Route element={<AdminAuth />}>
+              <Route path="home/*" element={<AdminHome />}>
+                <Route path="" element={<Dashboard />} />
+                <Route path="manage-posts" element={<ManagePosts />} />
+              </Route>
             </Route>
           </Route>
-        </Route>
 
-        {/* Email verification */}
-        <Route path="/verify-email/:token/" element={<VerifyEmail />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+          {/* Email verification */}
+          <Route path="/verify-email/:token/" element={<VerifyEmail />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
       </Payment>
       <Footer />
     </div>

@@ -11,6 +11,8 @@ import CompanyProfile from "../Roles/Employers/CompanyProfile";
 import ProfileEdit from "../Roles/Employers/ProfileEdit";
 import ViewPostPlan from "../Roles/Employers/ViewPostPlan";
 import Profile from "../Roles/Users/Profile";
+import EditPofile from "../Roles/Users/EditPofile";
+import AppliedJobs from "../Roles/Users/AppliedJobs";
 function Home() {
   const Navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
@@ -41,6 +43,8 @@ function Home() {
                 <>
                   <Routes>
                     <Route path="/" element={<Profile/>}/>
+                    <Route path='profile-edit' element={<EditPofile/>}/>
+                    <Route path="my-jobs" element={<AppliedJobs/>}/>
                   </Routes>
                 </>
               ) : (
