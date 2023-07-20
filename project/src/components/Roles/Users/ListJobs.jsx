@@ -17,6 +17,9 @@ function ListJobs() {
     fetchdata();
   }, [offset]);
 
+  useEffect(()=>{
+    console.log('offset ',offset)
+  },[offset])
   const fetchdata = async () => {
     setIsloading(true);
     try {
@@ -49,7 +52,7 @@ function ListJobs() {
     console.log("my", jobs);
   }, [jobs]);
   return (
-    <div className="w-10/12   border-2 rounded-lg mx-auto p-2  h-72 mt-4   md:h-[40rem] bg-white  overflow-y-scroll no-scrollbar">
+    <div className="w-10/12   border-2 rounded-lg mx-auto p-2  h-72 mt-4   md:h-[40rem]   overflow-y-scroll no-scrollbar">
       {!isLoading ? (
         <>
           <InfiniteScroll
@@ -114,7 +117,7 @@ function ListJobs() {
           </InfiniteScroll>
         </>
       ) : (
-        <>null</>
+        <>Loading.......</>
       )}
     </div>
   );

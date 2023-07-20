@@ -1,90 +1,104 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../images/logo.png';
-import { logout } from '../Features/Slice/authSlice';
-import './navlink.css';
-import { RecruitersMenue, userMenue } from './NavMenue';
-import { useDispatch, useSelector } from 'react-redux';
-
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../images/logo.png";
+import { logout } from "../Features/Slice/authSlice";
+import "./navlink.css";
+import { RecruitersMenue, userMenue } from "./NavMenue";
+import { useDispatch, useSelector } from "react-redux";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 function Navlink() {
   const { userInfo } = useSelector((state) => state.auth);
-  console.log('navbar',userInfo)
+  console.log("navbar", userInfo);
   const data = userInfo;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(RecruitersMenue,userMenue)
+  console.log(RecruitersMenue, userMenue);
   const logouthandler = () => {
-    dispatch(logout({ role: 'USER' }));
+    dispatch(logout({ role: "USER" }));
     if (data.is_seeker) {
-      navigate('/users/login');
+      navigate("/users/login");
     } else if (data.is_employer) {
-      navigate('/employers/login');
+      navigate("/employers/login");
     } else if (data.is_superuser) {
-      navigate('/admin');
+      navigate("/admin");
     }
   };
-
+  const handleuserProfile=()=>{
+    navigate('users/home-view')
+  }
   return (
-    
-    <div className='sticky top-4   z-50 '>
+    <div className="sticky top-4   z-50 ">
       <Navbar
-        expand='lg'
-        className='bg-body-tertiary navbarWrapper border-3 border-transparent border-gray-250 hover:shadow-xl  shadow-md  '
+        expand="lg"
+        className="bg-body-tertiary navbarWrapper border-3 border-transparent border-gray-250 hover:shadow-xl  shadow-md    "
       >
-        <Container>
-          <Link to='/'>
+        <Container className="flex text-start">
+          <Link to="/">
             <Navbar.Brand>
               <img
                 src={logo}
-                width='150'
-                height='80'
-                className='d-inline-block align-top'
-                alt='GET HIRED'
+                width="150"
+                height="80"
+                className="d-inline-block align-top md:mx-10"
+                alt="GET HIRED"
               />
             </Navbar.Brand>
           </Link>
-          <Navbar.Toggle aria-controls='basic-navbar-nav' />
-          <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='mx-auto linkwrapper mx-36  font-serif text-xl subpixel-antialiased font-normal tracking-normal space-x-7 text-slate-500 '>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+          <Navbar.Collapse id="basic-navbar-nav  ">
+            <Nav className=" linkwrapper flex justify-between    md:mx-60  font-serif text-lg subpixel-antialiased font-normal tracking-normal  text-slate-600 w-2/5">
               {userInfo.first_name ? (
                 <>
-                  {userInfo.is_seeker ? (
-                    userMenue.map((item) => (
-                      <Link key={item.id} to={item.link}>
-                        {item.title}
-                      </Link>
-                    ))
-                  ) : (
-                    RecruitersMenue.map((item) => (
-                      <Link key={item.id} to={item.link}>
-                        {item.title}
-                      </Link>
-                    ))
-                  )}
+                  {userInfo.is_seeker
+                    ? userMenue.map((item) => (
+                        <Link key={item.id} to={item.link} className=" ">
+                          {item.title}
+                        </Link>
+                      ))
+                    : RecruitersMenue.map((item) => (
+                        <Link key={item.id} to={item.link} className="">
+                          {item.title}
+                        </Link>
+                      ))}
+                </>
+              ) : null}
+            </Nav>
 
+            <Nav className="capitalize  linkwrapper md:ms-24 font-serif text-lg  subpixel-antialiased font-normal tracking-normal text-slate-500  ">
+              {userInfo.first_name ? (
+                <>
+                  {" "}
+                  <NavDropdown
+                    title={userInfo.first_name}
+                    id="basic-nav-dropdown"
+                    className=" "
+                  >
+                    {userInfo.is_seeker && (
+                      <NavDropdown.Item><button onClick={handleuserProfile}>Profile</button></NavDropdown.Item>
+                    )}
+
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item>
+                      <button onClick={logouthandler}>
+                        Logout{" "}
+                        <i className="fa-solid fa-right-from-bracket"></i>
+                      </button>
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 </>
               ) : (
-             null
+                <>
+                  <Link to="/users/login" className="me-10">
+                    Login
+                  </Link>
+                  <Link to="/employers/login">Employers/Login</Link>
+                </>
               )}
             </Nav>
-               <Nav className=' linkwrapper  font-serif text-xl subpixel-antialiased font-normal tracking-normal space-x-7 text-slate-500 '>
-
-                {
-                  userInfo.first_name?(
-                     <><button onClick={logouthandler}>
-                    Logout <i className='fa-solid fa-right-from-bracket'></i></button></>):(  <>
-                  <Link to='/users/login'>Login</Link>
-                  <Link to='/employers/login'>Employers/Login</Link>
-                </>)
-
-                }
-              
-                  
-                  </Nav>
-               
           </Navbar.Collapse>
         </Container>
       </Navbar>

@@ -44,6 +44,7 @@ const authSlice = createSlice({
         state.userInfo = { name: null };
         Cookies.remove('Tokens');
       state.UserProfile = { profile: null };
+      state.PostBalance = {Balance:0}
       }
       
     },

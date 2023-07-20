@@ -11,7 +11,7 @@ function RightBar() {
   return (
     <div>
     {userInfo.is_seeker?(
-        <h1>user</h1>
+       null
     ):(
        
 <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow bg-[url('https://static.storyweaver.org.in/illustrations/58816/large/3.jpg')]">

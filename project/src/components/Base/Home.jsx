@@ -10,7 +10,7 @@ import PostEdit from "../Roles/Employers/PostEdit";
 import CompanyProfile from "../Roles/Employers/CompanyProfile";
 import ProfileEdit from "../Roles/Employers/ProfileEdit";
 import ViewPostPlan from "../Roles/Employers/ViewPostPlan";
-import Jobs from "../Roles/Users/Jobs";
+import Profile from "../Roles/Users/Profile";
 function Home() {
   const Navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
@@ -27,7 +27,7 @@ function Home() {
       <div className="w-5/6 ">
         <div className="flex flex-wrap md:flex-nowrap ">
           {/* .......................left for employers.............................. */}
-          <div className="w-full md:w-1/6 lg:w-1/6 h-96 left mt-4 sticky lg:top-36 left-0 right-0">
+          <div className="w-full md:w-1/6 lg:w-1/6 md:h-96 left mt-4 sticky lg:top-36 left-0 right-0">
             <div className="w-full h-full p-2">
               <LeftBar />
             </div>
@@ -40,7 +40,7 @@ function Home() {
               {userInfo.is_seeker ? (
                 <>
                   <Routes>
-                    <Route path="/" element={<Jobs/>}/>
+                    <Route path="/" element={<Profile/>}/>
                   </Routes>
                 </>
               ) : (

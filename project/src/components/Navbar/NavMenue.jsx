@@ -8,7 +8,7 @@ export const userMenue = [
   {
     id:2,
     title:"Jobs",
-    link:'/'
+    link:'/users/jobs'
 
   },
   {
