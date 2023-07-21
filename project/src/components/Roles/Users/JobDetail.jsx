@@ -268,7 +268,7 @@ function JobDetail() {
             Close
           </Button>
           <Button variant="outline-success" onClick={ConfirmApply}>
-            Save 
+            Apply
           </Button>
         </Modal.Footer>
       </Modal>

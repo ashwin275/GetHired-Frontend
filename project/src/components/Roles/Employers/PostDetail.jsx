@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../../Axios/Axios';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -89,12 +89,12 @@ function PostDetail() {
       
     </div>
     <div className=''>
-        <div className='rounded-lg border bg-cyan-50 drop-shadow-lg p-4'>
+       <Link to={`/employers/home-view/applicants/${postId}/`}><div className='rounded-lg border bg-cyan-50 drop-shadow-lg p-4'>
                <p className='text-2xl font-serif'>Total Applicants</p>
                <p className='mt-6 text-xl'>{detail.applicants}</p>
-        </div>
+        </div></Link> 
         <div className='rounded-lg border bg-green-50 drop-shadow-lg p-4 mt-5'>
-               <p className='text-2xl font-serif'>Shortlisted</p>
+               <p className='text-2xl font-serif'>Hired</p>
                <p className='mt-6 text-xl'>{detail.hired_count}</p>
         </div>
     </div>
