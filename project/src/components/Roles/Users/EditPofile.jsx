@@ -107,6 +107,14 @@ function EditPofile() {
       toast.error(error.response.data.error);
     }
   };
+  const handleKeyPress = (event) => {
+    
+    const allowedKeys = /[0-9]|Backspace|Delete|ArrowLeft|ArrowRight|ArrowUp|ArrowDown/;
+
+    if (!allowedKeys.test(event.key)) {
+      event.preventDefault();
+    }
+  };
   return (
     <div className="md:w-10/12   ">
       <div className="md:w-10/12 border-1  mx-auto rounded shadow-lg md:p-2">
@@ -133,6 +141,7 @@ function EditPofile() {
               name="profile_picture"
               onChange={handleInputChange}
               type="file"
+              accept="image/jpeg,image/png,image/gif" 
             />
           </div>
 
@@ -156,6 +165,7 @@ function EditPofile() {
                   name="first_name"
                   onChange={handleInputChange}
                   value={formData.first_name}
+                  required
                 />
               </div>
               <div className="w-full md:w-1/2 px-3">
@@ -173,6 +183,7 @@ function EditPofile() {
                   name="last_name"
                   onChange={handleInputChange}
                   value={formData.last_name}
+                  required
                 />
               </div>
             </div>
@@ -193,6 +204,7 @@ function EditPofile() {
                   name="email"
                   onChange={handleInputChange}
                   value={formData.email}
+                  required
                 />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -210,6 +222,10 @@ function EditPofile() {
                   name="mobile"
                   onChange={handleInputChange}
                   value={formData.mobile}
+                  required ='phone number must be in 15 '
+                  maxLength="15"
+                  onKeyPress={handleKeyPress}
+                 
                 />
               </div>
             </div>
@@ -325,6 +341,7 @@ function EditPofile() {
                   name="resume"
                   onChange={handleInputChange}
                   placeholder=""
+                  accept=".pdf"
                  
                 />
               </div>

@@ -18,20 +18,7 @@ function AdminHome() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axiosadminInstance.get('admin/admin-view/');
-        console.log(response,'admin view api test');
-      } catch (error) {
-        console.log(error, 'admin view api test');
-        // toast.error('you have no permission to acces this page')
-        // navigate('/')
-      }
-    };
-
-    fetchData();
-  }, []);
+ 
   const Menus = [
     { title: 'Dashboard', link: '', src: 'Chart_fill' },
     { title: 'Users', link: 'users-manage', src: 'fa-solid fa-user fa-fade iconsStyle', gap: true },

@@ -420,43 +420,39 @@ function Profile() {
               />
             </div>
 
-            <div className="mb-4 flex ">
-              <div className=" ">
-                <label
-                  className="block text-gray-400 text-sm font-bold mb-2"
-                  htmlFor="username"
-                >
-                  Start
-                </label>
-                <input
-                  className="shadow appearance-none mx-auto border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="start"
-                  type="month"
-                  name="start"
-                  value={formData.start}
-                  onChange={handleInputChange}
-                  required={addExperience}
-                />
-              </div>
+            <div className="mb-4 flex">
+      <div className="">
+        <label className="block text-gray-400 text-sm font-bold mb-2" htmlFor="start">
+          Start
+        </label>
+        <input
+          className="shadow appearance-none mx-auto border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="start"
+          type="month"
+          name="start"
+          value={formData.start}
+          onChange={handleInputChange}
+          required={true}
+          max={formData.end}
+        />
+      </div>
 
-              <div>
-                <label
-                  className="block text-gray-400 text-sm font-bold mb-2"
-                  htmlFor="username"
-                >
-                  End
-                </label>
-                <input
-                  className="shadow mx-auto appearance-none border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="description"
-                  type="month"
-                  name="end"
-                  value={formData.end}
-                  onChange={handleInputChange}
-                  required={addExperience}
-                />
-              </div>
-            </div>
+      <div>
+        <label className="block text-gray-400 text-sm font-bold mb-2" htmlFor="end">
+          End
+        </label>
+        <input
+          className="shadow mx-auto appearance-none border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="end"
+          type="month"
+          name="end"
+          value={formData.end}
+          onChange={handleInputChange}
+          required={true}
+          min={formData.start} 
+        />
+      </div>
+    </div>
 
             <div className="flex items-center justify-center">
               <button

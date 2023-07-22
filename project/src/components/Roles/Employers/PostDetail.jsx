@@ -53,7 +53,10 @@ function PostDetail() {
       console.log(error); 
     }
   };
-  
+   const handleApplicants=()=>{
+    console.log(detail.applicants)
+    navigate(`/employers/home-view/applicants/${postId}/`)
+   }
 
   if (!detail) {
     return <div>Loading...</div>; 
@@ -89,10 +92,10 @@ function PostDetail() {
       
     </div>
     <div className=''>
-       <Link to={`/employers/home-view/applicants/${postId}/`}><div className='rounded-lg border bg-cyan-50 drop-shadow-lg p-4'>
+     <button disabled={detail.applicants === 0} onClick={handleApplicants} className={`${detail.applicants ===0? "cursor-not-allowed":''}`}><div className={`rounded-lg border bg-cyan-50 drop-shadow-lg p-4 `}   >
                <p className='text-2xl font-serif'>Total Applicants</p>
                <p className='mt-6 text-xl'>{detail.applicants}</p>
-        </div></Link> 
+        </div></button>
         <div className='rounded-lg border bg-green-50 drop-shadow-lg p-4 mt-5'>
                <p className='text-2xl font-serif'>Hired</p>
                <p className='mt-6 text-xl'>{detail.hired_count}</p>

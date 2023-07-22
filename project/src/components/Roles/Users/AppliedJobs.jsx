@@ -71,7 +71,19 @@ function AppliedJobs() {
             </div>
 
             <div className="flex justify-between">
-              <p className="capitalize font-normal shadow-md  text-md bg-emerald-100 font-serif border rounded-full w-auto mt-4 px-2  ">
+              <p className={`capitalize font-normal shadow-md  text-md  font-serif border rounded-full w-auto mt-4 px-2 ${
+                            item.status === "applied"
+                              ? "bg-cyan-100 text-cyan-800"
+                              : item.status === "intervied"
+                              ? "bg-emerald-100 text-emerald-700"
+                              : item.status === "shortlisted"
+                              ? "bg-yellow-50 text-yellow-900 "
+                              : item.status === "selected"
+                              ?"bg-green-400 text-lime-900"
+                              :item.status ==='rejected'
+                              ?"bg-rose-100 text-rose-900" :' '
+                              
+                          } `}>
                 {item.status}
               </p>
 

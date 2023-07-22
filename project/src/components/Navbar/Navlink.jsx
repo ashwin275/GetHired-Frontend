@@ -33,7 +33,7 @@ function Navlink() {
     <div className="sticky top-4   z-50 ">
       <Navbar
         expand="lg"
-        className="bg-body-tertiary navbarWrapper border-3 border-transparent border-gray-250 hover:shadow-xl  shadow-md    "
+        className="bg-body-tertiary navbarWrapper border-3 border-transparent border-gray-250 hover:shadow-lg  shadow-md    "
       >
         <Container className="flex text-start">
           <Link to="/">

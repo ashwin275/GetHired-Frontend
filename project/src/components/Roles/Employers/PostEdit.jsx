@@ -78,6 +78,7 @@ function PostEdit() {
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
     console.log('checked',checked)
+   
     
     if (type === 'checkbox') {
       setModifiedData((prevState) => ({ ...prevState, [name]: checked }));
@@ -153,7 +154,8 @@ function PostEdit() {
             type="number" 
             name='vaccancies'
             onChange={handleInputChange}
-            placeholder="Number of Vacancies"   
+            placeholder="Number of Vacancies" 
+            min="1"  
             value={formData.vaccancies}/>
           </div>
         </div>
@@ -203,16 +205,19 @@ function PostEdit() {
             <div className="flex">
               <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 mr-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                id="experience-from" 
-               type="text" 
+               type="number" 
                placeholder="From" 
                onChange={handleInputChange}
                name='experience_from' 
+               max={formData.experience_to}
+               min={0}
                 value={formData.experience_from}/>
               <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
               id="experience-to" 
-              type="text" 
+              type="number" 
               placeholder="To"  
               name='experience_to'
+              min={fetchData.experience_from}
               onChange={handleInputChange}
                value={formData.experience_to}/>
             </div>
@@ -250,15 +255,19 @@ function PostEdit() {
             </label>
             <div className="flex">
               <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 mr-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="payscale-from" 
-              type="text" placeholder="From"
+              type="number" placeholder="From"
               name='payscale_from'
               onChange={handleInputChange}
+              max={formData.payscale_to}
+              min={0}
                  value={formData.payscale_from}/>
               <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
               id="payscale-to" 
-              type="text" placeholder="To"   
+              type="number" placeholder="To"   
               name='payscale_to'
               onChange={handleInputChange}
+              min={formData.payscale_from}
+            
               value={formData.payscale_to}/>
             </div>
           </div>

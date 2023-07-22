@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import axiosInstance from "../../Axios/Axios";
 import { Context } from "../../Features/Context/JobsContext";
 import InfiniteScroll from "react-infinite-scroll-component";
+import notfound from '../../../images/datanotfound.gif'
 function ListJobs() {
+ 
   const { jobs, setJobs, setJobId } = useContext(Context);
   const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
   const [limit, setLimit] = useState(10);
@@ -53,8 +55,7 @@ function ListJobs() {
   }, [jobs]);
   return (
     <div className="w-10/12   border-2 rounded-lg mx-auto p-2  h-72 mt-4   md:h-[40rem]   overflow-y-scroll no-scrollbar">
-      {!isLoading ? (
-        <>
+      {!isLoading ?(jobs.length>0?( <>
           <InfiniteScroll
             dataLength={jobs.length}
             next={() => setOffset(offset + limit)}
@@ -115,8 +116,12 @@ function ListJobs() {
               </div>
             ))}{" "}
           </InfiniteScroll>
-        </>
-      ) : (
+        </>):(<><div className="w-full p-3 h-1/2">
+         
+          <img src={notfound} alt='No data found'/>
+          </div></>)) 
+       
+       : (
         <>Loading.......</>
       )}
     </div>

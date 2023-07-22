@@ -127,7 +127,8 @@ function Add_post() {
             type="number" 
             name='vaccancies'
             onChange={handleInputChange}
-            placeholder="Number of Vacancies"   
+            placeholder="Number of Vacancies"  
+            min={1} 
             value={formData.vaccancies} required/>
           </div>
         </div>
@@ -177,17 +178,23 @@ function Add_post() {
             <div className="flex">
               <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 mr-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                id="experience-from" 
-               type="text" 
+               type="number" 
                placeholder="From" 
                onChange={handleInputChange}
+               max={formData.experience_to}
+               min={0}
                name='experience_from' 
                 value={formData.experience_from}/>
               <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
               id="experience-to" 
-              type="text" 
+              type="number" 
               placeholder="To"  
               name='experience_to'
               onChange={handleInputChange}
+              max={20}
+              min={formData.experience_from}
+              
+
                value={formData.experience_to}/>
             </div>
           </div>
@@ -224,15 +231,19 @@ function Add_post() {
             </label>
             <div className="flex">
               <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 mr-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="payscale-from" 
-              type="text" placeholder="From"
+              type="number" placeholder="From"
               name='payscale_from'
+              min={0}
+              max={formData.payscale_to}
               onChange={handleInputChange}
                  value={formData.payscale_from}/>
               <input className="appearance-none block w-1/2 bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
               id="payscale-to" 
-              type="text" placeholder="To"   
+              type="number" placeholder="To"   
               name='payscale_to'
               onChange={handleInputChange}
+              min={formData.payscale_to}
+
               value={formData.payscale_to}/>
             </div>
           </div>

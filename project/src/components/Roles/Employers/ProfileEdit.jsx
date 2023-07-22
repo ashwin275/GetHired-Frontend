@@ -85,6 +85,14 @@ function ProfileEdit() {
       toast.error(error.response.data.detail);
     }
   };
+  const handleKeyPress = (event) => {
+    
+    const allowedKeys = /[0-9]|Backspace|Delete|ArrowLeft|ArrowRight|ArrowUp|ArrowDown/;
+
+    if (!allowedKeys.test(event.key)) {
+      event.preventDefault();
+    }
+  };
   
 
   return (
@@ -104,6 +112,7 @@ function ProfileEdit() {
               name='profile_picture'
               onChange={handleInputChange}
               type="file"
+              accept="image/jpeg,image/png,image/gif" 
             />
     </div>
 
@@ -123,6 +132,7 @@ function ProfileEdit() {
             placeholder="" 
             name='company_name'
             onChange={handleInputChange}
+            required
              value={formData.company_name}/>
             
           </div>
@@ -136,6 +146,7 @@ function ProfileEdit() {
              placeholder=""
              name='company_email'   
              onChange={handleInputChange}
+             required
              value={formData.company_email}/>  
           </div>
         </div>
@@ -152,6 +163,9 @@ function ProfileEdit() {
             placeholder="" 
             name='company_mobile'  
             onChange={handleInputChange}
+            required
+            maxLength="15"
+            onKeyPress={handleKeyPress}
             value={formData.company_mobile}/>
           </div>
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">

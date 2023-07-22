@@ -380,6 +380,7 @@ function ManagePosts() {
                   value={formData.no_of_count}
                   onChange={handleInputChange}
                   required={Addpost}
+                  min={1}
                 />
               </div>
 
@@ -398,6 +399,7 @@ function ManagePosts() {
                   value={formData.amount}
                   onChange={handleInputChange}
                   required={Addpost}
+                  min={1}
                 />
               </div>
             </div>
