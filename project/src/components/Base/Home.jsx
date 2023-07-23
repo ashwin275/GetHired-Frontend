@@ -27,19 +27,20 @@ function Home() {
  
   return (
     <div className="flex justify-center">
-      <div className="w-5/6 ">
+      <div className="w-5/6  md:h-[35rem]">
         <div className="flex flex-wrap md:flex-nowrap ">
           {/* .......................left for employers.............................. */}
-          <div className="w-full md:w-1/6 lg:w-1/6 md:h-96 left mt-4 sticky lg:top-36 left-0 right-0">
+          <div className="w-full md:w-1/6 lg:w-1/6 md:h-96 left mt-4 ">
             <div className="w-full h-full p-2">
               <LeftBar />
             </div>
           </div>
 
           {/* .......................mid.............................. */}
-          <div className={`w-full md:w-4/6 lg:${userInfo.is_seeker ? 'w-5/6' : 'w-4/6'} h-full flex justify-center items-center my-8 lg:h-full `}>
+          <div className={`w-full md:w-4/6 lg:${userInfo.is_seeker ? 'w-5/6' : 'w-4/6'}  flex justify-center items-center  lg:max-h-[40rem] `}>
 
-            <div className="w-full  lg:overflow-y-scroll   lg:max-h-[32rem] lg:no-scrollbar ">
+            <div className="w-full  lg:overflow-y-scroll   lg:max-h-[37rem] lg:no-scrollbar ">
+              <div className=" lg:max-h-[37rem] lg:overflow-y-scroll lg:no-scrollbar">
               {userInfo.is_seeker ? (
                 <>
                   <Routes>
@@ -68,6 +69,7 @@ function Home() {
                   {/* ........... */}
                 </>
               )}
+            </div>
             </div>
           </div>
           {userInfo.is_seeker ? (

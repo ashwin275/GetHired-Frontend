@@ -30,7 +30,7 @@ function Navlink() {
     navigate('users/home-view')
   }
   return (
-    <div className="sticky top-4   z-50 ">
+    <div className=" ">
       <Navbar
         expand="lg"
         className="bg-body-tertiary navbarWrapper border-3 border-transparent border-gray-250 hover:shadow-lg  shadow-md    "

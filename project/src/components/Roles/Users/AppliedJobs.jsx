@@ -41,7 +41,7 @@ function AppliedJobs() {
     }
   };
   return (
-    <div className="w-full md:w-10/12 border-2 rounded-lg mx-auto  p-2 h-96  md:h-[33rem] overflow-y-scroll no-scrollbar">
+    <div className="w-full md:w-10/12 border-2 rounded-lg mx-auto  p-2 h-96  md:h-[36rem] overflow-y-scroll no-scrollbar">
       {myjobs.length > 0 ? (
         myjobs.map((item) => (
           <div

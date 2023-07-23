@@ -137,7 +137,7 @@ function Profile() {
   }
   
   return (
-    <div className="w-full   h-fit md:h-[32rem] flex flex-col-reverse   md:flex-row">
+    <div className="w-full   h-fit flex flex-col-reverse   md:flex-row">
       <div className=" w-full md:w-10/12  mx-auto">
         <div className="w-full lg:w-10/12 mx-auto p-4 text-center brightness-100  border-x-1 border-gray-200   rounded-t-lg shadow sm:p-8 bg-fixed  bg-[url('https://media.istockphoto.com/id/624544640/vector/modern-city-background.jpg?s=612x612&w=0&k=20&c=-ERJ7hlG7wX_Ake0DiEXoU8Sp7hMI9tM_s-9Ags7fHQ=')] rounded-lg drop-shadow-2xl backdrop-grayscale-0 bg-white/30">
           <div className="flex flex-col items-center rounded-lg drop-shadow-2xl ">

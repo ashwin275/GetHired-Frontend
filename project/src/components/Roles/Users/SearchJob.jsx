@@ -6,10 +6,10 @@ function SearchJob() {
 
     const {  setJobs, setJobId } = useContext(Context);
 
-    const[job,setJob] = useState('')
-    const [company,setCompany] = useState('')
-    const [location,setlocation] = useState('')
-    const [skills,setSkills] = useState('')
+    const[job,setJob] = useState(null)
+    const [company,setCompany] = useState(null)
+    const [location,setlocation] = useState(null)
+    const [skills,setSkills] = useState(null)
 
     const debounce = (func, delay) => {
       let timer;

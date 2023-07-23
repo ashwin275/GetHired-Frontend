@@ -86,7 +86,7 @@ function ListJobs() {
                       </span>
                     </div>
                     <div className="flex items-baseline text-slate-700 ms-1">
-                      <i className="fa-solid fa-location-dot"></i> &nbsp;&nbsp;
+                    {item.location&&  <i className="fa-solid fa-location-dot"></i>} &nbsp;&nbsp;
                       <span className="text-md md:text-lg f tracking-tight hover:underline decoration-1">
                         {item.location}
                       </span>
