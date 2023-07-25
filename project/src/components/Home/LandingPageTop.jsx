@@ -23,7 +23,7 @@ function LandingPageTop() {
             <div className='w-full md:w-1/2 h-1/2  md:h-full bg-grey-200'>
 
                 <div className='w-full flex justify-center'>
-                    <img  className=' w-3/5 h-3/5 'src={landing1}></img>
+                    <img  className=' w-4/5 h-4/5 'src={landing1}></img>
                 </div>
 
             </div>
