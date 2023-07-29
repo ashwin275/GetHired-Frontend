@@ -47,7 +47,9 @@ function Applicants() {
     }
   };
 
-  const handleDownload = async (resumeUrl) => {
+  const handleDownload = async (resumeUrl,itemId) => {
+    console.log('application id',itemId)
+    
     try {
       const downloadUrl = `${imageBaseUrl}/${resumeUrl}`;
       const response = await fetch(downloadUrl);
@@ -61,10 +63,21 @@ function Applicants() {
       anchor.click();
 
       URL.revokeObjectURL(url);
+
+      await callbackeapi_send_mail(itemId);
     } catch (error) {
       console.log("Error downloading the resume:", error);
     }
   };
+
+  const callbackeapi_send_mail = async(itemId)=>{
+    try{
+     const response = axiosInstance.post(`recruiters/resume-downloaded/${itemId}/`)
+     console.log(response)
+    }catch(error){
+      console.log(error)
+    }
+  }
   const HandlePerv = () => {
     setHasMore(true);
     setOffset(offset - limit);
@@ -181,7 +194,7 @@ function Applicants() {
                           </a>{" "}
                         </span>{" "}
                         <button
-                          onClick={() => handleDownload(item.resume)}
+                          onClick={() => handleDownload(item.resume,item.id)}
                           className="ms-3"
                         >
                           <i className="fa-solid fa-download"></i>

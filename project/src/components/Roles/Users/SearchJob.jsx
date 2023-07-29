@@ -35,7 +35,7 @@ function SearchJob() {
      }catch(error){
       console.log(error,'response error for debounce testing')
      }
-    },2000)
+    },500)
 
 
    const handleInputChanges= (event)=>{
