@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 import Daysago from "../Users/Daysago";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-
+import iconmsg from "../../../images/msgiconblack.png"
 function Applicants() {
   const { postId } = useParams();
 
@@ -152,7 +152,7 @@ function Applicants() {
                     <th>Status</th>
                     <th>Applied on</th>
                     <th>Resume</th>
-                    <th colSpan={2}>Change Status</th>
+                    <th>Change Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -190,7 +190,7 @@ function Applicants() {
                             target="blank"
                             className="text-lime-950 "
                           >
-                            <i className="fa-solid fa-eye "></i>
+                            <i className="fa-solid fa-eye "></i> 
                           </a>{" "}
                         </span>{" "}
                         <button
@@ -218,14 +218,15 @@ function Applicants() {
                         )}
                       </td>
                       <td>
-                        {item.status === "applied" && (
+                        {item.status === "applied" ? (
                           <button
                             className="ms-2 border px-2 rounded-md bg-red-100"
                             onClick={() => handleReject(item.id)}
                           >
                             Reject
                           </button>
-                        )}{" "}
+                        ):(<><div className="w-10 h-6 mx-auto flex item-center " type='button'>
+                        <img className="" src={iconmsg}></img></div></>)}{" "}
                       </td>
                     </tr>
                   ))}

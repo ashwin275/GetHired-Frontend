@@ -4,6 +4,7 @@ import Daysago from "./Daysago";
 import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import iconmsg from '../../../images/msgicon.png'
 function AppliedJobs() {
   const [myjobs, setmyjobs] = useState([]);
   const [show, setShow] = useState(false);
@@ -71,23 +72,25 @@ function AppliedJobs() {
             </div>
 
             <div className="flex justify-between">
-              <p className={`capitalize font-normal shadow-md  text-md  font-serif border rounded-full w-auto mt-4 px-2 ${
-                            item.status === "applied"
-                              ? "bg-cyan-100 text-cyan-800"
-                              : item.status === "intervied"
-                              ? "bg-emerald-100 text-emerald-700"
-                              : item.status === "shortlisted"
-                              ? "bg-yellow-50 text-yellow-900 "
-                              : item.status === "selected"
-                              ?"bg-green-400 text-lime-900"
-                              :item.status ==='rejected'
-                              ?"bg-rose-100 text-rose-900" :' '
-                              
-                          } `}>
+              <p
+                className={`capitalize font-normal shadow-md  text-md  font-serif border rounded-full w-auto mt-4 px-2 ${
+                  item.status === "applied"
+                    ? "bg-cyan-100 text-cyan-800"
+                    : item.status === "intervied"
+                    ? "bg-emerald-100 text-emerald-700"
+                    : item.status === "shortlisted"
+                    ? "bg-yellow-50 text-yellow-900 "
+                    : item.status === "selected"
+                    ? "bg-green-400 text-lime-900"
+                    : item.status === "rejected"
+                    ? "bg-rose-100 text-rose-900"
+                    : " "
+                } `}
+              >
                 {item.status}
               </p>
 
-              {item.status === "rejected" && (
+              {item.status === "rejected" ? (
                 <span>
                   <p
                     className="p-1 rounded-full shadow-md font-normal  font-serif hover:shadow-lg px-2 text-md bg-red-400 text-red-950"
@@ -97,6 +100,12 @@ function AppliedJobs() {
                     Delete
                   </p>
                 </span>
+              ) : (
+                <>
+                  {" "}
+                  <div className="w-10 h-10 " type='button'>
+                    <img className="w-10/12 h-10/12" src={iconmsg}></img></div>{" "}
+                </>
               )}
 
               {item.status === "applied" && (
@@ -106,7 +115,7 @@ function AppliedJobs() {
                     type="button"
                     onClick={() => HandleCancel(item.id)}
                   >
-                    Withdraw 
+                    Withdraw
                   </p>
                 </span>
               )}
