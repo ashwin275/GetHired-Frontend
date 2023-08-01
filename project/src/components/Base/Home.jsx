@@ -14,6 +14,7 @@ import Profile from "../Roles/Users/Profile";
 import EditPofile from "../Roles/Users/EditPofile";
 import AppliedJobs from "../Roles/Users/AppliedJobs";
 import Applicants from "../Roles/Employers/Applicants";
+import Chat from "../Roles/Employers/Chat";
 function Home() {
   const Navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
@@ -65,6 +66,7 @@ function Home() {
                     <Route path="profile-edit" element={<ProfileEdit />} />
                     <Route path="post-plan" element={<ViewPostPlan />} />
                     <Route path="applicants/:postId/" element={<Applicants/>}/>
+                    <Route path="chat/:RoomId/" element={<Chat/>}/>
                   </Routes>
                   {/* ........... */}
                 </>

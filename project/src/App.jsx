@@ -32,6 +32,7 @@ import Payment from "./components/Features/Context/payment";
 import Jobs from "./components/Roles/Users/Jobs";
 import EditPofile from "./components/Roles/Users/EditPofile";
 import AppliedJobs from "./components/Roles/Users/AppliedJobs";
+import Chat from "./components/Roles/Employers/Chat";
 
 function App() {
   const location = useLocation();
@@ -77,6 +78,7 @@ function App() {
                 <Route path="profile-edit/:postId/" element={<ProfileEdit />} />
 
                 <Route path="post-plan" element={<ViewPostPlan />} />
+                <Route path="chat/:RoomId/" element={<Chat/>}/>
               </Route>
             </Route>
             <Route element={<UnAuth />}>

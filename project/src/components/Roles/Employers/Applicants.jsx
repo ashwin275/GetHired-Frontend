@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../Axios/Axios";
 import Table from "react-bootstrap/Table";
 import Daysago from "../Users/Daysago";
@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import iconmsg from "../../../images/msgiconblack.png"
 function Applicants() {
+  const navigate = useNavigate()
   const { postId } = useParams();
 
   const [show, setShow] = useState(false);
@@ -18,6 +19,7 @@ function Applicants() {
   const [hasMore, setHasMore] = useState(false);
   const [hasPrev, setHasprev] = useState(false);
   const [reject, SetReject] = useState(false);
+  const [RoomId,setRoomId] = useState(12)
   const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
   useEffect(() => {
     fetchData();
@@ -137,6 +139,12 @@ function Applicants() {
       console.log(error);
     }
   };
+
+  const handlechat=(id,userId,empId)=>{
+    
+    navigate(`/employers/home-view/chat/${id}${userId}${empId}/`)
+
+  }
   return (
     <>
       <div className="w-full p-3  ">
@@ -225,7 +233,7 @@ function Applicants() {
                           >
                             Reject
                           </button>
-                        ):(<><div className="w-10 h-6 mx-auto flex item-center " type='button'>
+                        ):(<><div className="w-10 h-6 mx-auto flex item-center " type='button' onClick={()=>handlechat(item.id,item.user_id,item.emp_id)}>
                         <img className="" src={iconmsg}></img></div></>)}{" "}
                       </td>
                     </tr>
