@@ -5,11 +5,13 @@ import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import iconmsg from '../../../images/msgicon.png'
+import { useNavigate } from "react-router-dom";
 function AppliedJobs() {
   const [myjobs, setmyjobs] = useState([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [Id, SetId] = useState(null);
+  const navigate = useNavigate()
   useEffect(() => {
     fetchData();
   }, []);
@@ -17,7 +19,7 @@ function AppliedJobs() {
   const fetchData = async () => {
     try {
       const response = await axiosInstance.get("applied-jobs/");
-      console.log(response);
+      console.log("Applied job",response);
       setmyjobs(response.data.payload);
     } catch (error) {
       console.log(error);
@@ -41,6 +43,10 @@ function AppliedJobs() {
       toast.error(error.response.error);
     }
   };
+
+  const handleChat = (Emp_ID,JobPostId)=>{
+    navigate(`/users/home-view/chats/${Emp_ID}/${JobPostId}/`)
+  }
   return (
     <div className="w-full md:w-10/12 border-2 rounded-lg mx-auto  p-2 h-96  md:h-[36rem] overflow-y-scroll no-scrollbar">
       {myjobs.length > 0 ? (
@@ -91,34 +97,37 @@ function AppliedJobs() {
               </p>
 
               {item.status === "rejected" ? (
-                <span>
-                  <p
-                    className="p-1 rounded-full shadow-md font-normal  font-serif hover:shadow-lg px-2 text-md bg-red-400 text-red-950"
-                    type="button"
-                    onClick={() => HandleCancel(item.id)}
-                  >
-                    Delete
-                  </p>
-                </span>
-              ) : (
-                <>
-                  {" "}
-                  <div className="w-10 h-10 " type='button'>
-                    <img className="w-10/12 h-10/12" src={iconmsg}></img></div>{" "}
-                </>
-              )}
+  <span>
+    <p
+      className="p-1 rounded-full shadow-md font-normal font-serif hover:shadow-lg px-2 text-md bg-red-400 text-red-950"
+      type="button"
+      onClick={() => HandleCancel(item.id)}
+    >
+      Delete
+    </p>
+  </span>
+) : item.status === "applied" ? (
+  <span>
+    <p
+      className="p-1 rounded-full shadow-md font-normal font-serif hover:shadow-lg px-2 text-md bg-rose-200 text-rose-800"
+      type="button"
+      onClick={() => HandleCancel(item.id)}
+    >
+      Withdraw
+    </p>
+  </span>
+) : (
+  <>
+    <div className="w-10 h-10" type="button" onClick={()=>handleChat(item.Emp_ID,item.JobPostId)}>
+      <img className="w-10/12 h-10/12" src={iconmsg} alt="icon"></img>
+    </div>{" "}
+  </>
+)}
 
-              {item.status === "applied" && (
-                <span>
-                  <p
-                    className="p-1 rounded-full shadow-md font-normal  font-serif hover:shadow-lg px-2 text-md bg-rose-200 text-rose-800"
-                    type="button"
-                    onClick={() => HandleCancel(item.id)}
-                  >
-                    Withdraw
-                  </p>
-                </span>
-              )}
+
+
+
+           
             </div>
           </div>
         ))

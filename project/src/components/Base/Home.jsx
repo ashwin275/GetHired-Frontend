@@ -15,6 +15,7 @@ import EditPofile from "../Roles/Users/EditPofile";
 import AppliedJobs from "../Roles/Users/AppliedJobs";
 import Applicants from "../Roles/Employers/Applicants";
 import Chat from "../Roles/Employers/Chat";
+import ChatUser from "../Roles/Users/ChatUser";
 function Home() {
   const Navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
@@ -48,6 +49,7 @@ function Home() {
                     <Route path="/" element={<Profile/>}/>
                     <Route path='profile-edit' element={<EditPofile/>}/>
                     <Route path="my-jobs" element={<AppliedJobs/>}/>
+                    <Route path="chats/:EmpId/:postID/" element={<ChatUser/>}/>
                   </Routes>
                 </>
               ) : (
@@ -66,7 +68,7 @@ function Home() {
                     <Route path="profile-edit" element={<ProfileEdit />} />
                     <Route path="post-plan" element={<ViewPostPlan />} />
                     <Route path="applicants/:postId/" element={<Applicants/>}/>
-                    <Route path="chat/:RoomId/" element={<Chat/>}/>
+                    <Route path="chat/:SeekerId/:postID/" element={<Chat/>}/>
                   </Routes>
                   {/* ........... */}
                 </>

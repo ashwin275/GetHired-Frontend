@@ -140,9 +140,9 @@ function Applicants() {
     }
   };
 
-  const handlechat=(id,userId,empId)=>{
+  const handlechat=(SeekerId)=>{
     
-    navigate(`/employers/home-view/chat/${id}${userId}${empId}/`)
+    navigate(`/employers/home-view/chat/${SeekerId}/${postId}/`)
 
   }
   return (
@@ -233,7 +233,7 @@ function Applicants() {
                           >
                             Reject
                           </button>
-                        ):(<><div className="w-10 h-6 mx-auto flex item-center " type='button' onClick={()=>handlechat(item.id,item.user_id,item.emp_id)}>
+                        ):(<><div className="w-10 h-6 mx-auto flex item-center " type='button' onClick={()=>handlechat(item.user_id)}>
                         <img className="" src={iconmsg}></img></div></>)}{" "}
                       </td>
                     </tr>

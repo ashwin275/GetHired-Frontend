@@ -48,11 +48,13 @@ function Login(props) {
           const tokenString = JSON.stringify(response.data.token);
            console.log('token',tokenString)
            const userInfo = response.data.userInfo
+           
            if (props.title == 'ADMIN' ){
             Cookies.set('AdminTokens',tokenString)
             dispatch(setCredentials({userInfo,role:'ADMIN'}))
            }else{
             Cookies.set('Tokens',tokenString)
+            Cookies.set('UserId',userInfo.id)
             dispatch(setCredentials({userInfo,role:'USERS'}))
             console.log(Cookies.get('Tokens'),"my tokens  1111")
            }

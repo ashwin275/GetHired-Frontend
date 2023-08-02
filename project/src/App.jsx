@@ -33,6 +33,7 @@ import Jobs from "./components/Roles/Users/Jobs";
 import EditPofile from "./components/Roles/Users/EditPofile";
 import AppliedJobs from "./components/Roles/Users/AppliedJobs";
 import Chat from "./components/Roles/Employers/Chat";
+import ChatUser from "./components/Roles/Users/ChatUser";
 
 function App() {
   const location = useLocation();
@@ -56,6 +57,7 @@ function App() {
                 
                 <Route path="edit-profile" element={<EditPofile/>}/>
                 <Route path="my-jobs" element={<AppliedJobs/>}/>
+                <Route path="chats/:EmpId/:postID/"element={<ChatUser/>} />
               </Route>
             </Route>
 
@@ -78,7 +80,7 @@ function App() {
                 <Route path="profile-edit/:postId/" element={<ProfileEdit />} />
 
                 <Route path="post-plan" element={<ViewPostPlan />} />
-                <Route path="chat/:RoomId/" element={<Chat/>}/>
+                <Route path="chat/:SeekerId/:postID/" element={<Chat/>}/>
               </Route>
             </Route>
             <Route element={<UnAuth />}>

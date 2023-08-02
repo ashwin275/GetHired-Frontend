@@ -35,6 +35,7 @@ const authSlice = createSlice({
     logout: (state, action) => {
       // Reset state to initial value
       console.log(action.payload.role,'Role      llllllllll')
+      Cookies.remove('UserId')
       if(action.payload.role  == 'ADMIN'){
 
         state.AdminInfo = { admin: null };
