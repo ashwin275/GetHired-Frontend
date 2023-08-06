@@ -10,6 +10,7 @@ function JobDetail() {
   const { jobId } = useContext(Context);
   const [jobDetail, setJobDetail] = useState({});
   const [isLoading, setisLoading] = useState(true);
+  const[isapplied,setIsapplied] = useState(true)
   const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
   useEffect(() => {
     console.log("job id updated", jobId);
@@ -20,18 +21,26 @@ function JobDetail() {
   useEffect(() => {
     console.log("loaded", jobDetail);
     console.log(jobDetail.company_mobile);
-    setisLoading(false);
+    
   }, [jobDetail]);
 
   const fetchJobDetail = async () => {
     try {
       const response = await axiosInstance.get(`job-detail/${jobId}/`);
       console.log("job details", response.data);
+      console.log(response.data.applied)
       setJobDetail(response.data.data);
+      setIsapplied(response.data.applied)
+      setTimeout(()=>{
+        setisLoading(false);
+      },2000)
+
     } catch (error) {
       console.log(error);
     }
   };
+
+  
 
   const HandleApply = () => {
     setShow(true);
@@ -41,8 +50,10 @@ function JobDetail() {
     try {
       const response = await axiosInstance.post(`job-apply/${jobDetail.id}/`);
       console.log(response);
+      setIsapplied(true)
       toast.success(response.data.message);
       setShow(false);
+     
     } catch (error) {
       console.log(error);
       console.log(error.response.data.error);
@@ -78,11 +89,11 @@ function JobDetail() {
                     </p>
                   )}
                   <div className=" flex item-start">
-                    <button
-                      className="rounded-xl border bg-slate-100 w-32 h-10 mt-4 mb-4 hover:bg-gray-300 text-lg md:text-xl font-sans drop-shadow-lg text-lime-900"
+                    <button disabled = {isapplied}
+                      className={`rounded-xl border  w-32 h-10 mt-4 mb-4 hover:bg-gray-300 text-lg md:text-xl font-sans drop-shadow-lg text-lime-900 ${isapplied?'cursor-not-allowed opacity-70 bg-slate-300':'bg-slate-100'}`}
                       onClick={HandleApply}
                     >
-                      Apply now
+                      {isapplied?"Applied":"Apply now"}
                     </button>
                   </div>
                 </div>
@@ -264,7 +275,7 @@ function JobDetail() {
         </>
       ) : (
         <>
-          <h2>loading</h2>
+          <h2>.......</h2>
         </>
       )}
 

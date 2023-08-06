@@ -10,11 +10,12 @@ function AdminUnAuth() {
 
 
    
-    
+    console.log('called for admin un auth')
+    console.log(AdminInfo)
 
     console.log(location)
   
-    return AdminInfo.admin ?  <Navigate to={`/admin/home`} />: <Outlet /> ;
+    return AdminInfo.email ?  <Navigate to={`/admin/home`} />: <Outlet /> ;
 }
 
 export default AdminUnAuth

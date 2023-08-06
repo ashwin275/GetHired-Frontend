@@ -55,17 +55,30 @@ function Profile() {
     try {
       const response = await axiosInstance.get("get-experience/");
       setexperiences(response.data.data);
+      console.log("experience", response.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value, type } = event.target;
 
-    setModifiedData((prevState) => ({ ...prevState, [name]: value }));
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
-    console.log("modified", modifiedData);
+    if (type === "file") {
+      setModifiedData((prevState) => ({
+        ...prevState,
+        [name]: event.target.files[0],
+      }));
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: event.target.files[0],
+      }));
+      console.log(modifiedData);
+    } else {
+      setModifiedData((prevState) => ({ ...prevState, [name]: value }));
+      setFormData((prevState) => ({ ...prevState, [name]: value }));
+      console.log(modifiedData);
+    }
   };
 
   const HandleUpdate = async (event) => {
@@ -75,7 +88,12 @@ function Profile() {
       try {
         const response = await axiosInstance.post(
           "add-experience/",
-          modifiedData
+          modifiedData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
         console.log(response);
         fetchExperience();
@@ -92,6 +110,8 @@ function Profile() {
         });
       } catch (error) {
         console.log(error);
+        toast.error(error.response.data.error.non_field_errors[0]);
+        console.log(error.response.data.error.non_field_errors[0]);
       }
     } else {
     }
@@ -132,10 +152,10 @@ function Profile() {
     navigate("profile-edit");
   };
 
-  const handleApplyedJobs=()=>{
-    navigate('my-jobs')
-  }
-  
+  const handleApplyedJobs = () => {
+    navigate("my-jobs");
+  };
+
   return (
     <div className="w-full   h-fit flex flex-col-reverse   md:flex-row">
       <div className=" w-full md:w-10/12  mx-auto">
@@ -217,9 +237,13 @@ function Profile() {
                     </p>
                   </a>
                 ) : (
-                  <p className="text-neutral-950 text-lg w-1/2 text-center bg-cyan-50 visited:text-cyan-600 border drop-shadow-2xl my-3 border-gray-800 rounded-lg p-2" type='button' onClick={handleEdit}>
-                  Upload Resume
-                </p>
+                  <p
+                    className="text-neutral-950 text-lg w-1/2 text-center bg-cyan-50 visited:text-cyan-600 border drop-shadow-2xl my-3 border-gray-800 rounded-lg p-2"
+                    type="button"
+                    onClick={handleEdit}
+                  >
+                    Upload Resume
+                  </p>
                 )}
               </div>
             </div>
@@ -272,6 +296,16 @@ function Profile() {
                                 <p className="text-md font-medium font-mono md:ms-4 capitalize text-lime-950">
                                   -{item.designation}
                                 </p>
+                                {item.certificate ? (
+                                  <a
+                                    href={`${imageBaseUrl}${item.certificate}`}
+                                    target="_blank"
+                                  >
+                                    <p>
+                                      <i className="fa-solid fa-file-circle-check"></i>
+                                    </p>
+                                  </a>
+                                ) : null}
                               </div>
                               <div className="flex font-medium justify-between text-base items-baseline md:mt-6">
                                 <div className="flex font-medium justify-between text-base items-baseline">
@@ -298,7 +332,7 @@ function Profile() {
                           ))}
                         </>
                       ) : (
-                        <>loading...</>
+                        <>Add Experience</>
                       )}
                     </div>
                   </div>
@@ -340,10 +374,15 @@ function Profile() {
 
       <div className="md:w-2/12 p-3">
         <div className="w-full rounded-lg shadow-md  border p-2 flex  ">
-          <div className="mx-auto p-3 " type='button' onClick={handleApplyedJobs}> <i className="fa-solid fa-bookmark"></i> My Jobs</div>
-       
-
-        </div>     
+          <div
+            className="mx-auto p-3 "
+            type="button"
+            onClick={handleApplyedJobs}
+          >
+            {" "}
+            <i className="fa-solid fa-bookmark"></i> My Jobs
+          </div>
+        </div>
       </div>
 
       {/* Add Experience modal */}
@@ -419,40 +458,61 @@ function Profile() {
                 style={{ height: "auto" }}
               />
             </div>
+            <div class="mb-4">
+              <label
+                class="block text-gray-400 text-sm font-bold mb-2"
+                for="username"
+              >
+                Certificate
+              </label>
+              <input
+                className="shadow  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="certificate"
+                type="file"
+                name="certificate"
+                onChange={handleInputChange}
+              />
+            </div>
 
             <div className="mb-4 flex">
-      <div className="">
-        <label className="block text-gray-400 text-sm font-bold mb-2" htmlFor="start">
-          Start
-        </label>
-        <input
-          className="shadow appearance-none mx-auto border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="start"
-          type="month"
-          name="start"
-          value={formData.start}
-          onChange={handleInputChange}
-          required={true}
-          max={formData.end}
-        />
-      </div>
+              <div className="">
+                <label
+                  className="block text-gray-400 text-sm font-bold mb-2"
+                  htmlFor="start"
+                >
+                  Start
+                </label>
+                <input
+                  className="shadow appearance-none mx-auto border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="start"
+                  type="date"
+                  name="start"
+                  value={formData.start}
+                  onChange={handleInputChange}
+                  required={true}
+                  max={formData.end}
+                />
+              </div>
 
-      <div>
-        <label className="block text-gray-400 text-sm font-bold mb-2" htmlFor="end">
-          End
-        </label>
-        <input
-          className="shadow mx-auto appearance-none border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="end"
-          type="month"
-          name="end"
-          value={formData.end}
-          onChange={handleInputChange}
-          required={true}
-          min={formData.start} 
-        />
-      </div>
-    </div>
+              <div>
+                <label
+                  className="block text-gray-400 text-sm font-bold mb-2"
+                  htmlFor="end"
+                >
+                  End
+                </label>
+                <input
+                  className="shadow mx-auto appearance-none border rounded w-10/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="end"
+                  type="date"
+                  name="end"
+                  value={formData.end}
+                  onChange={handleInputChange}
+                  required={true}
+                  min={formData.start}
+                />
+              </div>
+            </div>
 
             <div className="flex items-center justify-center">
               <button

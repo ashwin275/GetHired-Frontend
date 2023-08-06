@@ -6,7 +6,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import iconmsg from '../../../images/msgicon.png'
 import { useNavigate } from "react-router-dom";
+import Loaders from "../../LoadingSpinner/Loaders";
 function AppliedJobs() {
+  const [isLoading, setLoading] = useState(true);
   const [myjobs, setmyjobs] = useState([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -21,6 +23,9 @@ function AppliedJobs() {
       const response = await axiosInstance.get("applied-jobs/");
       console.log("Applied job",response);
       setmyjobs(response.data.payload);
+      setTimeout(()=>{
+        setLoading(false)
+      },2000)
     } catch (error) {
       console.log(error);
     }
@@ -49,7 +54,7 @@ function AppliedJobs() {
   }
   return (
     <div className="w-full md:w-10/12 border-2 rounded-lg mx-auto  p-2 h-96  md:h-[36rem] overflow-y-scroll no-scrollbar">
-      {myjobs.length > 0 ? (
+      {isLoading?(<><div className="w-full h-full  flex items-center justify-center   "><Loaders/></div></>):( <>{myjobs.length > 0 ? (
         myjobs.map((item) => (
           <div
             key={item.id}
@@ -81,15 +86,15 @@ function AppliedJobs() {
               <p
                 className={`capitalize font-normal shadow-md  text-md  font-serif border rounded-full w-auto mt-4 px-2 ${
                   item.status === "applied"
-                    ? "bg-cyan-100 text-cyan-800"
+                    ? "bg-cyan-50 text-cyan-800"
                     : item.status === "intervied"
-                    ? "bg-emerald-100 text-emerald-700"
+                    ? "bg-emerald-50 text-emerald-700"
                     : item.status === "shortlisted"
                     ? "bg-yellow-50 text-yellow-900 "
                     : item.status === "selected"
-                    ? "bg-green-400 text-lime-900"
+                    ? "bg-green-50 text-lime-900"
                     : item.status === "rejected"
-                    ? "bg-rose-100 text-rose-900"
+                    ? "bg-rose-50 text-rose-900"
                     : " "
                 } `}
               >
@@ -139,7 +144,8 @@ function AppliedJobs() {
             </p>
           </div>
         </>
-      )}
+      )}</> )}
+    
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

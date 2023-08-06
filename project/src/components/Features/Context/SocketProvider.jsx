@@ -16,7 +16,8 @@ var ws_path = "ws://127.0.0.1:8000/ws/chat/";
 
 
     export const SocketProvider = (props) => {
-        const userId = Cookies.get("UserId");
+        let userId = Cookies.get("UserId") ? Cookies.get("UserId") :null ;
+        
         console.log('socket userid',userId)
         const socket = useMemo(() => {
             

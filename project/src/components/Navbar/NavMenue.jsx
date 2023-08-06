@@ -13,8 +13,8 @@ export const userMenue = [
   },
   {
     id:3,
-    title:"Chat",
-    link:'/'
+    title:"MyJobs",
+    link:'/users/home-view/my-jobs'
 
   },
  
@@ -35,8 +35,8 @@ export const RecruitersMenue = [
     },
     {
       id:3,
-      title:"Chats",
-      link:'/'
+      title:"Plans",
+      link:'/employers/home-view/post-plan'
   
     },
     {

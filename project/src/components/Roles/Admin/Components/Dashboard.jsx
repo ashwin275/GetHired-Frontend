@@ -57,9 +57,10 @@ function Dashboard() {
           </div>
           <div className="h-32 border w-52 rounded-lg p-3 shadow-md bg-slate-100">
             <p className=" text-2xl font-serif font-normal mb-3 text-lime-950 ">
-              Revenue{" "}
+              Revenue{" "} <p className="text-sm"></p>
             </p>
-            <p className="mt-3 text-3xl font-semibold font-serif">
+           
+            <p className="mt-2 text-3xl font-semibold font-serif">
               {" "}
               ${revenue}
             </p>

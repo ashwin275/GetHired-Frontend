@@ -4,6 +4,7 @@ import axiosInstance from "../../Axios/Axios";
 // import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import TimeConverter from "../Users/TimeConverter";
 function Chat() {
   const{SeekerId,postID} = useParams()
 
@@ -98,7 +99,7 @@ function Chat() {
   };
   return (
     <div className="flex justify-center">
-      <div className="w-full lg:w-10/12 p-1  lg:p-8 text-center bg-white lg:border border-gray-200 rounded-lg  sm:p-8 sm:h-96 lg:h-auto  overflow-y-scroll no-scrollbar flex justify-center">
+      <div className="w-full lg:w-10/12 p-1  lg:p-8 text-center  sm:p-8 sm:h-96 lg:h-auto  overflow-y-scroll no-scrollbar flex justify-center">
         <div className="w-full lg:w-10/12 h-96 lg:h-[34rem] shadow-md rounded-lg border border-gray-200 ">
           <div className="h-80 lg:h-[30rem] w-full  p-2 overflow-y-scroll no-scrollbar " ref={messagesContainerRef}>
             <div className="w-10/12 mx-auto ">
@@ -108,10 +109,11 @@ function Chat() {
                     key={index}
                     className={`flex justify-${
                       item.sender == SeekerId ? "start" : "end "
-                    } mt-1 w-full text-gray-500`}
+                    } mt-1 w-full text-gray-900`}
                   >
-                    <div className="text-sm font-normal bg-white rounded-lg shadow-md p-2">
+                    <div className={`text-sm font-normal  rounded-lg shadow-md p-2 ${item.sender == EmployeID?"bg-green-50":'bg-gray-50'}`}>
                       <p>{item.content} </p>
+                      <p className="text-end text-xs text-gray-500"><TimeConverter created={item.created_at}/></p>
                     </div>
                   </div>
                 ))

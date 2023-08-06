@@ -3,9 +3,10 @@ import axiosInstance from "../../Axios/Axios";
 import { Context } from "../../Features/Context/JobsContext";
 import InfiniteScroll from "react-infinite-scroll-component";
 import notfound from '../../../images/datanotfound.gif'
+import InnerLoader from "../../LoadingSpinner/InnerLoader";
 function ListJobs() {
  
-  const { jobs, setJobs, setJobId } = useContext(Context);
+  const { jobs, setJobs, setJobId ,jobId} = useContext(Context);
   const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
   const [limit, setLimit] = useState(10);
 
@@ -44,7 +45,9 @@ function ListJobs() {
     } catch (error) {
       console.log(error);
     }
-    setIsloading(false);
+    setTimeout(function() {
+      setIsloading(false); 
+    }, 2000);
   };
 
   const SetJobId = (id) => {
@@ -71,14 +74,14 @@ function ListJobs() {
             {jobs.map((item) => (
               <div
                 key={item.id}
-                className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg hover:shadow-xl drop-shadow-md sm:p-8 mt-2 mx-auto mb-4"
+                className={`w-full max-w-sm p-4    rounded-lg hover:shadow-xl border-1 drop-shadow-md sm:p-8 mt-2 mx-auto mb-4 ${jobId == item.id?"  border-gray-500 ":" border-gray-200"}`}
                 type="button"
                 onClick={() => SetJobId(item.id)}
               >
                 <div className="flex justify-between text-gray-900">
                   <div>
                     <span className="text-md md:text-xl text-start item-baseline font-bold tracking-tight hover:underline decoration-1 font-sans capitalize">
-                      {item.desgination}
+                      {item.desgination} 
                     </span>
                     <div className="flex items-baseline text-slate-700 p-1">
                       <span className="text-md md:text-lg  tracking-tight hover:underline decoration-1 capitalize">
@@ -122,7 +125,7 @@ function ListJobs() {
           </div></>)) 
        
        : (
-        <>Loading.......</>
+        <><InnerLoader/></>
       )}
     </div>
   );

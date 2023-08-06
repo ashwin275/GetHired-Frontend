@@ -81,7 +81,7 @@ function Home() {
           ) : (
             <>
               {/* .......................right bar for employers.............................. */}
-              <div className="w-full md:w-1/6 lg:w-1/6 h-96 right mt-4 sticky lg:top-36 left-0 right-0 lg:mb-32">
+              <div className="w-full md:w-1/6 lg:w-1/6 h-96 right mt-4  lg:top-36 left-0 right-0 lg:mb-32">
                 <div className="w-full h-full">
                   <RightBar />
                 </div>

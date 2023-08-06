@@ -1,30 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../Axios/Axios";
 // import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 import { useSocket } from "../../Features/Context/SocketProvider";
+import TimeConverter from "./TimeConverter";
 function ChatUser() {
   const messagesContainerRef = useRef(null);
-  const { EmpId ,postID } = useParams();
+  const { EmpId, postID } = useParams();
   const { userInfo } = useSelector((state) => state.auth);
   // const {SeekerId} = Cookies.get("UserId");
 
   const SeekerId = userInfo.id;
   const [messages, setMessages] = useState({});
   const [SendMessage, setSendMessage] = useState("");
+  const [chatList, setChatList] = useState({});
   const [isConnected, setIsConnected] = useState(false);
+  const navigate = useNavigate()
   const socket = useSocket();
   const currentDate = new Date();
+  
   useEffect(() => {
-    fetchChatMessages();
-  }, []);
-  useEffect(() => {
-    messagesContainerRef.current.scrollTop =
-      messagesContainerRef.current.scrollHeight;
-  }, [messages]);
-
-  useEffect(() => {
+    console.log('useEffect worked')
     if (socket) {
       socket.onopen = () => {
         setIsConnected(true);
@@ -37,11 +34,22 @@ function ChatUser() {
       };
     }
   }, [socket]);
+  useEffect(() => {
+    fetchChatMessages();
+    fetchChatAppliedJobs();
+  }, [EmpId,postID]);
+  useEffect(() => {
+    messagesContainerRef.current.scrollTop =
+      messagesContainerRef.current.scrollHeight;
+  }, [messages]);
+
+  
 
   socket.onmessage = (event) => {
     console.log("message recieved", event.data);
     const receivedMessage = JSON.parse(event.data);
-    const { content, sender, recipient, created_at,postId } = receivedMessage.message;
+    const { content, sender, recipient, created_at, postId } =
+      receivedMessage.message;
     console.log(sender, SeekerId);
     if (sender == EmpId && postID == postId) {
       setMessages((Prevmessages) => [
@@ -55,9 +63,21 @@ function ChatUser() {
   };
   const fetchChatMessages = async () => {
     try {
-      const response = await axiosInstance.get(`chats/messages/${EmpId}/${postID}/`);
+      const response = await axiosInstance.get(
+        `chats/messages/${EmpId}/${postID}/`
+      );
       console.log("chat message response", response.data.payload);
       setMessages(response.data.payload);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchChatAppliedJobs = async () => {
+    try {
+      const response = await axiosInstance.get("applied-jobs-chat/");
+      console.log("chat list", response.data.payload);
+      setChatList(response.data.payload);
     } catch (error) {
       console.log(error);
     }
@@ -72,7 +92,7 @@ function ChatUser() {
             message: SendMessage,
             to: EmpId,
             from: SeekerId,
-            postID:postID,
+            postID: postID,
             event: "chat",
           })
         );
@@ -95,12 +115,19 @@ function ChatUser() {
     setSendMessage(event.target.value);
   };
 
+  const HandleChatList = (emp_id,job_id)=>{
+    
+    navigate(`/users/home-view/chats/${emp_id}/${job_id}/`)
+    
+
+  }
+
   return (
     <div className="w-full   h-fit flex flex-col-reverse   md:flex-row">
-      <div className="w-full md:w-9/12  mx-auto h-96  lg:h-[38rem] ">
+      <div className="w-full md:w-9/12  mx-auto h-96  lg:h-[38rem]">
         <div className="flex justify-center">
-          <div className="w-full lg:w-10/12 p-1  lg:p-8 text-center bg-white  sm:p-8 sm:h-96 lg:h-auto  overflow-y-scroll no-scrollbar flex justify-center">
-            <div className="w-full lg:w-10/12 h-96 lg:h-[34rem] shadow-md rounded-lg border border-gray-200 ">
+          <div className="w-full lg:w-10/12 p-1  lg:p-8 text-center   sm:p-8 sm:h-96 lg:h-auto  overflow-y-scroll no-scrollbar flex justify-center">
+            <div className="w-full lg:w-10/12 h-96 lg:h-[34rem] shadow-md  rounded-lg border border-gray-200 bg-[url()]">
               <div
                 className="h-80 lg:h-[30rem] w-full  p-2 overflow-y-scroll no-scrollbar "
                 ref={messagesContainerRef}
@@ -111,11 +138,18 @@ function ChatUser() {
                       <div
                         key={index}
                         className={`flex justify-${
-                          item.sender == SeekerId ? "end" : "start "
-                        } mt-1 w-full text-gray-500`}
+                          item.sender == SeekerId ? "end " : "start "
+                        } mt-1 w-full text-gray-900`}
                       >
-                        <div className="text-sm font-normal bg-white rounded-lg shadow-md p-2">
+                        <div
+                          className={`text-sm font-normal  rounded-lg shadow-md p-2 ${
+                            item.sender == SeekerId
+                              ? "bg-green-50"
+                              : "bg-gray-50"
+                          }`}
+                        >
                           <p>{item.content} </p>
+                          <p className="text-end text-xs text-gray-500"><TimeConverter created={item.created_at}/></p>
                         </div>
                       </div>
                     ))
@@ -160,7 +194,35 @@ function ChatUser() {
           </div>
         </div>
       </div>
-      <div className="md:w-3/12 p-3 h-64 lg:h-[28rem]  overflow-y-scroll no-scrollbar"></div>
+      <div className="md:w-3/12 p-3 h-32 lg:h-[30rem] border rounded-lg  overflow-y-scroll no-scrollbar">
+        {chatList.length > 0
+          ? chatList.map((item, index) => (
+              <div key={index} className="flex items-center w-full max-w-xs p-2 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow-md mb-2" type='button' onClick={()=>HandleChatList(item.emp_id,item.job_id)}>
+                <svg
+                  className="w-5 h-5 text-blue-600 dark:text-blue-500 rotate-45"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 18 20"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m9 17 8 2L9 1 1 19l8-2Zm0 0V9"
+                  />
+                </svg>
+                <div className="pl-4 text-sm font-normal ">
+                  <p className="capitalize">{item.recruiter}</p>
+                  <p className="capitalize">{item.job}</p>
+                </div>
+              </div>
+            ))
+          : null}
+
+       
+      </div>
     </div>
   );
 }

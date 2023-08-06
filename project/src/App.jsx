@@ -34,15 +34,16 @@ import EditPofile from "./components/Roles/Users/EditPofile";
 import AppliedJobs from "./components/Roles/Users/AppliedJobs";
 import Chat from "./components/Roles/Employers/Chat";
 import ChatUser from "./components/Roles/Users/ChatUser";
+import Loading from "./components/LoadingSpinner/Loading";
 
 function App() {
   const location = useLocation();
   const isAdminSection = location.pathname.startsWith("/admin/home");
 
   return (
-    <div className="App ">
+    <div className="App static">
       <ToastContainer />
-
+      
       {!isAdminSection && <Navlink />}
       <Payment>
         <Routes>

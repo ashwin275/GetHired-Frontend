@@ -173,15 +173,15 @@ function Applicants() {
                         <span
                           className={`p-1 border rounded-lg ${
                             item.status === "applied"
-                              ? "bg-cyan-100 text-cyan-800"
+                              ? "bg-cyan-50 text-cyan-800"
                               : item.status === "intervied"
-                              ? "bg-emerald-100 text-emerald-700"
+                              ? "bg-emerald-50 text-emerald-700"
                               : item.status === "shortlisted"
                               ? "bg-yellow-50 text-yellow-900 "
                               : item.status === "selected"
-                              ?"bg-green-400 text-lime-900"
+                              ?"bg-green-100 text-lime-900"
                               :item.status ==='rejected'
-                              ?"bg-rose-100 text-rose-900" :' '
+                              ?"bg-rose-50 text-rose-900" :' '
                               
                           } `}
                         >
@@ -194,7 +194,7 @@ function Applicants() {
                       <td>
                         <span>
                           <a
-                            href={`${imageBaseUrl}/${item.resume}`}
+                            href={`${imageBaseUrl}${item.resume}`}
                             target="blank"
                             className="text-lime-950 "
                           >
