@@ -29,6 +29,7 @@ function Profile() {
     description: "",
   });
   const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
+  const base_url = import.meta.env.VITE_FILES_BASE_URL
   const handleClose = () => setShow(false);
   useEffect(() => {
     fetchUserDetail();
@@ -165,7 +166,7 @@ function Profile() {
               className="object-cover h-36 w-36 mb-3 rounded-full shadow-lg"
               src={
                 UserProfile.profile_picture
-                  ? `${imageBaseUrl}${UserProfile.profile_picture}`
+                  ? `${base_url}${UserProfile.profile_picture}`
                   : " https://cdn-icons-png.flaticon.com/128/3135/3135715.png"
               }
               alt="Bonnie image"

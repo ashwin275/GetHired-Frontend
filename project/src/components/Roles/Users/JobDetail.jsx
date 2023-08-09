@@ -103,7 +103,8 @@ function JobDetail() {
                     <div
                       className="w-16 h-16 md:me:36  md:w-28 md:h-28  flex items-end bg-cover bg-center rounded-full shadow-md"
                       style={{
-                        backgroundImage: `url(${imageBaseUrl}${jobDetail.profile_picture})`,
+                        backgroundImage: `url(${jobDetail.profile_picture})`,
+                        // backgroundImage: `url(${imageBaseUrl}${jobDetail.profile_picture})`,
                       }}
                     ></div>
                   </>
