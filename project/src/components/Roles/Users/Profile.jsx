@@ -166,7 +166,7 @@ function Profile() {
               className="object-cover h-36 w-36 mb-3 rounded-full shadow-lg"
               src={
                 UserProfile.profile_picture
-                  ? `${base_url}${UserProfile.profile_picture}`
+                  ? `${imageBaseUrl}${UserProfile.profile_picture}`
                   : " https://cdn-icons-png.flaticon.com/128/3135/3135715.png"
               }
               alt="Bonnie image"
@@ -230,7 +230,7 @@ function Profile() {
 
                 {UserProfile.resume ? (
                   <a
-                    href={`${imageBaseUrl}${UserProfile.resume}`}
+                    href={`${base_url}${UserProfile.resume}`}
                     target="_blank"
                   >
                     <p className="text-neutral-950 text-lg w-1/2 text-center font-mono bg-cyan-100 visited:text-cyan-600 border drop-shadow-2xl my-3 border-gray-800 rounded-lg p-2">
