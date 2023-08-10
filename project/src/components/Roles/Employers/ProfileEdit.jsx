@@ -7,6 +7,7 @@ import { setUserProfile } from '../../Features/Slice/authSlice';
 function ProfileEdit() {
 
   const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
+  const base_url = import.meta.env.VITE_FILES_BASE_URL
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {UserProfile} = useSelector((state)=>state.auth)
@@ -100,7 +101,7 @@ function ProfileEdit() {
      
 
       <div className="flex flex-col items-center rounded-lg  ">
-        <img className="object-cover h-36 w-36 mb-3 rounded-full drop-shadow-md  " src={profile?URL.createObjectURL(profile):formData.profile_picture?`${imageBaseUrl}${formData.profile_picture}`:'https://img.freepik.com/premium-vector/company-icon-simple-element-illustration-company-concept-symbol-design-can-be-used-web-mobile_159242-7784.jpg'}  alt=" image"/>
+        <img className="object-cover h-36 w-36 mb-3 rounded-full drop-shadow-md  " src={profile?URL.createObjectURL(profile):formData.profile_picture?`${base_url}${formData.profile_picture}`:'https://img.freepik.com/premium-vector/company-icon-simple-element-illustration-company-concept-symbol-design-can-be-used-web-mobile_159242-7784.jpg'}  alt=" image"/>
         {/* src={formData.profile_picture? URL.createObjectURL(`${imageBaseUrl}${formData.profile_picture}`):''} */}
         <label htmlFor="uploadFile">
               <i className="fa-solid fa-camera fa-lg cursor-pointer"></i>
