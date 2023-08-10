@@ -21,6 +21,7 @@ function Applicants() {
   const [reject, SetReject] = useState(false);
   const [RoomId,setRoomId] = useState(12)
   const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
+  const base_url = import.meta.env.VITE_FILES_BASE_URL
   useEffect(() => {
     fetchData();
   }, [offset]);
@@ -53,7 +54,7 @@ function Applicants() {
     console.log('application id',itemId)
     
     try {
-      const downloadUrl = `${imageBaseUrl}/${resumeUrl}`;
+      const downloadUrl = `${base_url}${resumeUrl}`;
       const response = await fetch(downloadUrl);
       const blob = await response.blob();
 
@@ -194,7 +195,7 @@ function Applicants() {
                       <td>
                         <span>
                           <a
-                            href={`${imageBaseUrl}${item.resume}`}
+                            href={`${base_url}${item.resume}`}
                             target="blank"
                             className="text-lime-950 "
                           >

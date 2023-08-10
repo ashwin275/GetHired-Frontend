@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 function CompanyProfile() {
     const {UserProfile} = useSelector((state)=>state.auth)
     const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
+    const base_url = import.meta.env.VITE_FILES_BASE_URL
   return (
    <div>
 
@@ -13,7 +14,7 @@ function CompanyProfile() {
     
 
     <div className="flex flex-col items-center rounded-lg drop-shadow-2xl ">
-        <img className="object-cover h-36 w-36 mb-3 rounded-full shadow-lg" src={UserProfile.profile_picture?`${imageBaseUrl}${UserProfile.profile_picture}`:"https://upload.wikimedia.org/wikipedia/commons/3/3a/M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg"} alt="Bonnie image"/>
+        <img className="object-cover h-36 w-36 mb-3 rounded-full shadow-lg" src={UserProfile.profile_picture?`${base_url}${UserProfile.profile_picture}`:"https://upload.wikimedia.org/wikipedia/commons/3/3a/M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg"} alt="Bonnie image"/>
         <h5 className="mb-1 text-3xl font-medium text-slate-950 uppercase dark:text-white font-serif">{UserProfile.company_name}</h5>
         {/* <span class="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span> */}
        

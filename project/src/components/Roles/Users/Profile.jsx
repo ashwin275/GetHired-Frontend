@@ -166,7 +166,7 @@ function Profile() {
               className="object-cover h-36 w-36 mb-3 rounded-full shadow-lg"
               src={
                 UserProfile.profile_picture
-                  ? `${imageBaseUrl}${UserProfile.profile_picture}`
+                  ? `${base_url}${UserProfile.profile_picture}`
                   : " https://cdn-icons-png.flaticon.com/128/3135/3135715.png"
               }
               alt="Bonnie image"
@@ -299,7 +299,7 @@ function Profile() {
                                 </p>
                                 {item.certificate ? (
                                   <a
-                                    href={`${imageBaseUrl}${item.certificate}`}
+                                    href={`${base_url}${item.certificate}`}
                                     target="_blank"
                                   >
                                     <p>

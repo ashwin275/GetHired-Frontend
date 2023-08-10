@@ -8,7 +8,7 @@ function LeftBar() {
   const { UserProfile } = useSelector((state) => state.auth);
   console.log("UserProfile", UserProfile);
   const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
-
+  const base_url = import.meta.env.VITE_FILES_BASE_URL
   useEffect(() => {
     console.log(userInfo);
     console.log(UserProfile, "my profileeeee");
@@ -50,7 +50,7 @@ function LeftBar() {
                 className="w-24 h-24 mb-3 rounded-full shadow-lg"
                 src={
                   UserProfile.profile_picture
-                    ? `${imageBaseUrl}${UserProfile.profile_picture}`
+                    ? `${base_url}${UserProfile.profile_picture}`
                     : "https://cdn-icons-png.flaticon.com/128/3135/3135715.png"
                 }
                 alt="User profile"
@@ -72,7 +72,7 @@ function LeftBar() {
                 className="card-img-top cursor-pointer"
                 src={
                   UserProfile.profile_picture
-                    ? `${imageBaseUrl}${UserProfile.profile_picture}`
+                    ? `${base_url}${UserProfile.profile_picture}`
                     : "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg/1200px-M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg"
                 }
                 alt="Company image"
