@@ -1,6 +1,7 @@
 
 import React ,{useContext}from "react";
-import { PaymentContext } from "../../Features/Context/payment";
+
+import { PaymentContext } from "../../Features/Context/Payments";
 import Modal from "react-bootstrap/Modal";
 function PaymentSuccess(props) {
   const { showPaymentSucces} = useContext(PaymentContext);
