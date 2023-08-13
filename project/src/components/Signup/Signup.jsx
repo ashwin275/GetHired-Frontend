@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axiosinstance from '../Axios/Axios';
+import publicInstance from '../Axios/PublicAxios';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import './Signup.css'
-import signupimage from '../../images/signup.gif'
+
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { signUpSchema } from '../../Schemas';
@@ -25,9 +26,11 @@ const initialValues = {
 
 
 const Signup = (props) => {
+  const [imagelink , setimageLink] = useState('https://assets-v2.lottiefiles.com/a/6beb774c-1166-11ee-a6f1-4788c8724adf/E9TtaYgKZu.gif')
   const [modalShow, setModalShow] = useState(false);
   const [Useremail,setUseremail] = useState('')
    const navigate = useNavigate()
+  
    const {values,errors,touched,handleBlur,handleChange,handleSubmit} = useFormik({
     initialValues:initialValues,
     validationSchema:signUpSchema,
@@ -44,9 +47,17 @@ const Signup = (props) => {
         is_seeker:props.title ==='USER',
         is_employer:props.title ==='EMPLOYERS'
       };
-  
+
+      useEffect(()=>{
+        if(props.title == 'USER'){
+          setimageLink('https://media.tenor.com/p0G_bmA2vSYAAAAd/login.gif')
+        }else if (props.title == 'EMPLOYERS'){
+          setimageLink('https://www.qrcrypher.com/frontend/images/Mobile%20login.gif')
+        }
+      
+       },[props.title])
       try {
-        const response = await axios.post('http://127.0.0.1:8000/api/register/', userData);
+        const response = await publicInstance.post('register/', userData);
        
         setUseremail(response.data.Userinfo.email)
        console.log(response)
@@ -166,7 +177,7 @@ const Signup = (props) => {
                      
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                      <img src={signupimage} className="img-fluid" alt="Sample image" />
+                      <img src={imagelink} className="img-fluid" alt="Sample image" />
                     </div>
                   </div>
                 </div>

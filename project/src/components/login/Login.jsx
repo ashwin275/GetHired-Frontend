@@ -1,11 +1,11 @@
-import React from "react";
-import signinimage from "../../images/Signin.gif";
+import React, { useEffect, useState } from "react";
+
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { SigninScheme } from "../../Schemas";
 import { useNavigate } from "react-router-dom";
-import axiosinstance from "../Axios/Axios";
-import axios from "axios";
+import publicInstance from "../Axios/PublicAxios";
+
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../Features/Slice/authSlice";
@@ -14,12 +14,21 @@ import { Link } from "react-router-dom";
 function Login(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [imagelink , setimageLink] = useState('https://media.tenor.com/p0G_bmA2vSYAAAAd/login.gif')
   const initialValues = {
     email: "",
     password: "",
   };
+ useEffect(()=>{
+  if(props.title == 'USER'){
+    setimageLink('https://media.tenor.com/p0G_bmA2vSYAAAAd/login.gif')
+  }else if (props.title == 'EMPLOYERS'){
+    setimageLink('https://rurutek.com/jio/assets/img/login-animate.gif')
+  }else if (props.title == 'ADMIN'){
+    setimageLink('https://financeadvisoras.com/assets/images/secure-login.gif')
+  }
 
+ },[props.title])
   let role = "";
   if (props.title === "USER") {
     role = "is_seeker";
@@ -41,7 +50,7 @@ function Login(props) {
         };
 
         try {
-          const response = await axios.post("http://127.0.0.1:8000/api/login/", userData, {
+          const response = await publicInstance.post("login/", userData, {
             withCredentials: true,
           });
           toast.success(`Welcome ${response.data.userInfo.first_name}`);
@@ -106,11 +115,11 @@ function Login(props) {
               <div className="card card-signup text-black shadow-lg p-3 mb-5 bg-white ">
                 <div className="card-body card-bodysignup p-md-5">
                   <div className="row justify-content-center">
-                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1  lg:py-5">
                       <p className="text-center h1  mb-5 mx-1 mx-md-4 mt-4 textsignup">
                         {props.title} LOGIN
                       </p>
-                      <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
+                      <form className="mx-1 mx-md-4 " onSubmit={handleSubmit} >
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
@@ -131,7 +140,7 @@ function Login(props) {
                           </div>
                         </div>
 
-                        <div className="d-flex flex-row align-items-center mb-4">
+                        <div className="d-flex flex-row align-items-center mb-4 ">
                           <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
                             <input
@@ -174,8 +183,8 @@ function Login(props) {
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2 ">
                       <img
-                        src={signinimage}
-                        className="img-fluid"
+                        src={imagelink}
+                        className={`img-fluid ${props.title == 'USER'?'h-4/5':null} mx-auto`}
                         alt="Sample image"
                       />
                     </div>

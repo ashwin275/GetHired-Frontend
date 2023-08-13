@@ -28,7 +28,7 @@ function Posts() {
   );
 
   return (
-    <div className=' p-4 scroll-smooth ' >
+    <div className=' p-4 md:min-h-[35rem]  scroll-smooth ' >
       <div className="mb-4 flex justify-end  ">
         <input
           type="text"

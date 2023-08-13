@@ -7,6 +7,7 @@ import { setUserProfile } from '../../Features/Slice/authSlice';
 function ProfileEdit() {
 
   const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
+  const base_url = import.meta.env.VITE_FILES_BASE_URL
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {UserProfile} = useSelector((state)=>state.auth)
@@ -100,7 +101,7 @@ function ProfileEdit() {
      
 
       <div className="flex flex-col items-center rounded-lg  ">
-        <img className="object-cover h-36 w-36 mb-3 rounded-full drop-shadow-md  " src={profile?URL.createObjectURL(profile):formData.profile_picture?`${imageBaseUrl}${formData.profile_picture}`:'https://img.freepik.com/premium-vector/company-icon-simple-element-illustration-company-concept-symbol-design-can-be-used-web-mobile_159242-7784.jpg'}  alt=" image"/>
+        <img className="object-cover h-36 w-36 mb-3 rounded-full drop-shadow-md  " src={profile?URL.createObjectURL(profile):formData.profile_picture?`${base_url}${formData.profile_picture}`:'https://img.freepik.com/premium-vector/company-icon-simple-element-illustration-company-concept-symbol-design-can-be-used-web-mobile_159242-7784.jpg'}  alt=" image"/>
         {/* src={formData.profile_picture? URL.createObjectURL(`${imageBaseUrl}${formData.profile_picture}`):''} */}
         <label htmlFor="uploadFile">
               <i className="fa-solid fa-camera fa-lg cursor-pointer"></i>
@@ -158,7 +159,7 @@ function ProfileEdit() {
               Mobile
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="location" 
+            id="company_mobile" 
             type="text" 
             placeholder="" 
             name='company_mobile'  
@@ -173,9 +174,9 @@ function ProfileEdit() {
               Location
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="job-type" 
+            id="location" 
             type="text" 
-            placeholder="Type of Job"   
+            placeholder="location"   
             name='location'
             onChange={handleInputChange}
             value={formData.location}/>
@@ -187,7 +188,7 @@ function ProfileEdit() {
               Company Address line 1
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="vaccancies" 
+            id="company_address_line1" 
             type="Text" 
             name='company_address_line1'
             onChange={handleInputChange}
@@ -201,7 +202,7 @@ function ProfileEdit() {
               Company Address line 2
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="vaccancies" 
+            id="company_address_line2" 
             type="Text" 
             name='company_address_line2'
             onChange={handleInputChange}
@@ -215,7 +216,7 @@ function ProfileEdit() {
               Website
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="vaccancies" 
+            id="company_website" 
             type="url" 
             name='company_website'
             onChange={handleInputChange}

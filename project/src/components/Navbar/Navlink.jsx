@@ -95,7 +95,8 @@ function Navlink() {
                   <Link to="/users/login" className="me-10">
                     Login
                   </Link>
-                  <Link to="/employers/login">Employers/Login</Link>
+                  <Link to="/employers/login" className="me-10">Employers/Login</Link>
+                  <Link to="/admin/login">Admin</Link>
                 </>
               )}
             </Nav>

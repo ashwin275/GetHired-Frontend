@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosinstance from '../Axios/Axios';
+import publicInstance from '../Axios/PublicAxios';
 import { toast } from 'react-toastify';
 import ClipLoader from 'react-spinners/ClipLoader';
 import logo from '../../images/emailsucess.gif';
@@ -19,7 +20,7 @@ function VerifyEmail() {
     const verifyEmail = async () => {
       setTimeout(async () => {
         try {
-          const response = await axios.get(`http://127.0.0.1:8000/api/verify-email/${token}/`);
+          const response = await publicInstance.get(`verify-email/${token}/`);
           setVerified(true);
           console.log(response.data.is_seeker)
           set_is_seeker(response.data.is_seeker); 

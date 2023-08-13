@@ -85,10 +85,10 @@ function LeftBar() {
               <h5 className="card-title font-serif">
                 {UserProfile.company_name}
               </h5>
-              <p className="text-muted ">
+             {UserProfile.location&& <p className="text-muted ">
                 <i className="fa-solid fa-location-dot">&nbsp;&nbsp;</i>
                 {UserProfile.location}
-              </p>
+              </p>}
             </div>
           </div>
         </>
