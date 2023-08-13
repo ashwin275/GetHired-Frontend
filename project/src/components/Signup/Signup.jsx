@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import axiosinstance from '../Axios/Axios';
 import publicInstance from '../Axios/PublicAxios';
 import axios from 'axios';
@@ -30,7 +30,14 @@ const Signup = (props) => {
   const [modalShow, setModalShow] = useState(false);
   const [Useremail,setUseremail] = useState('')
    const navigate = useNavigate()
+   useEffect(()=>{
+    if(props.title == 'USER'){
+      setimageLink('https://media.tenor.com/p0G_bmA2vSYAAAAd/login.gif')
+    }else if (props.title == 'EMPLOYERS'){
+      setimageLink('https://www.qrcrypher.com/frontend/images/Mobile%20login.gif')
+    }
   
+   },[props.title])
    const {values,errors,touched,handleBlur,handleChange,handleSubmit} = useFormik({
     initialValues:initialValues,
     validationSchema:signUpSchema,
@@ -48,14 +55,7 @@ const Signup = (props) => {
         is_employer:props.title ==='EMPLOYERS'
       };
 
-      useEffect(()=>{
-        if(props.title == 'USER'){
-          setimageLink('https://media.tenor.com/p0G_bmA2vSYAAAAd/login.gif')
-        }else if (props.title == 'EMPLOYERS'){
-          setimageLink('https://www.qrcrypher.com/frontend/images/Mobile%20login.gif')
-        }
-      
-       },[props.title])
+    
       try {
         const response = await publicInstance.post('register/', userData);
        

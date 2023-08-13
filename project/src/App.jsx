@@ -16,6 +16,7 @@ import Dashboard from "./components/Roles/Admin/Components/Dashboard";
 import Home from "./components/Base/Home";
 import Posts from "./components/Roles/Employers/Posts";
 import Add_post from "./components/Roles/Employers/Add_post";
+import AddPost from "./components/Roles/Employers/AddPost";
 import ManagePosts from "./components/Roles/Admin/Components/ManagePosts";
 
 import Navlink from "./components/Navbar/Navlink";
@@ -75,7 +76,7 @@ function App() {
               <Route path="" element={<EmployersHome />} />
               <Route path="home-view/*" element={<Home />}>
                 <Route path="" element={<Posts />} />
-                <Route path="add-post" element={<Add_post />} />
+                <Route path="add-post" element={<AddPost />} />
                 <Route path="post-detail/:postId/" element={<PostDetail />} />
                 <Route path="edit-post/:postId/" element={<PostEdit />} />
                 <Route path="profile" element={<CompanyProfile />} />

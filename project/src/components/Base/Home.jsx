@@ -5,7 +5,8 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Posts from "../Roles/Employers/Posts";
 import PostDetail from "../Roles/Employers/PostDetail";
 import RightBar from "./RightBar";
-import Add_post from "../Roles/Employers/Add_post";
+
+import AddPost from "../Roles/Employers/AddPost";
 import PostEdit from "../Roles/Employers/PostEdit";
 import CompanyProfile from "../Roles/Employers/CompanyProfile";
 import ProfileEdit from "../Roles/Employers/ProfileEdit";
@@ -62,7 +63,7 @@ function Home() {
                       path="/post-detail/:postId/"
                       element={<PostDetail />}
                     />
-                    <Route path="/add-post" element={<Add_post />} />
+                    <Route path="/add-post" element={<AddPost />} />
                     <Route path="profile" element={<CompanyProfile />} />
                     <Route path="edit-post/:postId/" element={<PostEdit />} />
                     <Route path="profile-edit" element={<ProfileEdit />} />
