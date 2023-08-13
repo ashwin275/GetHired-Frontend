@@ -15,7 +15,7 @@ import EmployersHome from "./components/Roles/Employers/EmployersHome";
 import Dashboard from "./components/Roles/Admin/Components/Dashboard";
 import Home from "./components/Base/Home";
 import Posts from "./components/Roles/Employers/Posts";
-import Add_post from "./components/Roles/Employers/Add_post";
+
 import AddPost from "./components/Roles/Employers/AddPost";
 import ManagePosts from "./components/Roles/Admin/Components/ManagePosts";
 
