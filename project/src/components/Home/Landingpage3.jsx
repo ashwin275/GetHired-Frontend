@@ -1,5 +1,5 @@
 import React from "react";
-import landing1 from "../../images/landing2.gif";
+
 import { Link } from "react-router-dom";
 function Landingpage3() {
 
@@ -9,7 +9,7 @@ function Landingpage3() {
       <div className="w-full flex flex-col md:flex md:flex-row lg:py-9 md:h-[29rem]  p-2">
         <div className="w-full md:w-1/2 h-1/2  md:h-full bg-grey-200">
           <div className="w-full flex justify-center">
-            <img className=" w-5/5 h-5/5 " src={landing1}></img>
+            <img className=" w-5/5 h-5/5 " src="https://www.zohowebstatic.com/sites/zweb/images/recruit/checkr-integration-animation.gif" alt="Image"></img>
           </div>
         </div>
 

@@ -11,7 +11,8 @@ export const useSocket = ()=>{
 }
 
 
-var ws_path = "ws://127.0.0.1:8000/ws/chat/";
+var ws_path = "wss://ebikesforu.shop/ws/chat/";
+// var ws_path = "ws://127.0.0.1:8000/ws/chat/";
 
 
 

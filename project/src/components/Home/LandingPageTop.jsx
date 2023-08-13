@@ -1,5 +1,5 @@
 import React from 'react'
-import landing1 from '../../images/landing1.gif'
+
 import { Link } from 'react-router-dom'
 function LandingPageTop() {
   return (
@@ -24,7 +24,7 @@ function LandingPageTop() {
             <div className='w-full md:w-1/2 h-1/2  md:h-full  mb-5'>
 
                 <div className='w-full flex justify-center'>
-                    <img  className=' w-4/5 h-4/5 'src={landing1}></img>
+                    <img  className=' w-4/5 h-4/5 'src="https://cdn.shrm.org/image/upload/c_crop%2Ch_1080%2Cw_1080%2Cx_0%2Cy_0/c_fit%2Cf_auto%2Cq_auto%2Cw_767/v1/Talent%20Acquisition/202101-Talent-Trends-3_bubea5" alt='image'></img>
                 </div>
 
             </div>

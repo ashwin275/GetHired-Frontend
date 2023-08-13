@@ -159,7 +159,7 @@ function ProfileEdit() {
               Mobile
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="location" 
+            id="company_mobile" 
             type="text" 
             placeholder="" 
             name='company_mobile'  
@@ -174,9 +174,9 @@ function ProfileEdit() {
               Location
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="job-type" 
+            id="location" 
             type="text" 
-            placeholder="Type of Job"   
+            placeholder="location"   
             name='location'
             onChange={handleInputChange}
             value={formData.location}/>
@@ -188,7 +188,7 @@ function ProfileEdit() {
               Company Address line 1
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="vaccancies" 
+            id="company_address_line1" 
             type="Text" 
             name='company_address_line1'
             onChange={handleInputChange}
@@ -202,7 +202,7 @@ function ProfileEdit() {
               Company Address line 2
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="vaccancies" 
+            id="company_address_line2" 
             type="Text" 
             name='company_address_line2'
             onChange={handleInputChange}
@@ -216,7 +216,7 @@ function ProfileEdit() {
               Website
             </label>
             <input className="appearance-none block w-full bg-stone-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-            id="vaccancies" 
+            id="company_website" 
             type="url" 
             name='company_website'
             onChange={handleInputChange}

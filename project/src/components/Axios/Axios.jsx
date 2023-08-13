@@ -5,7 +5,9 @@ import dayjs from 'dayjs';
 import jwt_decode from 'jwt-decode';
 
 
-const  baseURL = "http://127.0.0.1:8000/api/"
+
+const baseURL = "https://www.ebikesforu.shop/api/"
+// const  baseURL = "http://127.0.0.1:8000/api/"
 
 let authTokens = Cookies.get('Tokens') ? JSON.parse(Cookies.get('Tokens')) : null;
 console.log(authTokens,'tokennnnns')
