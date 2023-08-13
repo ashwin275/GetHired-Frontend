@@ -4,7 +4,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 import Paypals from "./Paypals";
 import PaymentSuccess from "./PaymentSuccess";
-import { PaymentContext } from "../../Features/Context/payment";
+import { PaymentContext } from "../../Features/Context/Payments";
 
 
 function ViewPostPlan() {
