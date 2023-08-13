@@ -47,7 +47,7 @@ function LeftBar() {
             </div>
             <div className="flex flex-col items-center pb-10" type='button' onClick={HandleProfile}>
               <img
-                className="w-24 h-24 mb-3 rounded-full shadow-lg"
+                className="w-24 h-24 mb-3 rounded-full shadow-lg p-3"
                 src={
                   UserProfile.profile_picture
                     ? `${base_url}${UserProfile.profile_picture}`
@@ -66,10 +66,10 @@ function LeftBar() {
         </>
       ) : (
         <>
-          <div className="card  drop-shadow-lg  ">
+          <div className="card  drop-shadow-lg   ">
             <Link to={"profile"}>
               <img
-                className="card-img-top cursor-pointer"
+                className="card-img-top cursor-pointer mx-auto "
                 src={
                   UserProfile.profile_picture
                     ? `${base_url}${UserProfile.profile_picture}`
