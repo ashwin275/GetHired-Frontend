@@ -30,7 +30,8 @@ import PostEdit from "./components/Roles/Employers/PostEdit";
 import CompanyProfile from "./components/Roles/Employers/CompanyProfile";
 import ProfileEdit from "./components/Roles/Employers/ProfileEdit";
 import ViewPostPlan from "./components/Roles/Employers/ViewPostPlan";
-import Payment from "./components/Features/Context/payment";
+
+import Payments from "./components/Features/Context/Payments";
 import Jobs from "./components/Roles/Users/Jobs";
 import EditPofile from "./components/Roles/Users/EditPofile";
 import AppliedJobs from "./components/Roles/Users/AppliedJobs";
@@ -47,7 +48,7 @@ function App() {
       <ToastContainer />
       
       {!isAdminSection && <Navlink />}
-      <Payment>
+      <Payments>
         <Routes>
           <Route path="/" element={<Landingpage />} exact />
 
@@ -110,7 +111,7 @@ function App() {
           <Route path="/verify-email/:token/" element={<VerifyEmail />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-      </Payment>
+      </Payments>
       <Footer />
     </div>
   );
