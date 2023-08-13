@@ -1,7 +1,8 @@
 import React, { useEffect, useState ,useContext} from "react";
 import axiosInstance from "../../Axios/Axios";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import Paypal from "./paypal";
+
+import Paypals from "./Paypals";
 import PaymentSuccess from "./PaymentSuccess";
 import { PaymentContext } from "../../Features/Context/payment";
 
@@ -165,7 +166,7 @@ function ViewPostPlan() {
                   )}
                 </ul>
                 <div className="flex  justify-center ">
-                 <Paypal amount={item.amount} id={item.id} />
+                 <Paypals amount={item.amount} id={item.id} />
                 </div>
               </div>
             ))

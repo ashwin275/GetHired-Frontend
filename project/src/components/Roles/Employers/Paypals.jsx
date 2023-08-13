@@ -4,7 +4,7 @@ import axiosInstance from "../../Axios/Axios";
 import { useDispatch } from "react-redux";
 import { setPostBalance } from "../../Features/Slice/authSlice";
 import { PaymentContext } from "../../Features/Context/payment";
-function Paypal(props) {
+function Paypals(props) {
   const { showPaymentSucces} = useContext(PaymentContext);
   //   const [modalShow, setModalShow] = useState(false);
   // const client_id = import.meta.env.VITE_PAYPAL_CLIENT_ID;
@@ -86,4 +86,4 @@ function Paypal(props) {
   );
 }
 
-export default Paypal;
+export default Paypals;
