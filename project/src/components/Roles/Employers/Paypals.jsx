@@ -3,7 +3,8 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import axiosInstance from "../../Axios/Axios";
 import { useDispatch } from "react-redux";
 import { setPostBalance } from "../../Features/Slice/authSlice";
-import { PaymentContext } from "../../Features/Context/payment";
+
+import { PaymentContext } from "../../Features/Context/Payments";
 function Paypals(props) {
   const { showPaymentSucces} = useContext(PaymentContext);
   //   const [modalShow, setModalShow] = useState(false);
