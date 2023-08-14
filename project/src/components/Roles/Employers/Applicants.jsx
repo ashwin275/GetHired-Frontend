@@ -53,25 +53,23 @@ function Applicants() {
   };
 
 
-  const handleDownload = async (resumeUrl, itemId) => {
-    console.log('application id', itemId);
-  
+  const handleDownload = async (userId,user_email,ApplicationId) => {
     try {
-      const downloadUrl = `${base_url}${resumeUrl}`;
-      const response = await axios.get(downloadUrl, { responseType: 'blob' });
-     console.log(response)
-      const blob = new Blob([response.data], { type: response.headers['content-type'] });
-  
+      const response = await axiosInstance.get(`recruiters/download-resume/${userId}/`, {
+        responseType: 'blob',
+      });
+      console.log(response)
+
+      const blob = new Blob([response.data], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
-  
+
       const anchor = document.createElement('a');
       anchor.href = url;
-      anchor.download = 'resume.pdf';
+      anchor.download = `${user_email}_resume.pdf`;
       anchor.click();
-  
+
       URL.revokeObjectURL(url);
-  
-      await callbackeapi_send_mail(itemId);
+      callbackeapi_send_mail(ApplicationId)
     } catch (error) {
       console.log('Error downloading the resume:', error);
     }
@@ -198,21 +196,21 @@ function Applicants() {
                         <Daysago created={item.created} />
                       </td>
                       <td>
-                        <span>
+                     {item.resume?(<> <span>
                           <a
                             href={`${base_url}${item.resume}`}
                             target="blank"
                             className="text-lime-950 "
                           >
                             <i className="fa-solid fa-eye "></i> 
-                          </a>{" "}
-                        </span>{" "}
+                          </a>
+                        </span>
                         <button
-                          onClick={() => handleDownload(item.resume,item.id)}
+                          onClick={() => handleDownload(item.user_id,item.user,item.id)}
                           className="ms-3"
                         >
                           <i className="fa-solid fa-download"></i>
-                        </button>
+                        </button></>):(<><i class="fa-solid fa-ban"></i></>)}  
                       </td>
                       <td className="w-20">
                         {item.status != "rejected" && (
