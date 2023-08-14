@@ -3,6 +3,7 @@ import axiosadminInstance from "../../../Axios/AdminAxios";
 import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Loaders from "../../../LoadingSpinner/Loaders";
 
 function ManagePosts() {
   const [Posts, setPosts] = useState([]);
@@ -11,6 +12,7 @@ function ManagePosts() {
   const [show_edit_modal, setshow_edit_modal] = useState(false);
 
   const handleClose = () => setShow(false);
+  const [isLoading, setIsloading] = useState(true);
   const [detail, setDetail] = useState();
   const [modifiedData, setModifiedData] = useState({});
   const [Addpost, setAddpost] = useState(false);
@@ -32,6 +34,7 @@ function ManagePosts() {
     try {
       const response = await axiosadminInstance.get("admin/view-post-plans/");
       setPosts(response.data.data);
+      setIsloading(false)
     } catch (error) {
       console.log(error);
     }
@@ -51,6 +54,7 @@ function ManagePosts() {
       setDetail(response.data.data);
       console.log(response.data.data);
       setshow_edit_modal(true);
+     
     } catch (error) {
       console.log(error);
     }
@@ -154,156 +158,166 @@ function ManagePosts() {
       >
         Create a new plan
       </button>
-      <div className="w-full p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8  ">
-        <div className="grid mb-8   dark:border-gray-700 md:mb-12 md:grid-cols-2">
-          {Posts.length > 0 ? (
-            Posts.map((item) => (
-              <div
-                className="w-5/6 mx-auto  m-2 max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 place-content-stretch"
-                key={item.id}
-              >
-                <h5 className="mb-4 text-xl font-medium text-gray-500 capitalize">
-                  {item.planName}
-                </h5>
-                <div className="flex items-baseline text-gray-900 }">
-                  <span className="text-3xl font-semibold">$</span>
-                  <span className="text-5xl font-extrabold tracking-tight">
-                    {item.amount}
-                  </span>
-                  <span className="ml-1 text-xl font-normal text-gray-500 ">
-                    /plan
-                  </span>
-                </div>
+      {isLoading ? (
+        <>
+          <div className="w-full h-96 flex justify-center  ">
+          <div className="mt-32"><Loaders /></div>  
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="w-full p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8  ">
+            <div className="grid mb-8   dark:border-gray-700 md:mb-12 md:grid-cols-2">
+              {Posts.length > 0 ? (
+                Posts.map((item) => (
+                  <div
+                    className="w-5/6 mx-auto  m-2 max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 place-content-stretch"
+                    key={item.id}
+                  >
+                    <h5 className="mb-4 text-xl font-medium text-gray-500 capitalize">
+                      {item.planName}
+                    </h5>
+                    <div className="flex items-baseline text-gray-900 }">
+                      <span className="text-3xl font-semibold">$</span>
+                      <span className="text-5xl font-extrabold tracking-tight">
+                        {item.amount}
+                      </span>
+                      <span className="ml-1 text-xl font-normal text-gray-500 ">
+                        /plan
+                      </span>
+                    </div>
 
-                <ul role="list" className="space-y-5 my-7">
-                  <li className="flex space-x-3">
-                    <svg
-                      aria-hidden="true"
-                      className="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <ul role="list" className="space-y-5 my-7">
+                      <li className="flex space-x-3">
+                        <svg
+                          aria-hidden="true"
+                          className="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <title>Check icon</title>
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clipRule="evenodd"
+                          ></path>
+                        </svg>
+                        <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
+                          {item.no_of_count} posts{" "}
+                        </span>
+                      </li>
+                      {item.feature_one && (
+                        <li className="flex space-x-3">
+                          <svg
+                            aria-hidden="true"
+                            className="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <title>Check icon</title>
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                          <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
+                            {item.feature_one}
+                          </span>
+                        </li>
+                      )}
+
+                      {item.feature_two && (
+                        <li className="flex space-x-3">
+                          <svg
+                            aria-hidden="true"
+                            className="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <title>Check icon</title>
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                          <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
+                            {item.feature_two}
+                          </span>
+                        </li>
+                      )}
+
+                      {item.feature_three && (
+                        <li className="flex space-x-3">
+                          <svg
+                            aria-hidden="true"
+                            className="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <title>Check icon</title>
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                          <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
+                            {item.feature_three}
+                          </span>
+                        </li>
+                      )}
+
+                      {item.feature_four && (
+                        <li className="flex space-x-3">
+                          <svg
+                            aria-hidden="true"
+                            className="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <title>Check icon</title>
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            ></path>
+                          </svg>
+                          <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
+                            {item.feature_four}
+                          </span>
+                        </li>
+                      )}
+                    </ul>
+                    <button
+                      className="rounded-full border bg-slate-100 w-12 h-12 mt-4 mb-4 hover:bg-gray-300 text-lg drop-shadow-lg text-lime-900"
+                      onClick={() => HandleEdit(item.id)}
                     >
-                      <title>Check icon</title>
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                      {item.no_of_count} posts{" "}
-                    </span>
-                  </li>
-                  {item.feature_one && (
-                    <li className="flex space-x-3">
-                      <svg
-                        aria-hidden="true"
-                        className="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <title>Check icon</title>
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
-                      <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                        {item.feature_one}
-                      </span>
-                    </li>
-                  )}
-
-                  {item.feature_two && (
-                    <li className="flex space-x-3">
-                      <svg
-                        aria-hidden="true"
-                        className="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <title>Check icon</title>
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
-                      <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                        {item.feature_two}
-                      </span>
-                    </li>
-                  )}
-
-                  {item.feature_three && (
-                    <li className="flex space-x-3">
-                      <svg
-                        aria-hidden="true"
-                        className="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <title>Check icon</title>
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
-                      <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                        {item.feature_three}
-                      </span>
-                    </li>
-                  )}
-
-                  {item.feature_four && (
-                    <li className="flex space-x-3">
-                      <svg
-                        aria-hidden="true"
-                        className="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <title>Check icon</title>
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
-                      <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">
-                        {item.feature_four}
-                      </span>
-                    </li>
-                  )}
-                </ul>
-                <button
-                  className="rounded-full border bg-slate-100 w-12 h-12 mt-4 mb-4 hover:bg-gray-300 text-lg drop-shadow-lg text-lime-900"
-                  onClick={() => HandleEdit(item.id)}
-                >
-                  <i className="fa-regular fa-pen-to-square"></i>
-                </button>
-                <button
-                  className="rounded-full border bg-red-200  w-12 h-12 mt-4 mb-4 ml-5 hover:bg-gray-300 text-lg drop-shadow-lg text-rose-800"
-                  onClick={() => HandleDelete(item.id)}
-                >
-                  <i className="fa-solid fa-trash"></i>
-                </button>
-              </div>
-            ))
-          ) : (
-            <h1 className="text-2xl font-serif font-semibold text-gray-500">
-              Sory You dont have any post plan ....
-            </h1>
-          )}
-        </div>
-      </div>
+                      <i className="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button
+                      className="rounded-full border bg-red-200  w-12 h-12 mt-4 mb-4 ml-5 hover:bg-gray-300 text-lg drop-shadow-lg text-rose-800"
+                      onClick={() => HandleDelete(item.id)}
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <h1 className="text-2xl font-serif font-semibold text-gray-500">
+                  Sory You dont have any post plan ....
+                </h1>
+              )}
+            </div>
+          </div>
+        </>
+      )}
 
       {/* modal */}
 

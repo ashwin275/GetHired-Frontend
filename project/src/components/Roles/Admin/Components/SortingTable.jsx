@@ -11,6 +11,7 @@ import { COLUMNS, GROUPED_COLUMNS } from "./column";
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Loaders from "../../../LoadingSpinner/Loaders";
 
 function SortingTable(props) {
   const [userlist, setUserlist] = useState([]);
@@ -277,7 +278,11 @@ function SortingTable(props) {
           </tbody>
         </Table>
       ) : (
-        <p>Loading data...</p>
+       <>
+       <div className="w-full h-96 lg:h-[28rem]  flex items-center justify-center ">
+       <Loaders/>
+       </div>
+      </>
       )}
 
       <div className="flex justify-center mt-4">

@@ -2,9 +2,11 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 
 function CompanyProfile() {
+  const {userInfo} = useSelector((state)=>state.auth)
     const {UserProfile} = useSelector((state)=>state.auth)
     const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
     const base_url = import.meta.env.VITE_FILES_BASE_URL
+    console.log(userInfo)
   return (
    <div>
 
@@ -14,7 +16,7 @@ function CompanyProfile() {
     
 
     <div className="flex flex-col items-center rounded-lg drop-shadow-2xl ">
-        <img className="object-cover h-36 w-36 mb-3 rounded-full shadow-lg" src={UserProfile.profile_picture?`${base_url}${UserProfile.profile_picture}`:"https://upload.wikimedia.org/wikipedia/commons/3/3a/M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg"} alt="Bonnie image"/>
+        <img className="object-cover h-36 w-36 mb-3 rounded-full shadow-lg" src={UserProfile.profile_picture?`${base_url}${UserProfile.profile_picture}`:"https://img.freepik.com/premium-vector/workers-warehouse-storage-facility-sorting-labeling-items-barcode-scanning-barcode_566886-2423.jpg?w=2000"} alt="Bonnie image"/>
         <h5 className="mb-1 text-3xl font-medium text-slate-950 uppercase dark:text-white font-serif">{UserProfile.company_name}</h5>
         {/* <span class="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span> */}
        
@@ -27,29 +29,29 @@ function CompanyProfile() {
     
 <div className='   w-full lg:w-1/2  text-start  '>
    
-    <p  className='text-base text-current my-3 font-sans'>email : <span className='font-mono text-xl text-neutral-950 font-medium'>{UserProfile.company_email}</span></p>
-    <p  className='text-base text-current  my-2 font-sans'>Mobile : <span className='font-mono text-xl text-neutral-950 font-medium'>{UserProfile.company_mobile}</span></p>
+    <p  className='text-base text-current my-3 font-sans'>email : <span className='font-mono text-xl text-neutral-950 font-medium'>{UserProfile.company_email?UserProfile.company_email:'********'}</span></p>
+    <p  className='text-base text-current  my-2 font-sans'>Mobile : <span className='font-mono text-xl text-neutral-950 font-medium'>{UserProfile.company_mobile?UserProfile.company_mobile:'********'}</span></p>
    
 </div>
 <div className=' w-full lg:w-1/2 lg:ml-6 lg:mt-5 text-start'>
-<p  className='text-base text-current lg:my-1  font-sans'>Registerd name : <span className='font-mono text-xl text-neutral-950 font-medium'>{UserProfile.company_name}</span></p>
-<p  className='text-base text-current my-2 font-sans'>Location : <span className='font-mono text-xl text-neutral-950 font-medium'>{UserProfile.location}</span></p>
+<p  className='text-base text-current lg:my-1  font-sans'>Registerd name : <span className='font-mono text-xl text-neutral-950 font-medium'>{UserProfile.company_name?UserProfile.company_name:'********'}</span></p>
+<p  className='text-base text-current my-2 font-sans'>Location : <span className='font-mono text-xl text-neutral-950 font-medium'>{UserProfile.location?UserProfile.location:'********'}</span></p>
     
 </div>
 
 </div>
 <div className='w-full text-start'>
-<p  className='text-base text-current lg:my-2  font-sans'>Address line 1 : <span className='font-mono text-xl text-neutral-950 font-medium break-words'>{UserProfile.company_address_line1}</span></p>
-<p  className='text-base text-current    font-sans'>Address line 2 : <span className='font-mono text-xl lg:my-3 text-neutral-950 font-medium break-words'>{UserProfile.company_address_line2}</span></p>
-<p  className='text-base text-current my-3 font-sans'>  <a href={UserProfile.company_website} target="blank" className="text-blue-300 bg-cyan-50 visited:text-cyan-600 border drop-shadow-2xl my-3 border-gray-800 rounded-lg p-2">
+<p  className='text-base text-current lg:my-2  font-sans'>Address line 1 : <span className='font-mono text-xl text-neutral-950 font-medium break-words'>{UserProfile.company_address_line1?UserProfile.company_address_line1:'********'}</span></p>
+<p  className='text-base text-current    font-sans'>Address line 2 : <span className='font-mono text-xl lg:my-3 text-neutral-950 font-medium break-words'>{UserProfile.company_address_line2?UserProfile.company_address_line2:'********'}</span></p>
+{UserProfile.company_website&&<p  className='text-base text-current my-3 font-sans'>  <a href={UserProfile.company_website} target="blank" className="text-blue-300 bg-cyan-50 visited:text-cyan-600 border drop-shadow-2xl my-3 border-gray-800 rounded-lg p-2">
   Company Site
-</a> </p>
+</a> </p>}
 
      
 </div>
 <div className='w-full text-center'>
 <p  className='text-base text-current lg:my-2 text-center my-4  font-serif font-medium text-xl'>About </p>
-<p  className='text-base text-current break-words    font-sans'> <span className='font-mono text-xl lg:my-3 text-neutral-950 font-medium break-words'>{UserProfile.description}</span></p>
+<p  className='text-base text-current break-words    font-sans'> <span className='font-mono text-xl lg:my-3 text-neutral-950 font-medium break-words'>{UserProfile.description?UserProfile.description:'********'}</span></p>
 
 
      

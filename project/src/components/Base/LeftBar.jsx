@@ -69,11 +69,11 @@ function LeftBar() {
           <div className="card  drop-shadow-lg   ">
             <Link to={"profile"}>
               <img
-                className="card-img-top cursor-pointer object-cover h-36 w-36 mx-auto  "
+                className="card-img-top cursor-pointer object-cover h-40 w-40 mx-auto  rounded-full p-2 "
                 src={
                   UserProfile.profile_picture
                     ? `${base_url}${UserProfile.profile_picture}`
-                    : "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg/1200px-M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg"
+                    : "https://img.freepik.com/free-vector/company-concept-illustration_114360-2581.jpg?w=2000"
                 }
                 alt="Company image"
               />
