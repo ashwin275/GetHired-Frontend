@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axiosinstance from '../Axios/Axios';
+
 import publicInstance from '../Axios/PublicAxios';
 import { toast } from 'react-toastify';
 import ClipLoader from 'react-spinners/ClipLoader';
 import logo from '../../images/emailsucess.gif';
-import axios from 'axios';
+
 
 import './email.css';
 
@@ -49,11 +49,11 @@ function VerifyEmail() {
     if (isVerified) {
       if (isVerified && is_seeker) {
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/users'; 
+          window.location.href = 'https://gethiredin.netlify.app/users'; 
         }, 10000);
       } else {
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/employers'; 
+          window.location.href = 'https://gethiredin.netlify.app/employers'; 
         }, 10000);
       }
     }
@@ -73,7 +73,7 @@ function VerifyEmail() {
   }, [isVerified, countdown]);
 
   return !isVerified ? (
-    <div className=' mt-8 mb-8 p-5'>
+    <div className=' mt-8 mb-8 p-5 h-screen'>
       
     {!FourNOtFour ? (
       <>
@@ -84,7 +84,7 @@ function VerifyEmail() {
   </div>
     
   ) : (
-    <div className="main">
+    <div className="main h-screen">
       <div className="textparent">
         <h1 className="verified text-3xl">
           Email verified <i className="fa-sharp fa-solid fa-circle-check fa-beat"></i>

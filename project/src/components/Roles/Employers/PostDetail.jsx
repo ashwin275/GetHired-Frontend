@@ -4,6 +4,7 @@ import axiosInstance from "../../Axios/Axios";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
+import Loaders from "../../LoadingSpinner/Loaders";
 
 function PostDetail() {
   const { postId } = useParams();
@@ -60,7 +61,7 @@ function PostDetail() {
   };
 
   if (!detail) {
-    return <div>Loading...</div>;
+    return <div className="w-full h-full  flex items-center justify-center"><Loaders/></div>;
   }
 
   return (

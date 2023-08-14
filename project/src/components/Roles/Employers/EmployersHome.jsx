@@ -5,6 +5,7 @@ import Home from '../../Base/Home';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Axios/Axios';
 import { setUserProfile ,setPostBalance} from '../../Features/Slice/authSlice';
+import InnerLoader from '../../LoadingSpinner/InnerLoader';
 
 function EmployersHome() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function EmployersHome() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false); // After 3 seconds, set loading state to false
-    }, 1000);
+    }, 2000);
 
     return () => clearTimeout(timer); // Cleanup the timer when the component unmounts
   }, []);
@@ -41,15 +42,17 @@ function EmployersHome() {
 
   return loading ? (
     
-    <div className="spinner">
-      {/* Add your spinner component or loading indicator here */}
-      Loading...
-    </div>
+
+     <InnerLoader/>
+  
+     
+
   ) : (
+    <div className='h-screen '></div>
     // <p>gvhjkm</p>
     // // <Home />
     // navigate('employers')
-    console.log('something wrong')
+   
     
   );
 }

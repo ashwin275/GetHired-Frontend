@@ -6,6 +6,8 @@ import Daysago from "../Users/Daysago";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import iconmsg from "../../../images/msgiconblack.png"
+import axios from "axios";
+import Loaders from "../../LoadingSpinner/Loaders";
 function Applicants() {
   const navigate = useNavigate()
   const { postId } = useParams();
@@ -50,28 +52,31 @@ function Applicants() {
     }
   };
 
-  const handleDownload = async (resumeUrl,itemId) => {
-    console.log('application id',itemId)
-    
+
+  const handleDownload = async (resumeUrl, itemId) => {
+    console.log('application id', itemId);
+  
     try {
       const downloadUrl = `${base_url}${resumeUrl}`;
-      const response = await fetch(downloadUrl);
-      const blob = await response.blob();
-
+      const response = await axios.get(downloadUrl, { responseType: 'blob' });
+     console.log(response)
+      const blob = new Blob([response.data], { type: response.headers['content-type'] });
+  
       const url = URL.createObjectURL(blob);
-
-      const anchor = document.createElement("a");
+  
+      const anchor = document.createElement('a');
       anchor.href = url;
-      anchor.download = "resume.pdf";
+      anchor.download = 'resume.pdf';
       anchor.click();
-
+  
       URL.revokeObjectURL(url);
-
+  
       await callbackeapi_send_mail(itemId);
     } catch (error) {
-      console.log("Error downloading the resume:", error);
+      console.log('Error downloading the resume:', error);
     }
   };
+  
 
   const callbackeapi_send_mail = async(itemId)=>{
     try{
@@ -263,7 +268,7 @@ function Applicants() {
             </div>
           </>
         ) : (
-          <p>loading</p>
+          <p><Loaders/></p>
         )}
 
         <Modal show={show} onHide={handleClose}>

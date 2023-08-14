@@ -97,9 +97,9 @@ function Profile() {
           }
         );
         console.log(response);
-        fetchExperience();
+       
         setAddExperience(true);
-        setshow_edit_modal(false);
+        
         toast.success(response.data.message);
         setModifiedData({});
         setFormData({
@@ -109,6 +109,8 @@ function Profile() {
           end: "",
           description: "",
         });
+        fetchExperience();
+        setshow_edit_modal(false);
       } catch (error) {
         console.log(error);
         toast.error(error.response.data.error.non_field_errors[0]);
@@ -135,9 +137,14 @@ function Profile() {
   const ConfirmDelete = async () => {
     try {
       const response = await axiosInstance.delete(`delete-expereince/${Id}/`);
-      setShow(false);
+      
       fetchExperience();
+     
       toast.success(response.data.message);
+      setShow(false);
+      if (experiences.length ==1){
+        setexperiences({})
+      }
     } catch (error) {
       console.log(error);
     }
@@ -167,9 +174,9 @@ function Profile() {
               src={
                 UserProfile.profile_picture
                   ? `${base_url}${UserProfile.profile_picture}`
-                  : " https://cdn-icons-png.flaticon.com/128/3135/3135715.png"
+                  : "https://cdn.pixabay.com/animation/2022/12/01/17/03/17-03-11-60_512.gif"
               }
-              alt="Bonnie image"
+              alt="Profile"
             />
 
             <h5 className="mb-1 text-3xl font-medium text-slate-950 uppercase dark:text-white font-serif">
@@ -239,7 +246,7 @@ function Profile() {
                   </a>
                 ) : (
                   <p
-                    className="text-neutral-950 text-lg w-1/2 text-center bg-cyan-50 visited:text-cyan-600 border drop-shadow-2xl my-3 border-gray-800 rounded-lg p-2"
+                    className="text-neutral-950  w-1/2 text-center bg-cyan-50 visited:text-cyan-900 border drop-shadow-2xl my-3 border-gray-800 rounded-lg p-2 text-sm text-bold"
                     type="button"
                     onClick={handleEdit}
                   >

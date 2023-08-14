@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../Axios/Axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Loaders from '../../LoadingSpinner/Loaders';
 
 function PostEdit() {
 
@@ -108,7 +109,7 @@ function PostEdit() {
 
 
  if(!detail){
-  return <div>Loading</div>
+  return <div><Loaders/></div>
  }else{
 
 

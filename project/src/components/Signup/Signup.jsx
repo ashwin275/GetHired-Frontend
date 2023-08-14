@@ -26,15 +26,17 @@ const initialValues = {
 
 
 const Signup = (props) => {
-  const [imagelink , setimageLink] = useState('https://assets-v2.lottiefiles.com/a/6beb774c-1166-11ee-a6f1-4788c8724adf/E9TtaYgKZu.gif')
+  const [imagelink , setimageLink] = useState('https://st.depositphotos.com/18722762/51522/v/450/depositphotos_515228796-stock-illustration-online-registration-sign-login-account.jpg')
   const [modalShow, setModalShow] = useState(false);
   const [Useremail,setUseremail] = useState('')
    const navigate = useNavigate()
    useEffect(()=>{
     if(props.title == 'USER'){
-      setimageLink('https://media.tenor.com/p0G_bmA2vSYAAAAd/login.gif')
+      console.log('chages to user')
+      setimageLink('https://st.depositphotos.com/18722762/51522/v/450/depositphotos_515228796-stock-illustration-online-registration-sign-login-account.jpg')
     }else if (props.title == 'EMPLOYERS'){
-      setimageLink('https://www.qrcrypher.com/frontend/images/Mobile%20login.gif')
+      console.log('chages to employer')
+      setimageLink('https://img.freepik.com/premium-vector/employment-agency-recruitment-placement-job-service-illustration_2175-5071.jpg')
     }
   
    },[props.title])
@@ -167,7 +169,7 @@ const Signup = (props) => {
                     props.title !== 'ADMIN' ? (
                       <div className="text-center mt-3 font-serif text-xl">
                         <p className="text-stone-500 underline decoration-dotted hover:decoration-dashed">
-                          Already have an account? <Link to={props.title === 'USER' ? '/users' : '/employers'} className="font-medium">SignIn</Link>
+                         <Link to={props.title === 'USER' ? '/users' : '/employers'} className="font-medium">  Already have an account? SignIn</Link>
                         </p>
                       </div>
                     ) : null
@@ -177,7 +179,7 @@ const Signup = (props) => {
                      
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                      <img src={imagelink} className="img-fluid" alt="Sample image" />
+                      <img src={imagelink} className="object-cover " alt="Sample image" />
                     </div>
                   </div>
                 </div>

@@ -51,7 +51,7 @@ function LeftBar() {
                 src={
                   UserProfile.profile_picture
                     ? `${base_url}${UserProfile.profile_picture}`
-                    : "https://cdn-icons-png.flaticon.com/128/3135/3135715.png"
+                    : "https://cdn.pixabay.com/animation/2022/12/01/17/03/17-03-11-60_512.gif"
                 }
                 alt="User profile"
               />
@@ -69,7 +69,7 @@ function LeftBar() {
           <div className="card  drop-shadow-lg   ">
             <Link to={"profile"}>
               <img
-                className="card-img-top cursor-pointer mx-auto "
+                className="card-img-top cursor-pointer object-cover h-36 w-36 mx-auto  "
                 src={
                   UserProfile.profile_picture
                     ? `${base_url}${UserProfile.profile_picture}`

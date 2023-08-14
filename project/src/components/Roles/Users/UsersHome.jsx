@@ -42,7 +42,7 @@ function UsersHome() {
     
     <div className="spinner">
      
-      Loading...
+      
     </div>
   ) : (
     

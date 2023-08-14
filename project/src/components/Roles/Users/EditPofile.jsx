@@ -128,7 +128,7 @@ function EditPofile() {
                   ? URL.createObjectURL(profile)
                   : formData.profile_picture
                   ? `${base_url}${formData.profile_picture}`
-                  : "https://img.freepik.com/premium-vector/company-icon-simple-element-illustration-company-concept-symbol-design-can-be-used-web-mobile_159242-7784.jpg"
+                  : "https://cdn.pixabay.com/animation/2022/12/01/17/03/17-03-11-60_512.gif"
               }
               alt=" image"
             />

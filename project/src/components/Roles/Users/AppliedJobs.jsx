@@ -25,7 +25,7 @@ function AppliedJobs() {
       setmyjobs(response.data.payload);
       setTimeout(()=>{
         setLoading(false)
-      },2000)
+      },1500)
     } catch (error) {
       console.log(error);
     }
@@ -51,6 +51,9 @@ function AppliedJobs() {
 
   const handleChat = (Emp_ID,JobPostId)=>{
     navigate(`/users/home-view/chats/${Emp_ID}/${JobPostId}/`)
+  }
+  const handleJobSerch =()=>{
+    navigate('/users/jobs')
   }
   return (
     <div className="w-full md:w-10/12 border-2 rounded-lg mx-auto  p-2 h-96  md:h-[36rem] overflow-y-scroll no-scrollbar">
@@ -138,11 +141,11 @@ function AppliedJobs() {
         ))
       ) : (
         <>
-          <div className="p-5">
-            <p className="text-4xl font-serif font-medium text-lime-950">
-              No applications yet
-            </p>
+          <div className="mt-24 lg:mt-1" type='button' onClick={handleJobSerch}>
+            <img src="https://img.freepik.com/free-vector/man-search-hiring-job-online-from-laptop_1150-52728.jpg?w=2000"></img>
+            
           </div>
+          
         </>
       )}</> )}
     

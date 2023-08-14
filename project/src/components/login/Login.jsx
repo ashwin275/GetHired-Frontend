@@ -171,7 +171,7 @@ function Login(props) {
                     props.title !== 'ADMIN' ? (
                       <div className="text-center mt-3 font-serif text-xl">
                         <p className="text-stone-500 underline decoration-dotted hover:decoration-dashed">
-                          Not a member? <Link to={props.title === 'USER' ? '/users/signup' : '/employers/signup'} className="font-medium">Signup</Link>
+                           <Link to={props.title === 'USER' ? '/users/signup' : '/employers/signup'} className="font-medium">Not a member? Signup</Link>
                         </p>
                       </div>
                     ) : null
@@ -181,10 +181,10 @@ function Login(props) {
                         </div>
                       </form>
                     </div>
-                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2 ">
+                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2  ">
                       <img
                         src={imagelink}
-                        className={`img-fluid ${props.title == 'USER'?'h-4/5':null} mx-auto`}
+                        className={`object-cover lg:h-[18rem] lg:w-[30rem]`}
                         alt="Sample image"
                       />
                     </div>

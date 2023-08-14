@@ -48,6 +48,7 @@ function App() {
       <ToastContainer />
       
       {!isAdminSection && <Navlink />}
+      <div className="min-h-screen">
       <Payments>
         <Routes>
           <Route path="/" element={<Landingpage />} exact />
@@ -112,6 +113,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Payments>
+      </div>
       <Footer />
     </div>
   );
