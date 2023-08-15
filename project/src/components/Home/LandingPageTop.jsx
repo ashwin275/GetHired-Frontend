@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 function LandingPageTop() {
   return (
-    <div className=' md:h-[28rem]  lg:mt-3 flex justify-center '>
+    <div className=' md:h-[28rem]  lg:mt-10 flex justify-center '>
         <div className='w-full flex flex-col-reverse md:flex md:flex-row lg:py-9 md:h-[29rem]  p-2'>
             <div className='w-full md:w-1/2 px-4 max-h-64  md:py  grid  md:px-20 content-center lg:mt-16'>
                 <div className=' lg:w-10/12 mx-auto h-10/12 text-xl md:text-3xl lg:text-[2.5rem] lg:font-medium font-serif text-center lg:text-start mx-auto text-sky-950'>
@@ -16,8 +16,8 @@ function LandingPageTop() {
 
                 </div>
                 <div className='w-full lg:w-1/2 mx-auto h-12  lg:mt-4 mt-3'>
-                  <Link to={'/users/login'}>  <div className='w-1/2 border rounded shadow-md h-10 p-2 text-md mx-auto' type='button'>Register</div></Link>
-                     
+                  <Link to={'/users/login'}>  <div className='w-1/2 text-gray-900 bg-gradient-to-r from-cyan-50 to-sky-200 hover:bg-gradient-to-l hover:from-sky-200 hover:to-cyan-200 focus:ring-4 focus:outline-none focus:ring-lime-200   rounded-lg text-md py-2 mt-3   mb-2 mx-auto font-serif shadow-md' type='button'>Register</div></Link>
+                 
                 </div>
 
             </div>

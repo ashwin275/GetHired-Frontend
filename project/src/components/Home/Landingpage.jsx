@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import LandingPageTop from './LandingPageTop';
-import Landingpage2 from './Landingpage2';
+
 import Landingpage3 from './Landingpage3';
 import Landingpage4 from './Landingpage4';
 import Landingpage5 from './Landingpage5';
 import Loading from '../LoadingSpinner/Loading';
-import InnerLoader from '../LoadingSpinner/InnerLoader';
+
+
+import CarouselTop from './CarouselTop';
+import LandingPageBanners2 from './LandingPageBanners2';
 
 function Landingpage() {
   const [isLoading, setLoading] = useState(true);
@@ -27,8 +30,11 @@ function Landingpage() {
         </div>
       ) : (
         <div className='w-10/12 mx-auto'>
+        
+        <CarouselTop/>
+        <LandingPageTop />
           <Landingpage3 />
-          <LandingPageTop />
+         
           <Landingpage4 />
           <Landingpage5 />
         </div>

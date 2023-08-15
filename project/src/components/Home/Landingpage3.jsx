@@ -26,7 +26,7 @@ function Landingpage3() {
           </div>
           <div className="w-full lg:w-1/2  md:ms-28  h-12 mt-1  lg:mt-4  ">
           <Link to={'/employers/login'}><div
-              className="w-1/2 border rounded shadow-md h-10 p-2 text-md  mx-auto"
+              className="w-1/2 text-gray-900 bg-gradient-to-r from-cyan-50 to-sky-200 hover:bg-gradient-to-l hover:from-sky-200 hover:to-cyan-200 focus:ring-4 focus:outline-none focus:ring-lime-200   rounded-lg text-md py-2 mt-3   mb-2 mx-auto font-serif shadow-md"
              
               
             >
