@@ -56,6 +56,7 @@ function App() {
           {/* Users LOGIN & SIGNUP */}
           <Route path="/users">
             <Route element={<AuthRequire />}>
+              
               <Route path="" element={<UsersHome />} />
               <Route path="jobs" element={<Jobs />} />
               <Route path="home-view/*" element={<Home />}>

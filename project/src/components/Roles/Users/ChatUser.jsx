@@ -3,9 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../Axios/Axios";
 // import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
-import { useSocket } from "../../Features/Context/SocketProvider";
+
 import TimeConverter from "./TimeConverter";
+import Loaders from "../../LoadingSpinner/Loaders";
 function ChatUser() {
+  const websocketUrl = import.meta.env.VITE_WEBSOCKET_URL
   const messagesContainerRef = useRef(null);
   const { EmpId, postID } = useParams();
   const { userInfo } = useSelector((state) => state.auth);
@@ -17,9 +19,13 @@ function ChatUser() {
   const [chatList, setChatList] = useState({});
   const [isConnected, setIsConnected] = useState(false);
   const navigate = useNavigate()
-  const socket = useSocket();
+  const [socket ,setSocket] = useState(null)
   const currentDate = new Date();
-  
+  useEffect(()=>{
+  const socketconnection = new WebSocket(`${websocketUrl}${SeekerId}/`)
+  setSocket(socketconnection)
+  console.log('my socket ',socketconnection)
+  },[])
   useEffect(() => {
     console.log('useEffect worked')
     if (socket) {
@@ -44,23 +50,27 @@ function ChatUser() {
   }, [messages]);
 
   
+  if(isConnected){
+    socket.onmessage = (event) => {
+      console.log("message recieved", event.data);
+      const receivedMessage = JSON.parse(event.data);
+      const { content, sender, recipient, created_at, postId } =
+        receivedMessage.message;
+      console.log(sender, SeekerId);
+      if (sender == EmpId && postID == postId) {
+        setMessages((Prevmessages) => [
+          ...Prevmessages,
+          { content, sender, recipient, created_at },
+        ]);
+        console.log(receivedMessage.message);
+      } else {
+        console.log("add notifications");
+      }
+    };
 
-  socket.onmessage = (event) => {
-    console.log("message recieved", event.data);
-    const receivedMessage = JSON.parse(event.data);
-    const { content, sender, recipient, created_at, postId } =
-      receivedMessage.message;
-    console.log(sender, SeekerId);
-    if (sender == EmpId && postID == postId) {
-      setMessages((Prevmessages) => [
-        ...Prevmessages,
-        { content, sender, recipient, created_at },
-      ]);
-      console.log(receivedMessage.message);
-    } else {
-      console.log("add notifications");
-    }
-  };
+  }
+
+
   const fetchChatMessages = async () => {
     try {
       const response = await axiosInstance.get(
@@ -127,12 +137,15 @@ function ChatUser() {
       <div className="w-full md:w-9/12  mx-auto h-96  lg:h-[38rem]">
         <div className="flex justify-center">
           <div className="w-full lg:w-10/12 p-1  lg:p-8 text-center   sm:p-8 sm:h-96 lg:h-auto  overflow-y-scroll no-scrollbar flex justify-center">
-            <div className="w-full lg:w-10/12 h-96 lg:h-[34rem] shadow-md  rounded-lg border border-gray-200 bg-[url()]">
+
+       
+            <div className="w-full lg:w-10/12 h-96 lg:h-[34rem] shadow-md  rounded-lg border border-gray-200 bg-[url()] ">
               <div
                 className="h-80 lg:h-[30rem] w-full  p-2 overflow-y-scroll no-scrollbar "
                 ref={messagesContainerRef}
               >
-                <div className="w-10/12 mx-auto ">
+             
+             {isConnected?(<> <div className="w-10/12 mx-auto  ">
                   {messages.length > 0 ? (
                     messages.map((item, index) => (
                       <div
@@ -156,25 +169,27 @@ function ChatUser() {
                   ) : (
                     <p></p>
                   )}
-                </div>
+                </div></>):(<><div className="mt-40"><Loaders/></div></>)}
+
+               
               </div>
               <div className="w-full  h-16 lg:h-[4rem]  mx-auto ">
                 <label htmlFor="chat" className="sr-only">
                   Your message
                 </label>
-                <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
+                <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 ">
                   <textarea
                     id="chat"
                     rows="1"
                     value={SendMessage}
                     onChange={HandleMessageChange}
-                    className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                     placeholder="Your message..."
                   ></textarea>
                   <button
                     type="button"
                     onClick={HandleSendMessage}
-                    className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
+                    className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 "
                   >
                     <svg
                       className="w-5 h-5 rotate-90"
@@ -191,6 +206,9 @@ function ChatUser() {
               </div>
               <div></div>
             </div>
+
+
+
           </div>
         </div>
       </div>

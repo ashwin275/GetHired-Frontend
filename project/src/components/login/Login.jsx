@@ -54,23 +54,28 @@ function Login(props) {
             withCredentials: true,
           });
           toast.success(`Welcome ${response.data.userInfo.first_name}`);
-          const tokenString = JSON.stringify(response.data.token);
-           console.log('token',tokenString)
+          // const tokenString = JSON.stringify(response.data.token);
+          const accessTokenString = JSON.stringify(response.data.token.access)
+          const refreshTokenString = JSON.stringify(response.data.token.refresh)
+          //  console.log('token',tokenString)
            const userInfo = response.data.userInfo
            
            if (props.title == 'ADMIN' ){
-            Cookies.set('AdminTokens',tokenString)
+            Cookies.set('AdminTokenAccess',accessTokenString)
+            Cookies.set('AdminTokenRefresh',refreshTokenString)
             dispatch(setCredentials({userInfo,role:'ADMIN'}))
            }else{
-            Cookies.set('Tokens',tokenString)
+            // Cookies.set('Tokens',tokenString)
+            Cookies.set("AccessToken",accessTokenString)
+            Cookies.set("RefreshToken",refreshTokenString)
             Cookies.set('UserId',userInfo.id)
             dispatch(setCredentials({userInfo,role:'USERS'}))
-            console.log(Cookies.get('Tokens'),"my tokens  1111")
+           
            }
            
           
           
-           console.log(userInfo,'userinfo88888888888888888888')
+          
 
 
           if (response.data.userInfo.is_seeker){

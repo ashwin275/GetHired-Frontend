@@ -8,7 +8,7 @@ function LandingPageBanners() {
       <div className="w-full flex flex-col md:flex md:flex-row lg:py-9 md:h-[29rem]  p-2">
         <div className="w-full md:w-1/2 h-1/2  md:h-full bg-grey-200">
           <div className="w-full flex justify-center">
-            <img className="w-5/5 h-5/5 lg:w-[30rem] lg:h-[30rem] lg:object-cover  " src="https://www.appsquadz.com/img/solutions/recruitment-Job-portal-banner.png" alt="Image"></img>
+            <img className="w-5/5 h-5/5 lg:w-[30rem] lg:h-[30rem] lg:object-cover  " src="https://www.webnox.in/wp-content/uploads/2022/10/Job-Portal-Software.png" alt="Image"></img>
           </div>
         </div>
 

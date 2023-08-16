@@ -39,11 +39,13 @@ const authSlice = createSlice({
       if(action.payload.role  == 'ADMIN'){
 
         state.AdminInfo = { admin: null };
-        Cookies.remove('AdminTokens');
+        Cookies.remove('AdminTokenAccess');
+        Cookies.remove('AdminTokenRefresh');
 
       }else{
         state.userInfo = { name: null };
-        Cookies.remove('Tokens');
+        Cookies.remove('AccessToken');
+        Cookies.remove('RefreshToken');
       state.UserProfile = { profile: null };
       state.PostBalance = {Balance:0}
       }

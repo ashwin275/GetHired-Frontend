@@ -8,37 +8,37 @@ import jwt_decode from 'jwt-decode';
 // const  baseURL = "http://127.0.0.1:8000/api/"
 const baseURL = "https://www.ebikesforu.shop/api/"
 
-let authTokens = Cookies.get('AdminTokens') ? JSON.parse(Cookies.get('AdminTokens')) : null;
 
 
 
 const axiosadminInstance = axios.create({
   baseURL: baseURL,
-  headers:{Authorization: `Bearer ${authTokens?.access}`}
+  headers:{Authorization: `Bearer ${Cookies.get('AdminTokenAccess') ? JSON.parse(Cookies.get('AdminTokenAccess')) : null}`}
 });
 
 
 axiosadminInstance.interceptors.request.use(async req =>{
-  if(authTokens){
-    authTokens = Cookies.get('AdminTokens') ? JSON.parse(Cookies.get('AdminTokens')) : null;
-    console.log(authTokens,'tokkkkkkkkkkkkkkkk')
-    console.log(authTokens.access,'aceeeeeeeeeeeee')
-    req.headers.Authorization =  `Bearer ${authTokens?.access}`
+  if(Cookies.get('AdminTokenAccess')){
+   
+  
+    req.headers.Authorization =  `Bearer ${JSON.parse(Cookies.get('AdminTokenAccess'))}`
          
   }
 
-  const user = jwt_decode(authTokens.access)
+  const user = jwt_decode(JSON.parse(Cookies.get('AdminTokenAccess')))
   const isExperied = dayjs.unix(user.exp).diff(dayjs()) < 1;
   console.log('expired',isExperied)
   if(!isExperied) return req
 
   const response = await axios.post(`${baseURL}api/token/refresh/`,{
-    refresh:authTokens.refresh
+    refresh:JSON.parse(Cookies.get('AdminTokenRefresh'))
   })
 
-  const tokenString = JSON.stringify(response.data);
+  const AdminTokenAccess = JSON.stringify(response.data.access);
+  const AdminTokenRefresh = JSON.stringify(response.data.refresh);
   
-  Cookies.set('AdminTokens',tokenString)
+  Cookies.set('AdminTokenAccess',AdminTokenAccess)
+  Cookies.set('AdminTokenRefresh',AdminTokenRefresh)
   req.headers.Authorization =  `Bearer ${response.data.access}`
   
   return req

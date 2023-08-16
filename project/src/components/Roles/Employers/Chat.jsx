@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSocket } from "../../Features/Context/SocketProvider";
+
 import axiosInstance from "../../Axios/Axios";
 // import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import TimeConverter from "../Users/TimeConverter";
+import Loaders from "../../LoadingSpinner/Loaders";
 function Chat() {
+  const websocketUrl = import.meta.env.VITE_WEBSOCKET_URL
   const{SeekerId,postID} = useParams()
 
   const {userInfo} = useSelector((state)=>state.auth)
   const messagesContainerRef = useRef(null)
-  const socket = useSocket();
+  const [socket ,setSocket] = useState(null)
   const [messages, setMessages] = useState({});
 
   const [SendMessage, setSendMessage] = useState("");
@@ -18,6 +20,27 @@ function Chat() {
   const currentDate = new Date();
   // const EmployeID = Cookies.get("UserId");
   const EmployeID = userInfo.id
+  useEffect(()=>{
+    const socketconnection = new WebSocket(`${websocketUrl}${EmployeID}/`)
+    setSocket(socketconnection)
+    console.log('my socket ',socketconnection)
+    },[])
+
+    useEffect(() => {
+      if (socket) {
+        socket.onopen = () => {
+          setIsConnected(true);
+          console.log("WebSocket connection established.");
+        };
+  
+        socket.onclose = () => {
+          console.log("WebSocket connection closed.");
+          setIsConnected(false);
+        };
+      }
+    }, [socket]);
+
+
   useEffect(() => {
     fetchChatMessages();
   }, []);
@@ -25,19 +48,8 @@ function Chat() {
     messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
   }, [messages]);
 
-  useEffect(() => {
-    if (socket) {
-      socket.onopen = () => {
-        setIsConnected(true);
-        console.log("WebSocket connection established.");
-      };
+ if(isConnected){
 
-      socket.onclose = () => {
-        console.log("WebSocket connection closed.");
-        setIsConnected(false);
-      };
-    }
-  }, [socket]);
   socket.onmessage = (event) => {
     console.log("message recieved", event.data);
     const receivedMessage = JSON.parse(event.data);
@@ -54,6 +66,9 @@ function Chat() {
     }
    
   };
+
+ }
+ 
 
   const fetchChatMessages = async () => {
     console.log(SeekerId,'sekeee',postID)
@@ -102,7 +117,8 @@ function Chat() {
       <div className="w-full lg:w-10/12 p-1  lg:p-8 text-center  sm:p-8 sm:h-96 lg:h-auto  overflow-y-scroll no-scrollbar flex justify-center">
         <div className="w-full lg:w-10/12 h-96 lg:h-[34rem] shadow-md rounded-lg border border-gray-200 ">
           <div className="h-80 lg:h-[30rem] w-full  p-2 overflow-y-scroll no-scrollbar " ref={messagesContainerRef}>
-            <div className="w-10/12 mx-auto ">
+
+            {isConnected?(<> <div className="w-10/12 mx-auto ">
               {messages.length > 0 ? (
                 messages.map((item, index) => (
                   <div
@@ -120,7 +136,8 @@ function Chat() {
               ) : (
                 <p></p>
               )}
-            </div>
+            </div></>):(<><div className="mt-40"><Loaders/></div></>)}
+           
           </div>
           <div className="w-full  h-16 lg:h-[4rem]  mx-auto ">
             <label htmlFor="chat" className="sr-only">

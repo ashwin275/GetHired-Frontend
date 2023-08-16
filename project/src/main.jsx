@@ -16,13 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
       <BrowserRouter>
         <PersistGate loading={null} persistor={persistor}>
-          {userId ? (
-            <SocketProvider>
-              <App />
-            </SocketProvider>
-          ) : (
+        
             <App />
-          )}
+     
         </PersistGate>
       </BrowserRouter>
     </React.StrictMode>
