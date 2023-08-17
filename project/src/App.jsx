@@ -48,7 +48,7 @@ function App() {
       <ToastContainer />
       
       {!isAdminSection && <Navlink />}
-      <div className="min-h-screen">
+      <div className=" min-h-screen">
       <Payments>
         <Routes>
           <Route path="/" element={<Landingpage />} exact />

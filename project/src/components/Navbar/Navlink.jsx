@@ -96,7 +96,7 @@ function Navlink() {
                     Login
                   </Link>
                   <Link to="/employers/login" className="me-10">Employers/Login</Link>
-                  <Link to="/admin/login">Admin</Link>
+                
                 </>
               )}
             </Nav>
