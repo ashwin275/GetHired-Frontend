@@ -29,6 +29,10 @@ const Signup = (props) => {
   const [imagelink , setimageLink] = useState('https://st.depositphotos.com/18722762/51522/v/450/depositphotos_515228796-stock-illustration-online-registration-sign-login-account.jpg')
   const [modalShow, setModalShow] = useState(false);
   const [Useremail,setUseremail] = useState('')
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmpswd, setshowConfirmpswd] = useState(false);
+
+
    const navigate = useNavigate()
    useEffect(()=>{
     if(props.title == 'USER'){
@@ -145,18 +149,26 @@ const Signup = (props) => {
 
                           </div>
                         </div>
-                        <div className="d-flex flex-row align-items-center mb-4">
+                        <div className="d-flex flex-row align-items-center mb-4 ">
                           <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="password"onChange={handleChange} onBlur={handleBlur} value={values.password} name='password' id="password" className="form-control" placeholder='Password' autoComplete='off' />
+                            <div className=' input-group'>
+                          
+                            <input type={`${showPassword?'text':'password'}`} onChange={handleChange} onBlur={handleBlur} value={values.password} name='password' id="password" className="form-control" placeholder='Password' autoComplete='off' aria-label="Password" />
+                            <span class="input-group-text"><i className={`fa-solid ${showPassword?'fa-eye-slash':'fa-eye'}`} type='button' onClick={()=>setShowPassword(!showPassword)}></i></span>
+                            </div>
                             {errors.password&&touched.password?(<p className='form-error'>{errors.password}</p>):null}
 
                           </div>
+                          
                         </div>
+     
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-key fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
-                            <input type="password"onChange={handleChange} onBlur={handleBlur} value={values.confirmpassword} id="confirmpassword" name='confirmpassword' className="form-control" placeholder='Confirm password' autoComplete='off' />
+                            <div className=' input-group'>
+                            <input  type={`${showConfirmpswd?'text':'password'}`} onChange={handleChange} onBlur={handleBlur} value={values.confirmpassword} id="confirmpassword" name='confirmpassword' className="form-control" placeholder='Confirm password' autoComplete='off' aria-label="Confirm password"/>
+                            <span class="input-group-text"><i className={`fa-solid ${showConfirmpswd?'fa-eye-slash':'fa-eye'}`} type='button' onClick={()=>setshowConfirmpswd(!showConfirmpswd)}></i></span> </div>
                             {errors.confirmpassword&&touched.confirmpassword?(<p className='form-error'>{errors.confirmpassword}</p>):null}
 
                           </div>

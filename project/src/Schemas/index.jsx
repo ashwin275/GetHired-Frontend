@@ -18,7 +18,7 @@ export const signUpSchema = Yup.object({
       mobile: Yup.string()
       .required("Please enter your number")
       .min(10, "Mobile number should have exactly 10 digits")
-      .max(10, "Mobile number should have exactly 10 digits"),
+      .max(15, "Mobile number should have exactly 10 digits"),
     password: Yup.string()
       .min(6)
     //   .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/, "Password must contain at least one letter and one number")
