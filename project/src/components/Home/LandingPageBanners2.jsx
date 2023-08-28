@@ -6,8 +6,8 @@ function LandingPageBanners2() {
         <div className=" md:h-[28rem]   flex justify-center  ">
       <div className="w-full flex flex-col md:flex md:flex-row lg:py-9  md:h-[29rem]  p-2">
         <div className="w-full md:w-1/2 h-1/2  md:h-full ">
-          <div className="w-full flex justify-center mb-10">
-            <img className=" w-5/5 h-5/5 lg:w-[30rem] lg:h-[30rem] lg:object-cover " src="https://cdn-idpgf.nitrocdn.com/TSeLIaDKAUBecatjFLZJpxhTJKErGZRH/assets/images/optimized/rev-31ee725/devtechnosys.com/insights/wp-content/uploads/2022/03/Employer-Features.gif" alt="Image"></img>
+          <div className="w-full flex justify-center mb-10 rounded-full">
+            <img className=" w-5/5 h-5/5 lg:w-[30rem] lg:h-[30rem] lg:object-cover rounded-lg" src="https://i.pinimg.com/originals/8e/04/46/8e0446d18d1794620e580d8e2cfcaedb.gif" alt="Image"></img>
           </div>
         </div>
 

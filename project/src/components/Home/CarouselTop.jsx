@@ -10,17 +10,17 @@ function CarouselTop() {
   return (
     <div className="mb-6">
       <Carousel interval>
-        <Carousel.Item interval={1500}>
+        <Carousel.Item interval={2500}>
         
           <LandingPageBanners1 />
         
         </Carousel.Item>
-        <Carousel.Item interval={1500}>
+        <Carousel.Item interval={2500}>
       
           <LandingPageBanners />
          
         </Carousel.Item>
-        <Carousel.Item interval={1500}>
+        <Carousel.Item interval={2500}>
        
           <LandingPageBanners2 />
         </Carousel.Item>

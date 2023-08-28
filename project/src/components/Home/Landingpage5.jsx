@@ -21,9 +21,8 @@ function Landingpage5() {
           <p>recruiting solutions for their talent acquisition needs.</p>
         </div>
         <div className="w-full  sm:mt-3 mt-4 lg:mt-9 flex justify-center h-52  ">
-         
-            <Carousel controls>
-              <Carousel.Item interval={2000}>
+          <Carousel controls>
+            <Carousel.Item interval={2000}>
               <div className="w-11/12 h-full ">
                 <div className="w-full lg:h-1/2 w-full  bg-white flex flex-col lg:flex-row ">
                   <div className="w-full lg:w-1/2 flex ">
@@ -46,39 +45,47 @@ function Landingpage5() {
                     </div>
                   </div>
                 </div>
-                </div>
-              </Carousel.Item>
-              <Carousel.Item interval={2000}>
+              </div>
+            </Carousel.Item>
+            <Carousel.Item interval={2000}>
               <div className="w-11/12 h-full ">
-              <div className="w-full lg:h-1/2 w-full  bg-white flex flex-col lg:flex-row ">
+                <div className="w-full lg:h-1/2 w-full  bg-white flex flex-col lg:flex-row ">
                   <div className="w-full lg:w-1/2 flex ">
                     <div className="h-full w-full  lg:p-5 ">
-                      <img src={logo5} className="w-4/6 mx-auto"></img>
+                      <img
+                        src={logo5}
+                        className="w-4/6 mx-auto"
+                        alt="image"
+                      ></img>
                     </div>
                     <div className="h-full w-full  lg:p-5 ">
-                      <img src={logo6} className="w-4/6 mx-auto"></img>
+                      <img
+                        src={logo6}
+                        className="w-4/6 mx-auto"
+                        alt="image"
+                      ></img>
                     </div>
                   </div>
                   <div className="w-full lg:w-1/2 flex ">
                     <div className="h-full w-1/2  lg:p-5 ">
-                      <img src={logo7} className="w-4/6 mx-auto"></img>
+                      <img
+                        src={logo7}
+                        className="w-4/6 mx-auto"
+                        alt="image"
+                      ></img>
                     </div>
                     <div className="h-full w-1/2  lg:p-5  mt-2 lg:mt-1">
                       <img
                         src={logo8}
                         className="w-4/6 h-2/3 rounded-lg  mx-auto"
+                        alt="image"
                       ></img>
                     </div>
                   </div>
                 </div>
-                </div>
-                
-          
-
-
-              </Carousel.Item>
-            </Carousel>
-        
+              </div>
+            </Carousel.Item>
+          </Carousel>
         </div>
       </div>
     </div>
