@@ -5,7 +5,7 @@ function LandingPageBanners2() {
     <div>
         <div className=" md:h-[28rem] mt-5  flex justify-center  ">
       <div className="w-full flex flex-col md:flex md:flex-row lg:py-9  md:h-[29rem]  p-2">
-        <div className="w-full md:w-1/2 h-1/2  md:h-full  bg-grey-200 mb-5">
+        <div className="w-full md:w-1/2 h-1/2  md:h-full  bg-grey-100 mb-5">
           <div className="w-full flex justify-center ">
             <img className=" w-5/5 h-5/5 lg:w-[26rem] lg:h-[26rem] lg:object-cover rounded-lg  " src="https://cdn.dribbble.com/users/1720296/screenshots/4938330/media/c0f9f7a22d2cb33c6b4427269a8e5ae1.gif" alt="Image"></img>
           </div>

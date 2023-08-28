@@ -13,7 +13,7 @@ function LandingPageBanners1() {
 
         <div className="w-full md:w-1/2 px-4 max-h-64  md:py  grid  md:px-20 content-center lg:mt-40">
           <div className=" lg:w-10/12 mx-auto h-10/12  text-lg md:text-3xl lg:text-[2rem] lg:font-medium font-serif lg:text-start mx-auto text-teal-900">
-            <p className="">Optimize Your Hiring Process </p>
+            <p className="">Optimize Your Hiring Process  </p>
             <p className="  lg:mt-3 ">With Increased Efficiency and </p>
             <p className='lg:ms-28 lg:mt-3'>Time Savings.</p>
           </div>
