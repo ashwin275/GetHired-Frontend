@@ -1,7 +1,7 @@
 # GetHired-Frontend
 
 This repository contains the frontend codebase of  GET-HIRED job portal app developed using React.js, Redux, Tailwind Css, jwt tokens, websocket api and other technologies, with Vite as the build tool .
-
+You can find the backend code in the [GetHired-Backend repository](https://github.com/ashwin275/GetHired-Backend).
 ## Overview
 
 GET-HIRED Frontend provides an interactive and user-friendly interface for job seekers and recruiters to interact with the job portal application. It offers features such as job search, real-time chat, and application management.
