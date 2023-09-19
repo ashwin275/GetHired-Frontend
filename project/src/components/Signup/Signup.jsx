@@ -191,7 +191,7 @@ const Signup = (props) => {
                      
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                      <img src={imagelink} className="object-cover " alt="Sample image" />
+                      <img src={imagelink} className="object-cover lg:h-[18rem] lg:w-[30rem]" alt="Sample image" />
                     </div>
                   </div>
                 </div>
